@@ -142,15 +142,89 @@ public class Scoring extends AppCompatActivity {
     }
     private boolean validateData(){
         //TODO NELSON kerjain validasi untuk input nilai
+
         boolean flag = false;
         if(et_as_n1.getText().toString().equals("")){
-            errorMsg="Judul dan Alur Cerita Harus diisi";
+            errorMsg="Sopan Santun Harus diisi";
         }else if(Double.parseDouble(et_as_n1.getText().toString())>1){
+            errorMsg="Sopan Santun Tidak boleh lebih dari 1.0";
+            //TODO copy else if disini
+        }else{
+            flag = true;
+        }
+        if(et_as_n2.getText().toString().equals("")){
+            errorMsg="Judul dan Alur Cerita Harus diisi";
+        }else if(Double.parseDouble(et_as_n2.getText().toString())>1){
             errorMsg="Judul dan Alur Cerita Tidak boleh lebih dari 1.0";
             //TODO copy else if disini
         }else{
             flag = true;
         }
+        if(et_as_n3.getText().toString().equals("")){
+            errorMsg="Bentuk Barongsai Harus diisi";
+        }else if(Double.parseDouble(et_as_n3.getText().toString())>1){
+            errorMsg="Bentuk Barongsai Tidak boleh lebih dari 1.0";
+            //TODO copy else if disini
+        }else{
+            flag = true;
+        }
+        if(et_as_n4.getText().toString().equals("")){
+            errorMsg="Ekspresi Harus diisi";
+        }else if(Double.parseDouble(et_as_n4.getText().toString())>1){
+            errorMsg="Ekspresi Tidak boleh lebih dari 1.0";
+            //TODO copy else if disini
+        }else{
+            flag = true;
+        }
+        if(et_as_n5.getText().toString().equals("")){
+            errorMsg="Musik Cerita Harus diisi";
+        }else if(Double.parseDouble(et_as_n5.getText().toString())>1){
+            errorMsg="Musik Tidak boleh lebih dari 1.0";
+            //TODO copy else if disini
+        }else{
+            flag = true;
+        }
+        if(et_as_n6.getText().toString().equals("")){
+            errorMsg="Cirikhas Traditional Harus diisi";
+        }else if(Double.parseDouble(et_as_n6.getText().toString())>1){
+            errorMsg="Cirikhas Traditional Tidak boleh lebih dari 1.0";
+            //TODO copy else if disini
+        }else{
+            flag = true;
+        }
+        if(et_as_n7.getText().toString().equals("")){
+            errorMsg="Komposisi Permainan Harus diisi";
+        }else if(Double.parseDouble(et_as_n7.getText().toString())>1){
+            errorMsg="Komposisi Permainan Tidak boleh lebih dari 1.0";
+            //TODO copy else if disini
+        }else{
+            flag = true;
+        }
+        if(et_as_n8.getText().toString().equals("")){
+            errorMsg="Hasil dari Permainan Harus diisi";
+        }else if(Double.parseDouble(et_as_n8.getText().toString())>1){
+            errorMsg="Hasil dari Permainan Tidak boleh lebih dari 1.0";
+            //TODO copy else if disini
+        }else{
+            flag = true;
+        }
+        if(et_as_n9.getText().toString().equals("")){
+            errorMsg="Keterampilan Harus diisi";
+        }else if(Double.parseDouble(et_as_n9.getText().toString())>1){
+            errorMsg="Keterampilan Tidak boleh lebih dari 1.0";
+            //TODO copy else if disini
+        }else{
+            flag = true;
+        }
+        if(et_as_n10.getText().toString().equals("")){
+            errorMsg="Seragam & Peralatan/Dekorasi Cerita Harus diisi";
+        }else if(Double.parseDouble(et_as_n10.getText().toString())>1){
+            errorMsg="Seragam & Peralatan/Dekorasi boleh lebih dari 1.0";
+            //TODO copy else if disini
+        }else{
+            flag = true;
+        }
+
         return flag;
     }
     private void setListener() {
