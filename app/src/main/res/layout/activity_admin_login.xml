@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:layout_gravity="center_vertical"
+    android:gravity="center_vertical"
+    tools:context=".AdminLoginActivity">
+
+    <TextView
+        android:id="@+id/tv_al_usernameTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/username" />
+
+    <EditText
+        android:id="@+id/et_al_username"
+        android:layout_below="@id/tv_al_usernameTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/input_username"
+        android:layout_marginBottom="20dp"/>
+
+    <TextView
+        android:id="@+id/tv_al_passwordTitle"
+        android:layout_below="@id/et_al_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/password" />
+
+    <EditText
+        android:id="@+id/et_al_password"
+        android:layout_below="@id/tv_al_passwordTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+
+        android:hint="@string/input_password"/>
+    <TextView
+        android:id="@+id/tv_al_error"
+        android:layout_below="@id/et_al_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/red"
+        android:layout_marginBottom="20dp"
+        android:text=""/>
+
+    <Button
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:id="@+id/btn_al_login"
+        android:layout_below="@id/tv_al_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_login" />
+</RelativeLayout>

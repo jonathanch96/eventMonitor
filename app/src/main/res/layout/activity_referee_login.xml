@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".RefereeLoginActivity">
+
+    <TextView
+        android:id="@+id/tv_arl_kode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/code_event" />
+
+    <EditText
+        android:id="@+id/et_arl_kode"
+        android:layout_below="@id/tv_arl_kode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_marginBottom="20dp"
+        android:inputType="textPersonName"
+        android:hint="@string/input_code" />
+
+    <TextView
+        android:id="@+id/tv_arl_nama"
+        android:layout_below="@id/et_arl_kode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/name" />
+
+    <EditText
+        android:id="@+id/et_arl_nama"
+        android:layout_below="@id/tv_arl_nama"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_marginBottom="20dp"
+        android:inputType="textPersonName"
+        android:hint="@string/input_name" />
+
+    <Button
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:id="@+id/btn_arl_login"
+        android:layout_below="@id/et_arl_nama"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_login" />
+</RelativeLayout>

@@ -1,0 +1,67 @@
+<resources>
+    <string name="app_name">Event Monitor</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+
+    <string name="menu_logout">Log out</string>
+
+    <string name="btn_referee_login">Login Juri</string>
+    <string name="btn_admin_login">Login Admin</string>
+    <string name="btn_login">Login</string>
+    <string name="btn_submit">Submit</string>
+    <string name="btn_tambah_team">Tambah Team</string>
+
+    <string name="username">Username</string>
+    <string name="name">Nama Anda</string>
+    <string name="input_name">Input Nama</string>
+    <string name="input_code">Input Kode</string>
+    <string name="code_event">Kode Event</string>
+    <string name="password">Password</string>
+    <string name="input_username">Input Username</string>
+    <string name="input_password">Input Password</string>
+
+    <!--add event-->
+    <string name="tanggal_event">Tanggal Event</string>
+    <string name="pilih_tanggal">Pilih Tanggal</string>
+    <string name="tema_acara">Tema Acara</string>
+    <string name="input_tema">Input Tema Acara</string>
+    <string name="jumlah_juri">Jumlah Juri</string>
+    <string name="input_jumlah_juri">Input Jumlah Juri</string>
+
+    <!--penilaian-->
+    <string name="penilaian">Penilaian</string>
+    <string name="pengurangan">Pengurangan</string>
+    <string name="team_name">Nama Team : </string>
+    <string name="no_urut">Nomor Urut : </string>
+    <string name="n1_sopan_santun">Sopan Santun (Max : 1)</string>
+    <string name="n2_judul_dan_alur_cerita" >Judul dan Alur Cerita (Max : 1)</string>
+    <string name="n3_bentuk_barongsai">Bentuk Barongsai (Max : 1)</string>
+    <string name="n4_ekspresi">Ekspresi (Max : 1)</string>
+    <string name="n5_musik">Musik (Max : 1)</string>
+    <string name="n6_cirikhas_traditional">Cirikhas Traditional (Max : 1)</string>
+    <string name="n7_komposisi_permainan">Komposisi Permainan (Max : 1)</string>
+    <string name="n8_hasil_dan_permainan">Hasil dan Permainan (Max : 1)</string>
+    <string name="n9_keterampilan">Keterampilan (Max : 1)</string>
+    <string name="n10_seragam_dan_peralatan">Seragam dan Perlatan/Dekorasi (Max : 1)</string>
+    <string name="ks1_kesalahan_lain">Kesalahan lain</string>
+    <string name="ks2_kesalahan_kecil">Kesalahan kecil</string>
+    <string name="ks3_kesalahan_sedang">Kesalahan sedang</string>
+    <string name="ks4_kesalahan_besar">Kesalahan besar</string>
+    <string name="total">Total</string>
+    <string name="total_nilai_kotor">Nilai Kotor</string>
+    <string name="total_pengurangan">Pengurangan</string>
+    <string name="total_nilai_bersih">Nilai Bersih</string>
+
+
+
+</resources>

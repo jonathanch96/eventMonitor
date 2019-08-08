@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "374959351953",
+    "firebase_url": "https://eventmonitor-b9f5c.firebaseio.com",
+    "project_id": "eventmonitor-b9f5c",
+    "storage_bucket": "eventmonitor-b9f5c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:374959351953:android:5cba06513766963e",
+        "android_client_info": {
+          "package_name": "com.packag.eventmonitor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "374959351953-b66qi0vsjj81uilfa7prtf5topm8mhii.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.packag.eventmonitor",
+            "certificate_hash": "e0dc8414c2735d7ba200e8af2e805fcff29310f4"
+          }
+        },
+        {
+          "client_id": "374959351953-jmef1dqa89itqijji3u6of9bkhcd8io6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsrMWcDWuRfvjFSHScRLjoMTMkJIr77LA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "374959351953-jmef1dqa89itqijji3u6of9bkhcd8io6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
