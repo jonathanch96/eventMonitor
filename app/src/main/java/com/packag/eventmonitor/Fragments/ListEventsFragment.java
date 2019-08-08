@@ -40,7 +40,7 @@ public class ListEventsFragment extends Fragment {
     Vector<Team> dataTeam;
     FirebaseFirestore db;
     Context ctx;
-    private static int ADD_REQUEST = 9;
+    private static int REQUEST = 9;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -101,7 +101,7 @@ public class ListEventsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getActivity(), AddEventActivity.class);
-                startActivityForResult(i,ADD_REQUEST);
+                startActivityForResult(i, REQUEST);
             }
         });
     }
@@ -109,7 +109,7 @@ public class ListEventsFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if(resultCode == Activity.RESULT_OK&&requestCode==ADD_REQUEST){
+        if(resultCode == Activity.RESULT_OK&&requestCode== REQUEST){
             new KAlertDialog(getActivity(), KAlertDialog.SUCCESS_TYPE)
                     .setTitleText("Good job!")
                     .setContentText(data.getStringExtra("msg"))

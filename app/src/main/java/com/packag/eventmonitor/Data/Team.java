@@ -2,10 +2,32 @@ package com.packag.eventmonitor.Data;
 
 import com.google.firebase.firestore.Exclude;
 
+import java.util.Vector;
+
 public class Team {
     String team_name;
     String key;
     int no_urut;
+    Vector<Penilaian> dataNilai;
+    Penilaian penilaian;
+
+    @Exclude
+    public Penilaian getPenilaian() {
+        return penilaian;
+    }
+    @Exclude
+    public void setPenilaian(Penilaian penilaian) {
+        this.penilaian = penilaian;
+    }
+
+    @Exclude
+    public Vector<Penilaian> getDataNilai() {
+        return dataNilai;
+    }
+    @Exclude
+    public void setDataNilai(Vector<Penilaian> dataNilai) {
+        this.dataNilai = dataNilai;
+    }
 
     public Team(String team_name, int no_urut) {
         this.team_name = team_name;

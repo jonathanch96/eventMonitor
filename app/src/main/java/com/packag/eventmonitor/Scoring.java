@@ -3,6 +3,8 @@ package com.packag.eventmonitor;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,8 +16,10 @@ import android.widget.TextView;
 import com.developer.kalert.KAlertDialog;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.packag.eventmonitor.Data.Penilaian;
 import com.packag.eventmonitor.Data.Team;
 import com.packag.eventmonitor.Util.Session;
 
@@ -46,6 +50,8 @@ public class Scoring extends AppCompatActivity {
     TextView tv_as_total_pengurangan;
     TextView tv_as_total_bersih;
     Button btn_as_submit;
+    DocumentReference teamRef;
+    ProgressDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +63,9 @@ public class Scoring extends AppCompatActivity {
 
     private void initializeComponent() {
         intent = getIntent();
+        loadingDialog = new ProgressDialog(this);
+        loadingDialog.setTitle("Processing your Request");
+        loadingDialog.setMessage("Please Wait a second...");
         teamId = intent.getStringExtra("teamId");
         session = new Session(this.getApplicationContext());
         tv_as_no_urut = findViewById(R.id.tv_as_no_urut);
@@ -80,10 +89,11 @@ public class Scoring extends AppCompatActivity {
         tv_as_total_bersih = findViewById(R.id.tv_as_total_bersih);
         btn_as_submit = findViewById(R.id.btn_as_submit);
         db = FirebaseFirestore.getInstance();
-        db.collection("events")
+        teamRef = db.collection("events")
                 .document(session.getData("eventId"))
                 .collection("team")
-                .document(teamId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                .document(teamId);
+        teamRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
@@ -92,17 +102,54 @@ public class Scoring extends AppCompatActivity {
                         team = document.toObject(Team.class);
                         tv_as_no_urut.setText("Nomor Urut : " + team.getNo_urut());
                         tv_as_team_name.setText("Nama Team : " + team.getTeam_name());
+                        teamRef.collection("penilaian")
+                                .document(session.getData("refereeId")).get()
+                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                DocumentSnapshot d2 = task.getResult();
+                                if(d2.exists()){
+                                    Penilaian init_nilai = d2.toObject(Penilaian.class);
+                                    team.setPenilaian(init_nilai);
+
+                                    et_as_n1.setText(Double.toString(init_nilai.getN1()));
+                                    et_as_n2.setText(Double.toString(init_nilai.getN2()));
+                                    et_as_n3.setText(Double.toString(init_nilai.getN3()));
+                                    et_as_n4.setText(Double.toString(init_nilai.getN4()));
+                                    et_as_n5.setText(Double.toString(init_nilai.getN5()));
+                                    et_as_n6.setText(Double.toString(init_nilai.getN6()));
+                                    et_as_n7.setText(Double.toString(init_nilai.getN7()));
+                                    et_as_n8.setText(Double.toString(init_nilai.getN8()));
+                                    et_as_n9.setText(Double.toString(init_nilai.getN9()));
+                                    et_as_n10.setText(Double.toString(init_nilai.getN10()));
+                                    et_as_ks1.setText(Double.toString(init_nilai.getKs1()));
+                                    et_as_ks2.setText(Double.toString(init_nilai.getKs2()));
+                                    et_as_ks3.setText(Double.toString(init_nilai.getKs3()));
+                                    et_as_ks4.setText(Double.toString(init_nilai.getKs4()));
+                                    tv_as_total_kotor.setText(Double.toString(init_nilai.getTk()));
+                                    tv_as_total_bersih.setText(Double.toString(init_nilai.getTb()));
+                                    tv_as_total_pengurangan.setText(Double.toString(init_nilai.getP()));
+
+
+                                }
+                            }
+                        });
+
                     }
                 }
             }
         });
     }
     private boolean validateData(){
+        //TODO NELSON kerjain validasi untuk input nilai
         boolean flag = false;
         if(et_as_n1.getText().toString().equals("")){
             errorMsg="Judul dan Alur Cerita Harus diisi";
         }else if(Double.parseDouble(et_as_n1.getText().toString())>1){
             errorMsg="Judul dan Alur Cerita Tidak boleh lebih dari 1.0";
+            //TODO copy else if disini
+        }else{
+            flag = true;
         }
         return flag;
     }
@@ -110,13 +157,41 @@ public class Scoring extends AppCompatActivity {
         btn_as_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                loadingDialog.show();
                 if(validateData()){
+                    teamRef.collection("penilaian")
+                            .document(session.getData("refereeId"))
+                            .set(new Penilaian(
+                                    Double.parseDouble(et_as_n1.getText().toString()),
+                                    Double.parseDouble(et_as_n2.getText().toString()),
+                                    Double.parseDouble(et_as_n3.getText().toString()),
+                                    Double.parseDouble(et_as_n4.getText().toString()),
+                                    Double.parseDouble(et_as_n5.getText().toString()),
+                                    Double.parseDouble(et_as_n6.getText().toString()),
+                                    Double.parseDouble(et_as_n7.getText().toString()),
+                                    Double.parseDouble(et_as_n8.getText().toString()),
+                                    Double.parseDouble(et_as_n9.getText().toString()),
+                                    Double.parseDouble(et_as_n10.getText().toString()),
+                                    Double.parseDouble(et_as_ks1.getText().toString()),
+                                    Double.parseDouble(et_as_ks2.getText().toString()),
+                                    Double.parseDouble(et_as_ks3.getText().toString()),
+                                    Double.parseDouble(et_as_ks4.getText().toString())
+                            ));
+                    Intent return_i = new Intent();
+                    return_i.putExtra("msg","Berhasil Memberi Nilai!");
+                    setResult(Activity.RESULT_OK,return_i);
+                    loadingDialog.hide();
 
+
+                    loadingDialog.hide();
+                    finish();
                 }else{
+                    loadingDialog.hide();
                     new KAlertDialog(Scoring.this, KAlertDialog.ERROR_TYPE)
                             .setTitleText("Oops...")
                             .setContentText(errorMsg)
                             .show();
+
                 }
             }
         });

@@ -2,6 +2,7 @@ package com.packag.eventmonitor;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toolbar;
 
+import com.developer.kalert.KAlertDialog;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -32,6 +34,7 @@ public class RefereeActivity extends AppCompatActivity {
     ListView lv_ar_listTeam;
     Vector<Team> dataTeam;
     FirebaseFirestore db;
+    private static int REQUEST = 9;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +77,7 @@ public class RefereeActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(RefereeActivity.this,Scoring.class);
                 intent.putExtra("teamId",dataTeam.get(i).getKey());
-                startActivity(intent);
+                startActivityForResult(intent,REQUEST);
 
             }
         });
@@ -97,5 +100,14 @@ public class RefereeActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if(resultCode == Activity.RESULT_OK&&requestCode== REQUEST){
+            new KAlertDialog(RefereeActivity.this, KAlertDialog.SUCCESS_TYPE)
+                    .setTitleText("Good job!")
+                    .setContentText(data.getStringExtra("msg"))
+                    .show();
+        }
     }
 }
