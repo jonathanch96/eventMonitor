@@ -135,14 +135,14 @@ public class RefereeActivity extends AppCompatActivity {
                                         penilaian.setKey(documentSnapshot.getId());
                                         teamClass.setPenilaian(penilaian);
                                     }
-                                    dataTeam.add(teamClass);
+
                                     lv_ar_listTeam.setAdapter(new AdapterListTeam(getApplicationContext(),dataTeam));
 
                                 }
                             });
 
-
-
+                    dataTeam.add(teamClass);
+                    lv_ar_listTeam.setAdapter(new AdapterListTeam(getApplicationContext(),dataTeam));
                 }
 
 
