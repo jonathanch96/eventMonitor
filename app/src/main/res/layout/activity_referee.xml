@@ -9,25 +9,29 @@
     tools:context=".RefereeActivity">
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/tv_ar_event_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+    <TextView
+        android:id="@+id/tv_ar_referee_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+    <TextView
+        android:id="@+id/tv_ar_themes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tv_ar_total_team"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView" />
 
     <TextView
-        android:id="@+id/textView6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/tv_ar_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView" />

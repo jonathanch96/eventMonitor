@@ -140,94 +140,201 @@ public class Scoring extends AppCompatActivity {
             }
         });
     }
-    private boolean validateData(){
+    private boolean validateData() {
         //TODO NELSON kerjain validasi untuk input nilai
 
         boolean flag = false;
-        if(et_as_n1.getText().toString().equals("")){
-            errorMsg="Sopan Santun Harus diisi";
-        }else if(Double.parseDouble(et_as_n1.getText().toString())>1){
-            errorMsg="Sopan Santun Tidak boleh lebih dari 1.0";
-            //TODO copy else if disini
-        }else{
-            flag = true;
-        }
-        if(et_as_n2.getText().toString().equals("")){
-            errorMsg="Judul dan Alur Cerita Harus diisi";
-        }else if(Double.parseDouble(et_as_n2.getText().toString())>1){
-            errorMsg="Judul dan Alur Cerita Tidak boleh lebih dari 1.0";
-            //TODO copy else if disini
-        }else{
-            flag = true;
-        }
-        if(et_as_n3.getText().toString().equals("")){
-            errorMsg="Bentuk Barongsai Harus diisi";
-        }else if(Double.parseDouble(et_as_n3.getText().toString())>1){
-            errorMsg="Bentuk Barongsai Tidak boleh lebih dari 1.0";
-            //TODO copy else if disini
-        }else{
-            flag = true;
-        }
-        if(et_as_n4.getText().toString().equals("")){
-            errorMsg="Ekspresi Harus diisi";
-        }else if(Double.parseDouble(et_as_n4.getText().toString())>1){
-            errorMsg="Ekspresi Tidak boleh lebih dari 1.0";
-            //TODO copy else if disini
-        }else{
-            flag = true;
-        }
-        if(et_as_n5.getText().toString().equals("")){
-            errorMsg="Musik Cerita Harus diisi";
-        }else if(Double.parseDouble(et_as_n5.getText().toString())>1){
-            errorMsg="Musik Tidak boleh lebih dari 1.0";
-            //TODO copy else if disini
-        }else{
-            flag = true;
-        }
-        if(et_as_n6.getText().toString().equals("")){
-            errorMsg="Cirikhas Traditional Harus diisi";
-        }else if(Double.parseDouble(et_as_n6.getText().toString())>1){
-            errorMsg="Cirikhas Traditional Tidak boleh lebih dari 1.0";
-            //TODO copy else if disini
-        }else{
-            flag = true;
-        }
-        if(et_as_n7.getText().toString().equals("")){
-            errorMsg="Komposisi Permainan Harus diisi";
-        }else if(Double.parseDouble(et_as_n7.getText().toString())>1){
-            errorMsg="Komposisi Permainan Tidak boleh lebih dari 1.0";
-            //TODO copy else if disini
-        }else{
-            flag = true;
-        }
-        if(et_as_n8.getText().toString().equals("")){
-            errorMsg="Hasil dari Permainan Harus diisi";
-        }else if(Double.parseDouble(et_as_n8.getText().toString())>1){
-            errorMsg="Hasil dari Permainan Tidak boleh lebih dari 1.0";
-            //TODO copy else if disini
-        }else{
-            flag = true;
-        }
-        if(et_as_n9.getText().toString().equals("")){
-            errorMsg="Keterampilan Harus diisi";
-        }else if(Double.parseDouble(et_as_n9.getText().toString())>1){
-            errorMsg="Keterampilan Tidak boleh lebih dari 1.0";
-            //TODO copy else if disini
-        }else{
-            flag = true;
-        }
-        if(et_as_n10.getText().toString().equals("")){
+        if (et_as_n1.getText().toString().equals("")) {
+            errorMsg = "Sopan Santun Harus diisi";
+        } else if (Double.parseDouble(et_as_n1.getText().toString()) > 1) {
+            errorMsg = "Sopan Santun Tidak boleh lebih dari 1.0";
+        } else if (et_as_n2.getText().toString().equals("")) {
+            errorMsg = "Judul dan Alur Cerita Harus diisi";
+        } else if (Double.parseDouble(et_as_n2.getText().toString()) > 1) {
+            errorMsg = "Judul dan Alur Cerita Tidak boleh lebih dari 1.0";
+        } else if (et_as_n3.getText().toString().equals("")) {
+            errorMsg = "Bentuk Barongsai Harus diisi";
+        } else if (Double.parseDouble(et_as_n3.getText().toString()) > 1) {
+            errorMsg = "Bentuk Barongsai Tidak boleh lebih dari 1.0";
+        } else if (et_as_n4.getText().toString().equals("")) {
+            errorMsg = "Ekspresi Harus diisi";
+        } else if (Double.parseDouble(et_as_n4.getText().toString()) > 1) {
+            errorMsg = "Ekspresi Tidak boleh lebih dari 1.0";
+        } else if (et_as_n5.getText().toString().equals("")) {
+            errorMsg = "Musik Cerita Harus diisi";
+        } else if (Double.parseDouble(et_as_n5.getText().toString()) > 1) {
+            errorMsg = "Musik Tidak boleh lebih dari 1.0";
+        } else if (et_as_n6.getText().toString().equals("")) {
+            errorMsg = "Cirikhas Traditional Harus diisi";
+        } else if (Double.parseDouble(et_as_n6.getText().toString()) > 1) {
+            errorMsg = "Cirikhas Traditional Tidak boleh lebih dari 1.0";
+        } else if (et_as_n7.getText().toString().equals("")) {
+            errorMsg = "Komposisi Permainan Harus diisi";
+        } else if (Double.parseDouble(et_as_n7.getText().toString()) > 1) {
+            errorMsg = "Komposisi Permainan Tidak boleh lebih dari 1.0";
+        } else if (et_as_n8.getText().toString().equals("")) {
+            errorMsg = "Hasil dari Permainan Harus diisi";
+        } else if (Double.parseDouble(et_as_n8.getText().toString()) > 1) {
+            errorMsg = "Hasil dari Permainan Tidak boleh lebih dari 1.0";
+        } else if (et_as_n9.getText().toString().equals("")) {
+            errorMsg = "Keterampilan Harus diisi";
+        } else if (Double.parseDouble(et_as_n9.getText().toString()) > 1) {
+            errorMsg = "Keterampilan Tidak boleh lebih dari 1.0";
+        }else if(et_as_n10.getText().toString().equals("")){
             errorMsg="Seragam & Peralatan/Dekorasi Cerita Harus diisi";
         }else if(Double.parseDouble(et_as_n10.getText().toString())>1){
             errorMsg="Seragam & Peralatan/Dekorasi boleh lebih dari 1.0";
-            //TODO copy else if disini
-        }else{
+        }else if(et_as_ks1.getText().toString().equals("")){
+            errorMsg="Kesalahan Lain Harus diisi (min:0)";
+        }else if(et_as_ks2.getText().toString().equals("")){
+            errorMsg="Kesalahan Kecil Harus diisi (min:0)";
+        }else if(et_as_ks3.getText().toString().equals("")){
+            errorMsg="Kesalahan Sedang Harus diisi (min:0)";
+        }else if(et_as_ks4.getText().toString().equals("")){
+            errorMsg="Kesalahan Besar Harus diisi (min:0)";
+        } else {
             flag = true;
         }
 
+
         return flag;
     }
+    private void recalculateTotal(){
+        double n1 = et_as_n1.getText().toString().equals("")?0:Double.parseDouble(et_as_n1.getText().toString());
+        double n2 = et_as_n2.getText().toString().equals("")?0:Double.parseDouble(et_as_n2.getText().toString());
+        double n3 = et_as_n3.getText().toString().equals("")?0:Double.parseDouble(et_as_n3.getText().toString());
+        double n4 = et_as_n4.getText().toString().equals("")?0:Double.parseDouble(et_as_n4.getText().toString());
+        double n5 = et_as_n5.getText().toString().equals("")?0:Double.parseDouble(et_as_n5.getText().toString());
+        double n6 = et_as_n6.getText().toString().equals("")?0:Double.parseDouble(et_as_n6.getText().toString());
+        double n7 = et_as_n7.getText().toString().equals("")?0:Double.parseDouble(et_as_n7.getText().toString());
+        double n8 = et_as_n8.getText().toString().equals("")?0:Double.parseDouble(et_as_n8.getText().toString());
+        double n9 = et_as_n9.getText().toString().equals("")?0:Double.parseDouble(et_as_n9.getText().toString());
+        double n10 = et_as_n10.getText().toString().equals("")?0:Double.parseDouble(et_as_n10.getText().toString());
+        double ks1 = et_as_ks1.getText().toString().equals("")?0:Double.parseDouble(et_as_ks1.getText().toString());
+        double ks2 = et_as_ks2.getText().toString().equals("")?0:Double.parseDouble(et_as_ks2.getText().toString());
+        double ks3 = et_as_ks3.getText().toString().equals("")?0:Double.parseDouble(et_as_ks3.getText().toString());
+        double ks4 = et_as_ks4.getText().toString().equals("")?0:Double.parseDouble(et_as_ks4.getText().toString());
+        double tb=0,tk=0,p=0;
+        tk = n1+n2+n3+n4+n5+n6+n7+n8+n9+n10;
+        p = ks1+ks2+ks3+ks4;
+        tb=tk-p;
+        tv_as_total_bersih.setText(Double.toString(tb));
+        tv_as_total_kotor.setText(Double.toString(tk));
+        tv_as_total_pengurangan.setText(Double.toString(p));
+    }
     private void setListener() {
+        et_as_n1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(!b){
+                    recalculateTotal();
+                }
+            }
+        });
+        et_as_n2.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(!b){
+                    recalculateTotal();
+                }
+            }
+        });
+        et_as_n3.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(!b){
+                    recalculateTotal();
+                }
+            }
+        });
+        et_as_n4.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(!b){
+                    recalculateTotal();
+                }
+            }
+        });
+        et_as_n5.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(!b){
+                    recalculateTotal();
+                }
+            }
+        });
+        et_as_n6.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(!b){
+                    recalculateTotal();
+                }
+            }
+        });
+        et_as_n7.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(!b){
+                    recalculateTotal();
+                }
+            }
+        });
+        et_as_n8.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(!b){
+                    recalculateTotal();
+                }
+            }
+        });
+        et_as_n9.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(!b){
+                    recalculateTotal();
+                }
+            }
+        });
+        et_as_n10.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(!b){
+                    recalculateTotal();
+                }
+            }
+        });
+        et_as_ks1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(!b){
+                    recalculateTotal();
+                }
+            }
+        });
+        et_as_ks2.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(!b){
+                    recalculateTotal();
+                }
+            }
+        });
+        et_as_ks3.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(!b){
+                    recalculateTotal();
+                }
+            }
+        });
+        et_as_ks4.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(!b){
+                    recalculateTotal();
+                }
+            }
+        });
         btn_as_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

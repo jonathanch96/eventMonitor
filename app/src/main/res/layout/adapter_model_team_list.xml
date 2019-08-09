@@ -26,14 +26,17 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/tv_amtl_nk"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nilai : 9.0"/>
             <TextView
+                android:id="@+id/tv_amtl_p"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Pengurangan : 1.0"/>
             <TextView
+                android:id="@+id/tv_amtl_nb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Total : 8.0"/>

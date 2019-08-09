@@ -188,5 +188,22 @@ public class Penilaian {
     }
 
     public Penilaian() {
+        n1=0;
+        n2=0;
+        n3=0;
+        n4=0;
+        n5=0;
+        n6=0;
+        n7=0;
+        n8=0;
+        n9=0;
+        n10=0;
+        ks1=0;
+        ks2=0;
+        ks3=0;
+        ks4=0;
+        tb=0;
+        tk=0;
+        p=0;
     }
 }
