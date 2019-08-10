@@ -11,21 +11,21 @@ public class Team {
     Vector<Penilaian> dataNilai;
     Penilaian penilaian;
 
-    @Exclude
-    public Penilaian getPenilaian() {
+
+    @Exclude public Penilaian getPenilaian() {
         return penilaian;
     }
-    @Exclude
-    public void setPenilaian(Penilaian penilaian) {
+
+    @Exclude public void setPenilaian(Penilaian penilaian) {
         this.penilaian = penilaian;
     }
 
-    @Exclude
-    public Vector<Penilaian> getDataNilai() {
+
+    @Exclude public Vector<Penilaian> getDataNilai() {
         return dataNilai;
     }
-    @Exclude
-    public void setDataNilai(Vector<Penilaian> dataNilai) {
+
+    @Exclude public void setDataNilai(Vector<Penilaian> dataNilai) {
         this.dataNilai = dataNilai;
     }
 
@@ -41,12 +41,12 @@ public class Team {
     public void setTeam_name(String team_name) {
         this.team_name = team_name;
     }
-    @Exclude
-    public String getKey() {
+
+    @Exclude public String getKey() {
         return key;
     }
-    @Exclude
-    public void setKey(String key) {
+
+    @Exclude public void setKey(String key) {
         this.key = key;
     }
 

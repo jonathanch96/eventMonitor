@@ -21,12 +21,12 @@ public class Penilaian {
     double p;
     double tb;
     String key;
-    @Exclude
-    public String getKey() {
+
+    @Exclude public String getKey() {
         return key;
     }
-    @Exclude
-    public void setKey(String key) {
+
+    @Exclude public void setKey(String key) {
         this.key = key;
     }
 

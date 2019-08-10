@@ -15,12 +15,12 @@ public class Events {
     Vector<Team> team  = new Vector<Team>();
     String key;
 
-    @Exclude
-    public String getKey() {
+
+    @Exclude public String getKey() {
         return key;
     }
-    @Exclude
-    public void setKey(String key) {
+
+    @Exclude public void setKey(String key) {
         this.key = key;
     }
 
@@ -83,14 +83,14 @@ public class Events {
         this.total_team = total_team;
     }
 
-    @Exclude
-    public Vector<Team> getTeam() {
+
+    @Exclude public Vector<Team> getTeam() {
         return team;
     }
 
 
-    @Exclude
-    public void setTeam(Vector<Team> team) {
+
+    @Exclude public void setTeam(Vector<Team> team) {
         this.team = team;
     }
 

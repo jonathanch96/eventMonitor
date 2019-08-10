@@ -5,12 +5,12 @@ import com.google.firebase.firestore.Exclude;
 public class Referee {
     String key;
     String name;
-    @Exclude
-    public String getKey() {
+
+    @Exclude public String getKey() {
         return key;
     }
-    @Exclude
-    public void setKey(String key) {
+
+    @Exclude public void setKey(String key) {
         this.key = key;
     }
 
