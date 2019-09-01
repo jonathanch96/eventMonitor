@@ -8,7 +8,7 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="@string/team_name" />
 
     <EditText
         android:id="@+id/et_amlat_team_name"
@@ -16,13 +16,13 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="Name" />
+        android:hint="@string/input_nama_team" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="@string/no_urut" />
 
     <EditText
         android:id="@+id/et_amlat_no_urut"
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="Name" />
+        android:hint="@string/input_no_urut" />
 
 
 </LinearLayout>

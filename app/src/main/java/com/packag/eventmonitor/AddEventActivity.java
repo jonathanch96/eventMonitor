@@ -130,7 +130,7 @@ public class AddEventActivity extends AppCompatActivity {
 
     }
     public String randomString(int n){
-        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghjkmnopqrstuvwxyz0123456789";
+        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         Random random = new Random();
         StringBuilder builder = new StringBuilder(n);
 

@@ -50,18 +50,28 @@
         <Button
             style="@style/Widget.AppCompat.Button.Colored"
             android:id="@+id/btn_amel_assign_team"
+            android:backgroundTint="@color/colorPrimary"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/btn_tambah_team" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/btn_amel_lihat_team"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:backgroundTint="@color/colorPrimary"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/btn_lihat_team"
+            android:visibility="visible" />
+        <Button
+            android:id="@+id/btn_amel_event_finish"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Button"
+            android:text="@string/btn_event_finish"
             android:visibility="visible" />
 
     </LinearLayout>

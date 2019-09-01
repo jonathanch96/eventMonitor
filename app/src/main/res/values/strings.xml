@@ -20,6 +20,14 @@
     <string name="btn_login">Login</string>
     <string name="btn_submit">Submit</string>
     <string name="btn_tambah_team">Tambah Team</string>
+    <string name="btn_lihat_team">Lihat Team</string>
+    <string name="btn_event_finish">Nonaktifkan</string>
+    <string name="btn_event_active">Aktifkan</string>
+    <string name="btn_penilaian">Detail Penilaian</string>
+    <string name="btn_export">Export Data</string>
+    <string name="btn_edit">Edit</string>
+    <string name="btn_delete">Delete</string>
+    <string name="btn_lihat_detail_penilaian">Lihat Detail Penilaian</string>
 
     <string name="username">Username</string>
     <string name="name">Nama Anda</string>
@@ -29,6 +37,8 @@
     <string name="password">Password</string>
     <string name="input_username">Input Username</string>
     <string name="input_password">Input Password</string>
+    <string name="list_team">List Team</string>
+
 
     <!--add event-->
     <string name="tanggal_event">Tanggal Event</string>
@@ -37,6 +47,9 @@
     <string name="input_tema">Input Tema Acara</string>
     <string name="jumlah_juri">Jumlah Juri</string>
     <string name="input_jumlah_juri">Input Jumlah Juri</string>
+    <string name="input_no_urut">Input Nomor Urut</string>
+    <string name="input_nama_team">Input Nama Team</string>
+
 
     <!--penilaian-->
     <string name="penilaian">Penilaian</string>
@@ -44,7 +57,7 @@
     <string name="team_name">Nama Team : </string>
     <string name="no_urut">Nomor Urut : </string>
     <string name="n1_sopan_santun">Sopan Santun (Max : 1)</string>
-    <string name="n2_judul_dan_alur_cerita" >Judul dan Alur Cerita (Max : 1)</string>
+    <string name="n2_judul_dan_alur_cerita">Judul dan Alur Cerita (Max : 1)</string>
     <string name="n3_bentuk_barongsai">Bentuk Barongsai (Max : 1)</string>
     <string name="n4_ekspresi">Ekspresi (Max : 1)</string>
     <string name="n5_musik">Musik (Max : 1)</string>
@@ -61,7 +74,6 @@
     <string name="total_nilai_kotor">Nilai Kotor</string>
     <string name="total_pengurangan">Pengurangan</string>
     <string name="total_nilai_bersih">Nilai Bersih</string>
-
 
 
 </resources>
