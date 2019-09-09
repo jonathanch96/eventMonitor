@@ -107,7 +107,7 @@ public class Scoring extends AppCompatActivity {
                                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                DocumentSnapshot d2 = task.getResult();
+                                    DocumentSnapshot d2 = task.getResult();
                                 if(d2.exists()){
                                     Penilaian init_nilai = d2.toObject(Penilaian.class);
                                     team.setPenilaian(init_nilai);
@@ -228,6 +228,13 @@ public class Scoring extends AppCompatActivity {
             public void onFocusChange(View view, boolean b) {
                 if(!b){
                     recalculateTotal();
+                    if(et_as_n1.getText().toString().equals("")) {
+                        et_as_n1.setText("0");
+                    }
+                }else{
+                    if(et_as_n1.getText().toString().equals("0")){
+                        et_as_n1.setText("");
+                    }
                 }
             }
         });
@@ -236,6 +243,13 @@ public class Scoring extends AppCompatActivity {
             public void onFocusChange(View view, boolean b) {
                 if(!b){
                     recalculateTotal();
+                    if(et_as_n2.getText().toString().equals("")) {
+                        et_as_n2.setText("0");
+                    }
+                }else{
+                    if(et_as_n2.getText().toString().equals("0")){
+                        et_as_n2.setText("");
+                    }
                 }
             }
         });
@@ -244,6 +258,13 @@ public class Scoring extends AppCompatActivity {
             public void onFocusChange(View view, boolean b) {
                 if(!b){
                     recalculateTotal();
+                    if(et_as_n3.getText().toString().equals("")) {
+                        et_as_n3.setText("0");
+                    }
+                }else{
+                    if(et_as_n3.getText().toString().equals("0")){
+                        et_as_n3.setText("");
+                    }
                 }
             }
         });
@@ -252,6 +273,13 @@ public class Scoring extends AppCompatActivity {
             public void onFocusChange(View view, boolean b) {
                 if(!b){
                     recalculateTotal();
+                    if(et_as_n4.getText().toString().equals("")) {
+                        et_as_n4.setText("0");
+                    }
+                }else{
+                    if(et_as_n4.getText().toString().equals("0")){
+                        et_as_n4.setText("");
+                    }
                 }
             }
         });
@@ -260,6 +288,13 @@ public class Scoring extends AppCompatActivity {
             public void onFocusChange(View view, boolean b) {
                 if(!b){
                     recalculateTotal();
+                    if(et_as_n5.getText().toString().equals("")) {
+                        et_as_n5.setText("0");
+                    }
+                }else{
+                    if(et_as_n5.getText().toString().equals("0")){
+                        et_as_n5.setText("");
+                    }
                 }
             }
         });
@@ -268,6 +303,13 @@ public class Scoring extends AppCompatActivity {
             public void onFocusChange(View view, boolean b) {
                 if(!b){
                     recalculateTotal();
+                    if(et_as_n6.getText().toString().equals("")) {
+                        et_as_n6.setText("0");
+                    }
+                }else{
+                    if(et_as_n6.getText().toString().equals("0")){
+                        et_as_n6.setText("");
+                    }
                 }
             }
         });
@@ -276,6 +318,13 @@ public class Scoring extends AppCompatActivity {
             public void onFocusChange(View view, boolean b) {
                 if(!b){
                     recalculateTotal();
+                    if(et_as_n7.getText().toString().equals("")) {
+                        et_as_n7.setText("0");
+                    }
+                }else{
+                    if(et_as_n7.getText().toString().equals("0")){
+                        et_as_n7.setText("");
+                    }
                 }
             }
         });
@@ -284,6 +333,13 @@ public class Scoring extends AppCompatActivity {
             public void onFocusChange(View view, boolean b) {
                 if(!b){
                     recalculateTotal();
+                    if(et_as_n8.getText().toString().equals("")) {
+                        et_as_n8.setText("0");
+                    }
+                }else{
+                    if(et_as_n8.getText().toString().equals("0")){
+                        et_as_n8.setText("");
+                    }
                 }
             }
         });
@@ -292,6 +348,13 @@ public class Scoring extends AppCompatActivity {
             public void onFocusChange(View view, boolean b) {
                 if(!b){
                     recalculateTotal();
+                    if(et_as_n9.getText().toString().equals("")) {
+                        et_as_n9.setText("0");
+                    }
+                }else{
+                    if(et_as_n9.getText().toString().equals("0")){
+                        et_as_n9.setText("");
+                    }
                 }
             }
         });
@@ -300,6 +363,13 @@ public class Scoring extends AppCompatActivity {
             public void onFocusChange(View view, boolean b) {
                 if(!b){
                     recalculateTotal();
+                    if(et_as_n10.getText().toString().equals("")) {
+                        et_as_n10.setText("0");
+                    }
+                }else{
+                    if(et_as_n10.getText().toString().equals("0")){
+                        et_as_n10.setText("");
+                    }
                 }
             }
         });
@@ -308,6 +378,13 @@ public class Scoring extends AppCompatActivity {
             public void onFocusChange(View view, boolean b) {
                 if(!b){
                     recalculateTotal();
+                    if(et_as_ks1.getText().toString().equals("")) {
+                        et_as_ks1.setText("0");
+                    }
+                }else{
+                    if(et_as_ks1.getText().toString().equals("0")){
+                        et_as_ks1.setText("");
+                    }
                 }
             }
         });
@@ -316,6 +393,13 @@ public class Scoring extends AppCompatActivity {
             public void onFocusChange(View view, boolean b) {
                 if(!b){
                     recalculateTotal();
+                    if(et_as_ks2.getText().toString().equals("")) {
+                        et_as_ks2.setText("0");
+                    }
+                }else{
+                    if(et_as_ks2.getText().toString().equals("0")){
+                        et_as_ks2.setText("");
+                    }
                 }
             }
         });
@@ -324,6 +408,13 @@ public class Scoring extends AppCompatActivity {
             public void onFocusChange(View view, boolean b) {
                 if(!b){
                     recalculateTotal();
+                    if(et_as_ks3.getText().toString().equals("")) {
+                        et_as_ks3.setText("0");
+                    }
+                }else{
+                    if(et_as_ks3.getText().toString().equals("0")){
+                        et_as_ks3.setText("");
+                    }
                 }
             }
         });
@@ -332,6 +423,13 @@ public class Scoring extends AppCompatActivity {
             public void onFocusChange(View view, boolean b) {
                 if(!b){
                     recalculateTotal();
+                    if(et_as_ks4.getText().toString().equals("")) {
+                        et_as_ks4.setText("0");
+                    }
+                }else{
+                    if(et_as_ks4.getText().toString().equals("0")){
+                        et_as_ks4.setText("");
+                    }
                 }
             }
         });

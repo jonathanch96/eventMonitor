@@ -38,6 +38,7 @@
     <string name="input_username">Input Username</string>
     <string name="input_password">Input Password</string>
     <string name="list_team">List Team</string>
+    <string name="def_value">0</string>
 
 
     <!--add event-->

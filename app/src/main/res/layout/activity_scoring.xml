@@ -53,6 +53,7 @@
                     android:text="@string/n1_sopan_santun"
                     android:layout_weight="0.7"/>
                 <EditText
+                    android:text="@string/def_value"
                     android:id="@+id/et_as_n1"
                     android:inputType="numberDecimal"
                     android:imeOptions="actionNext"
@@ -70,6 +71,7 @@
                     android:text="@string/n2_judul_dan_alur_cerita"
                     android:layout_weight="0.7"/>
                 <EditText
+                    android:text="@string/def_value"
                     android:id="@+id/et_as_n2"
                     android:inputType="numberDecimal"
                     android:imeOptions="actionNext"
@@ -87,6 +89,7 @@
                     android:text="@string/n3_bentuk_barongsai"
                     android:layout_weight="0.7"/>
                 <EditText
+                    android:text="@string/def_value"
                     android:id="@+id/et_as_n3"
                     android:inputType="numberDecimal"
                     android:imeOptions="actionNext"
@@ -104,6 +107,7 @@
                     android:text="@string/n4_ekspresi"
                     android:layout_weight="0.7"/>
                 <EditText
+                    android:text="@string/def_value"
                     android:id="@+id/et_as_n4"
                     android:inputType="numberDecimal"
                     android:imeOptions="actionNext"
@@ -121,6 +125,7 @@
                     android:text="@string/n5_musik"
                     android:layout_weight="0.7"/>
                 <EditText
+                    android:text="@string/def_value"
                     android:id="@+id/et_as_n5"
                     android:inputType="numberDecimal"
                     android:imeOptions="actionNext"
@@ -138,6 +143,7 @@
                     android:text="@string/n6_cirikhas_traditional"
                     android:layout_weight="0.7"/>
                 <EditText
+                    android:text="@string/def_value"
                     android:id="@+id/et_as_n6"
                     android:inputType="numberDecimal"
                     android:imeOptions="actionNext"
@@ -155,6 +161,7 @@
                     android:text="@string/n7_komposisi_permainan"
                     android:layout_weight="0.7"/>
                 <EditText
+                    android:text="@string/def_value"
                     android:id="@+id/et_as_n7"
                     android:inputType="numberDecimal"
                     android:imeOptions="actionNext"
@@ -172,6 +179,7 @@
                     android:text="@string/n8_hasil_dan_permainan"
                     android:layout_weight="0.7"/>
                 <EditText
+                    android:text="@string/def_value"
                     android:id="@+id/et_as_n8"
                     android:inputType="numberDecimal"
                     android:imeOptions="actionNext"
@@ -189,6 +197,7 @@
                     android:text="@string/n9_keterampilan"
                     android:layout_weight="0.7"/>
                 <EditText
+                    android:text="@string/def_value"
                     android:id="@+id/et_as_n9"
                     android:inputType="numberDecimal"
                     android:imeOptions="actionNext"
@@ -206,6 +215,7 @@
                     android:text="@string/n10_seragam_dan_peralatan"
                     android:layout_weight="0.7"/>
                 <EditText
+                    android:text="@string/def_value"
                     android:id="@+id/et_as_n10"
                     android:inputType="numberDecimal"
                     android:imeOptions="actionNext"
@@ -229,6 +239,7 @@
                     android:text="@string/ks1_kesalahan_lain"
                     android:layout_weight="0.7"/>
                 <EditText
+                    android:text="@string/def_value"
                     android:id="@+id/et_as_ks1"
                     android:inputType="numberDecimal"
                     android:imeOptions="actionNext"
@@ -246,6 +257,7 @@
                     android:text="@string/ks2_kesalahan_kecil"
                     android:layout_weight="0.7"/>
                 <EditText
+                    android:text="@string/def_value"
                     android:id="@+id/et_as_ks2"
                     android:inputType="numberDecimal"
                     android:imeOptions="actionNext"
@@ -263,6 +275,7 @@
                     android:text="@string/ks3_kesalahan_sedang"
                     android:layout_weight="0.7"/>
                 <EditText
+                    android:text="@string/def_value"
                     android:id="@+id/et_as_ks3"
                     android:inputType="numberDecimal"
                     android:imeOptions="actionNext"
@@ -280,6 +293,7 @@
                     android:text="@string/ks4_kesalahan_besar"
                     android:layout_weight="0.7"/>
                 <EditText
+                    android:text="@string/def_value"
                     android:id="@+id/et_as_ks4"
                     android:inputType="numberDecimal"
 
