@@ -2,6 +2,9 @@ package com.packag.eventmonitor.Data;
 
 import com.google.firebase.firestore.Exclude;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class Penilaian {
     double n1;
     double n2;
@@ -49,8 +52,21 @@ public class Penilaian {
         this.tk = (n1+n2+n3+n4+n5+n6+n7+n8+n9+n10);
         this.p = (ks1+ks2+ks3+ks4);
         this.tb = (this.tk-this.p);
-    }
 
+
+        //rounding
+        this.tk = this.roundTo2Decs(this.tk);
+        this.p = this.roundTo2Decs(this.p);
+        this.tb = this.roundTo2Decs(this.tb);
+
+    }
+    private double roundTo2Decs(double value) {
+        /*BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        return bd.floatValue();*/
+        double roundOff = Math.round(value * 100.0) / 100.0;
+        return roundOff;
+    }
     public double getN1() {
         return n1;
     }

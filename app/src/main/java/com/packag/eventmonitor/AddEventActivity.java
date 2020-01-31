@@ -94,7 +94,8 @@ public class AddEventActivity extends AppCompatActivity {
                 if(validateInput()){
                     loadingDialog.show();
                     final String input_code = getUniqueCode();
-                    String input_date = tv_ae_tanggal_event_btn.getText().toString();
+                    String temp_date[] = tv_ae_tanggal_event_btn.getText().toString().split("/");
+                    String input_date = temp_date[2]+"-"+temp_date[1]+"-"+temp_date[0];
                     String input_themes = et_ae_themes.getText().toString();
                     int input_total_referee = Integer
                             .parseInt(et_ae_judges.getText().toString());

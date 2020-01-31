@@ -22,6 +22,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.packag.eventmonitor.Adapter.AdapterListEvent;
@@ -61,7 +62,7 @@ public class ListEventsFragment extends Fragment {
     private void fetchData(){
         CollectionReference events = db.collection("events");
         //events.whereEqualTo("status",1);
-        events.addSnapshotListener(new EventListener<QuerySnapshot>() {
+        events.orderBy("date", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
                 dataEvent=new Vector<Events>();

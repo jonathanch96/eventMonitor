@@ -3,6 +3,7 @@ package com.packag.eventmonitor.Adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,6 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.packag.eventmonitor.BarcodeActivity;
 import com.packag.eventmonitor.Data.Events;
 import com.packag.eventmonitor.Data.Team;
 import com.packag.eventmonitor.FirestoreController;
@@ -70,9 +73,20 @@ public class AdapterListEvent extends BaseAdapter {
         TextView tv_amel_total_team = v.findViewById(R.id.tv_amel_total_team);
         Button btn_amel_assign_team = v.findViewById(R.id.btn_amel_assign_team);
         Button btn_amel_lihat_team = v.findViewById(R.id.btn_amel_lihat_team);
-        final Button btn_amel_event_finish = v.findViewById(R.id.btn_amel_event_finish);
+        ImageView iv_amel_barcode = v.findViewById(R.id.iv_amel_barcode);
 
-        tv_amel_date.setText(dataEvent.get(i).getDate());
+        iv_amel_barcode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ctx, BarcodeActivity.class);
+                intent.putExtra("code",dataEvent.get(i).getCode());
+                ctx.startActivity(intent);
+            }
+        });
+
+        final Button btn_amel_event_finish = v.findViewById(R.id.btn_amel_event_finish);
+        String[] temp_date = dataEvent.get(i).getDate().split("-");
+        tv_amel_date.setText(temp_date[2]+"/"+temp_date[1]+"/"+temp_date[0]);
         tv_amel_event_code.setText("Kode Event : "+dataEvent.get(i).getCode());
         tv_amel_event_themes.setText(dataEvent.get(i).getThemes());
         tv_amel_total_judges.setText("Jumlah Juri : "+Integer.toString(dataEvent.get(i).getTotal_referee()));
