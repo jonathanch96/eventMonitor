@@ -295,7 +295,7 @@ public class DetailPenilaianActivity extends AppCompatActivity {
                     .setCellValue(p.getP());
             row.createCell(17)
                     .setCellValue(p.getTb());
-
+            rowNum++;
         }
 
         // Resize all columns to fit the content size
