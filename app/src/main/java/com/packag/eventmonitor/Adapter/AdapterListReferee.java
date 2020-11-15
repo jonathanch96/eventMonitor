@@ -134,23 +134,24 @@ public class AdapterListReferee extends RecyclerView.Adapter<AdapterListReferee.
                                     if(documentSnapshot.exists()){
                                         penilaian=documentSnapshot.toObject(Penilaian.class);
                                         penilaian.setKey(documentSnapshot.getId());
-                                        tv_amdp_n1.setText(penilaian.getN1()+"");
-                                        tv_amdp_n2.setText(penilaian.getN2()+"");
-                                        tv_amdp_n3.setText(penilaian.getN3()+"");
-                                        tv_amdp_n4.setText(penilaian.getN4()+"");
-                                        tv_amdp_n5.setText(penilaian.getN5()+"");
-                                        tv_amdp_n6.setText(penilaian.getN6()+"");
-                                        tv_amdp_n7.setText(penilaian.getN7()+"");
-                                        tv_amdp_n8.setText(penilaian.getN8()+"");
-                                        tv_amdp_n9.setText(penilaian.getN9()+"");
-                                        tv_amdp_n10.setText(penilaian.getN10()+"");
-                                        tv_amdp_ks1.setText(penilaian.getKs1()+"");
-                                        tv_amdp_ks2.setText(penilaian.getKs2()+"");
-                                        tv_amdp_ks3.setText(penilaian.getKs3()+"");
-                                        tv_amdp_ks4.setText(penilaian.getKs4()+"");
-                                        tv_amdp_total_kotor.setText(penilaian.getTk()+"");
-                                        tv_amdp_total_pengurangan.setText(penilaian.getP()+"");
-                                        tv_amdp_total_bersih.setText(penilaian.getTb()+"");
+
+                                        tv_amdp_n1.setText( String.format("%.2f", penilaian.getN1())+"");
+                                        tv_amdp_n2.setText( String.format("%.2f", penilaian.getN2())+"");
+                                        tv_amdp_n3.setText( String.format("%.2f", penilaian.getN3())+"");
+                                        tv_amdp_n4.setText( String.format("%.2f", penilaian.getN4())+"");
+                                        tv_amdp_n5.setText( String.format("%.2f", penilaian.getN5())+"");
+                                        tv_amdp_n6.setText( String.format("%.2f", penilaian.getN6())+"");
+                                        tv_amdp_n7.setText( String.format("%.2f", penilaian.getN7())+"");
+                                        tv_amdp_n8.setText( String.format("%.2f", penilaian.getN8())+"");
+                                        tv_amdp_n9.setText( String.format("%.2f", penilaian.getN9())+"");
+                                        tv_amdp_n10.setText( String.format("%.2f", penilaian.getN10())+"");
+                                        tv_amdp_ks1.setText( String.format("%.2f", penilaian.getKs1())+"");
+                                        tv_amdp_ks2.setText( String.format("%.2f", penilaian.getKs2())+"");
+                                        tv_amdp_ks3.setText( String.format("%.2f", penilaian.getKs3())+"");
+                                        tv_amdp_ks4.setText( String.format("%.2f", penilaian.getKs4())+"");
+                                        tv_amdp_total_kotor.setText( String.format("%.2f", penilaian.getTk())+"");
+                                        tv_amdp_total_pengurangan.setText( String.format("%.2f", penilaian.getP())+"");
+                                        tv_amdp_total_bersih.setText (String.format("%.2f", penilaian.getTb())+"");
                                     }
                                 }
                             });

@@ -104,11 +104,23 @@ public class AdapterListEvent extends BaseAdapter {
                                         final FirebaseFirestore db = FirebaseFirestore.getInstance();
                                         final Vector<Team> teams =new Vector<Team>();
                                         Log.d("debug","Team List : "+teams.toString());
+                                        if(et_amlat_team_name.getText().toString().equals("")){
+                                            new KAlertDialog(ctx, KAlertDialog.ERROR_TYPE)
+                                                    .setTitleText("Error!")
+                                                    .setContentText("Nama Team harus diisi!")
+                                                    .show();
+                                        }else if(et_amlat_no_urut.getText().toString().equals("")){
+                                            new KAlertDialog(ctx, KAlertDialog.ERROR_TYPE)
+                                                    .setTitleText("Error!")
+                                                    .setContentText("No urut harus diisi!")
+                                                    .show();
+                                        }else{
+                                            fc.addTeam(dataEvent.get(i).getKey(),new Team(et_amlat_team_name.getText().toString(),
+                                                    Integer.parseInt(et_amlat_no_urut.getText().toString())));
 
-                                        fc.addTeam(dataEvent.get(i).getKey(),new Team(et_amlat_team_name.getText().toString(),
-                                                Integer.parseInt(et_amlat_no_urut.getText().toString())));
+                                            fc.recalculateTotalTeam(dataEvent.get(i).getKey());
+                                        }
 
-                                        fc.recalculateTotalTeam(dataEvent.get(i).getKey());
 
 
 

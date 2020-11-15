@@ -20,7 +20,11 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.packag.eventmonitor.Data.Events;
 import com.packag.eventmonitor.Data.Referee;
+import com.packag.eventmonitor.Data.Team;
 import com.packag.eventmonitor.Util.Session;
+
+import java.sql.Ref;
+import java.util.Vector;
 
 public class RefereeLoginActivity extends AppCompatActivity {
     EditText et_arl_kode;
@@ -56,35 +60,70 @@ public class RefereeLoginActivity extends AppCompatActivity {
                             Events events = new Events();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 if (document.exists()) {
+
+
                                     events = document.toObject(Events.class);
                                     events.setKey(document.getId());
+
+
                                     flagFound = true;
 
                                     break;
                                 }
                             }
                             if(flagFound){
-
+                                boolean flagPermittedLogin=true;
 
                                 session.setData("loginType","referee");
                                 session.setData("eventId",events.getKey());
                                 if(session.getData("refereeId").equals("")) {
+                                    //new login
+                                    //validate limit juri
+                                    final Vector<Referee> tempReferee = new Vector<Referee>();
+                                    db.collection("events").document(events.getKey())
+                                            .collection("referee").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                for (QueryDocumentSnapshot d2 : task.getResult()) {
+                                                    Referee tempRefereeClass = d2.toObject(Referee.class);
+
+                                                    tempReferee.add(tempRefereeClass);
+                                                }
+
+                                            }
+                                        }
+                                    });
+                                    events.setReferee(tempReferee);
+                                    if(events.getTotal_referee()>=tempReferee.size()){
+                                        flagPermittedLogin=false;
+                                    }
+
+
                                     DocumentReference refereeRef=  db.collection("events").document(events.getKey())
                                             .collection("referee").document();
                                     String refereeKey = refereeRef.getId();
                                     refereeRef.set(new Referee(et_arl_nama.getText().toString()));
                                     session.setData("refereeId", refereeKey);
                                 }else{
+                                    //old login
                                     DocumentReference refereeRef=  db.collection("events").document(events.getKey())
                                             .collection("referee")
                                             .document(session.getData("refereeId"))
                                             ;
                                     refereeRef.set(new Referee(et_arl_nama.getText().toString()));
                                 }
+                                if(flagPermittedLogin){
+                                    Intent i = new Intent(RefereeLoginActivity.this,RefereeActivity.class);
+                                    startActivity(i);
+                                    finish();
+                                }else{
+                                    new KAlertDialog(RefereeLoginActivity.this, KAlertDialog.ERROR_TYPE)
+                                            .setTitleText("Error!")
+                                            .setContentText("Limit Juri sudah penuh!")
+                                            .show();
+                                }
 
-                                Intent i = new Intent(RefereeLoginActivity.this,RefereeActivity.class);
-                                startActivity(i);
-                                finish();
                             }else{
                                 new KAlertDialog(RefereeLoginActivity.this, KAlertDialog.ERROR_TYPE)
                                         .setTitleText("Oops...")

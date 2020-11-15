@@ -1,8 +1,10 @@
 package com.packag.eventmonitor.Data;
 
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.Exclude;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Vector;
 
 public class Events {
@@ -13,7 +15,10 @@ public class Events {
     int total_referee;
     int total_team = 0;
     Vector<Team> team  = new Vector<Team>();
+    Vector<Referee> referee  = new Vector<Referee>();
+
     String key;
+    Timestamp created_at;
 
 
     @Exclude public String getKey() {
@@ -30,7 +35,9 @@ public class Events {
         this.status = status;
         this.themes = themes;
         this.total_referee = total_referee;
+        this.created_at = new Timestamp(new Date());
     }
+
 
     public Events() {
     }
@@ -83,6 +90,13 @@ public class Events {
         this.total_team = total_team;
     }
 
+    public Timestamp getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(Timestamp created_at) {
+        this.created_at = created_at;
+    }
 
     @Exclude public Vector<Team> getTeam() {
         return team;
@@ -92,6 +106,16 @@ public class Events {
 
     @Exclude public void setTeam(Vector<Team> team) {
         this.team = team;
+    }
+
+    @Exclude public Vector<Referee> getReferee() {
+        return referee;
+    }
+
+
+
+    @Exclude public void setReferee(Vector<Referee> referee) {
+        this.referee = referee;
     }
 
 
