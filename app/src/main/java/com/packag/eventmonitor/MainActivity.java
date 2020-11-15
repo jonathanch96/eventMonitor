@@ -1,22 +1,28 @@
 package com.packag.eventmonitor;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import com.developer.kalert.KAlertDialog;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.packag.eventmonitor.Data.AppConfig;
 import com.packag.eventmonitor.Data.Events;
 import com.packag.eventmonitor.Util.Session;
+import com.packag.eventmonitor.Util.Setting;
 
 public class MainActivity extends AppCompatActivity {
     Button btn_referee_login;
@@ -85,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         loadingDialog = new ProgressDialog(this);
         loadingDialog.setTitle("Processing your Request");
         loadingDialog.setMessage("Please Wait a second...");
+        Setting.checkAppVersion(MainActivity.this);
 
     }
     private void setListener(){
@@ -115,4 +122,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return flag;
     }
+
+
+
 }

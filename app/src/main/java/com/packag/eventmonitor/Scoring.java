@@ -25,6 +25,9 @@ import com.packag.eventmonitor.Data.Penilaian;
 import com.packag.eventmonitor.Data.Team;
 import com.packag.eventmonitor.Util.Session;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class Scoring extends AppCompatActivity {
     Intent intent;
     String teamId;
@@ -201,6 +204,13 @@ public class Scoring extends AppCompatActivity {
 
         return flag;
     }
+    private double roundTo2Decs(double value) {
+        /*BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        return bd.floatValue();*/
+        double roundOff = Math.round(value * 100.0) / 100.0;
+        return roundOff;
+    }
     private void recalculateTotal(){
         double n1 = et_as_n1.getText().toString().equals("")?0:Double.parseDouble(et_as_n1.getText().toString());
         double n2 = et_as_n2.getText().toString().equals("")?0:Double.parseDouble(et_as_n2.getText().toString());
@@ -220,6 +230,12 @@ public class Scoring extends AppCompatActivity {
         tk = n1+n2+n3+n4+n5+n6+n7+n8+n9+n10;
         p = ks1+ks2+ks3+ks4;
         tb=tk-p;
+
+        tk = roundTo2Decs(tk);
+        p = roundTo2Decs(p);
+        tb = roundTo2Decs(tb);
+
+        Log.d("debug","tk = "+tk+" tb = "+tb+" p = "+p);
         tv_as_total_bersih.setText(Double.toString(tb));
         tv_as_total_kotor.setText(Double.toString(tk));
         tv_as_total_pengurangan.setText(Double.toString(p));
@@ -663,8 +679,6 @@ public class Scoring extends AppCompatActivity {
                     setResult(Activity.RESULT_OK,return_i);
                     loadingDialog.hide();
 
-
-                    loadingDialog.hide();
                     finish();
                 }else{
                     loadingDialog.hide();

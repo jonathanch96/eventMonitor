@@ -16,6 +16,7 @@ import android.view.Menu;
 
 import com.packag.eventmonitor.Fragments.ListEventsFragment;
 import com.packag.eventmonitor.Util.Session;
+import com.packag.eventmonitor.Util.Setting;
 
 public class AdminActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -46,6 +47,7 @@ public class AdminActivity extends AppCompatActivity
 
         session = new Session(this.getApplicationContext());
         fm = getSupportFragmentManager();
+        Setting.checkAppVersion(AdminActivity.this);
 
     }
     private void setComponent(){

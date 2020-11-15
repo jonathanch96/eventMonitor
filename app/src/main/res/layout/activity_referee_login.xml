@@ -15,20 +15,37 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/code_event" />
-
-    <EditText
-        android:id="@+id/et_arl_kode"
+    <LinearLayout
+        android:id="@+id/ll_arl_kode_container"
         android:layout_below="@id/tv_arl_kode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:layout_marginBottom="20dp"
-        android:inputType="textPersonName"
-        android:hint="@string/input_code" />
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/et_arl_kode"
+            android:layout_width="0dp"
+            android:layout_weight="0.85"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="@string/input_code" />
+        <ImageView
+            android:id="@+id/iv_arl_scan"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="0.15"
+            android:src="@drawable/ic_barcode"
+            />
+
+
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tv_arl_nama"
-        android:layout_below="@id/et_arl_kode"
+        android:layout_below="@id/ll_arl_kode_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/name" />

@@ -32,6 +32,7 @@ import com.packag.eventmonitor.Data.Penilaian;
 import com.packag.eventmonitor.Data.Referee;
 import com.packag.eventmonitor.Data.Team;
 import com.packag.eventmonitor.Util.Session;
+import com.packag.eventmonitor.Util.Setting;
 
 import java.util.Vector;
 
@@ -72,6 +73,7 @@ public class RefereeActivity extends AppCompatActivity {
         tv_ar_status = findViewById(R.id.tv_ar_status);
         tv_ar_referee_name = findViewById(R.id.tv_ar_referee_name);
         fetchData();
+        Setting.checkAppVersion(RefereeActivity.this);
 
     }
     private void fetchData(){

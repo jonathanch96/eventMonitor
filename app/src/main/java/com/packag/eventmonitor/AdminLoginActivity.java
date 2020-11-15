@@ -18,6 +18,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.packag.eventmonitor.Data.Users;
 import com.packag.eventmonitor.Util.Session;
+import com.packag.eventmonitor.Util.Setting;
 
 public class AdminLoginActivity extends AppCompatActivity {
     EditText et_al_username;
@@ -25,6 +26,7 @@ public class AdminLoginActivity extends AppCompatActivity {
     Button btn_al_login;
     TextView tv_al_error;
     Session session;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +40,7 @@ public class AdminLoginActivity extends AppCompatActivity {
         btn_al_login = findViewById(R.id.btn_al_login);
         tv_al_error = findViewById(R.id.tv_al_error);
         session = new Session(this.getApplicationContext());
+        Setting.checkAppVersion(AdminLoginActivity.this);
     }
     private void setListener() {
         btn_al_login.setOnClickListener(new View.OnClickListener() {
