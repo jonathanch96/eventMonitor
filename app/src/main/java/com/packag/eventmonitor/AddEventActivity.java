@@ -16,6 +16,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.developer.kalert.KAlertDialog;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -26,6 +27,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.packag.eventmonitor.Data.Events;
+import com.packag.eventmonitor.Data.Team;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -94,30 +96,48 @@ public class AddEventActivity extends AppCompatActivity {
                 if(validateInput()){
                     loadingDialog.show();
                     final String input_code = getUniqueCode();
-                    String temp_date[] = tv_ae_tanggal_event_btn.getText().toString().split("/");
-                    String input_date = temp_date[2]+"-"+temp_date[1]+"-"+temp_date[0];
-                    String input_themes = et_ae_themes.getText().toString();
-                    int input_total_referee = Integer
-                            .parseInt(et_ae_judges.getText().toString());
-                    db.collection("events")
-                            .add(new Events(input_code,input_date,1,input_themes
-                                    ,input_total_referee))
-                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            Intent return_i = new Intent();
-                            return_i.putExtra("msg","Event "
-                                    +input_code+" Berhasil dibuat!!");
-                            setResult(Activity.RESULT_OK,return_i);
-                            loadingDialog.hide();
-                            finish();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.w("debug", "Error writing document", e);
-                        }
-                    });
+                    if(et_ae_themes.getText().toString().equals("")){
+                        new KAlertDialog(AddEventActivity.this, KAlertDialog.ERROR_TYPE)
+                                .setTitleText("Error!")
+                                .setContentText("Tema Event harus diisi!")
+                                .show();
+                    }else if(tv_ae_tanggal_event_btn.getText().toString().equals("")){
+                        new KAlertDialog(AddEventActivity.this, KAlertDialog.ERROR_TYPE)
+                                .setTitleText("Error!")
+                                .setContentText("Tanggal harus dipilih!")
+                                .show();
+                    }else if(et_ae_judges.getText().toString().equals("")){
+                        new KAlertDialog(AddEventActivity.this, KAlertDialog.ERROR_TYPE)
+                                .setTitleText("Error!")
+                                .setContentText("Jumlah Juri harus diisi!")
+                                .show();
+                    }else{
+                        String temp_date[] = tv_ae_tanggal_event_btn.getText().toString().split("/");
+                        String input_date = temp_date[2]+"-"+temp_date[1]+"-"+temp_date[0];
+                        String input_themes = et_ae_themes.getText().toString();
+                        int input_total_referee = Integer
+                                .parseInt(et_ae_judges.getText().toString());
+                        db.collection("events")
+                                .add(new Events(input_code,input_date,1,input_themes
+                                        ,input_total_referee))
+                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    @Override
+                                    public void onSuccess(DocumentReference documentReference) {
+                                        Intent return_i = new Intent();
+                                        return_i.putExtra("msg","Event "
+                                                +input_code+" Berhasil dibuat!!");
+                                        setResult(Activity.RESULT_OK,return_i);
+                                        loadingDialog.hide();
+                                        finish();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w("debug", "Error writing document", e);
+                            }
+                        });
+                    }
+
                 }
             }
         });

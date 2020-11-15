@@ -302,7 +302,14 @@ public class DetailPenilaianActivity extends AppCompatActivity {
        /* for(int i = 0; i < columns.length; i++) {
             sheet.setColumnWidth(2, 250);
         }*/
-
+       String path_folder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/Event Monitor/";
+       File directory = new File(path_folder);
+       /*check Dir*/
+        if (! directory.exists()){
+            directory.mkdir();
+            // If you require it to make the entire directory path including parents,
+            // use directory.mkdirs(); here instead.
+        }
         // Write the output to a file
         FileOutputStream fileOut = null;
         try {
@@ -326,6 +333,7 @@ public class DetailPenilaianActivity extends AppCompatActivity {
         Uri path = Uri.fromFile(file);
         Intent pdfOpenintent = new Intent(Intent.ACTION_VIEW);
         pdfOpenintent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        pdfOpenintent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION );
         pdfOpenintent.setDataAndType(path, "application/vnd.ms-excel");
         try {
             startActivity(pdfOpenintent);

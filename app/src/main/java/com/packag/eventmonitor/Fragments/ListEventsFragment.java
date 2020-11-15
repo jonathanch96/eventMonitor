@@ -61,9 +61,9 @@ public class ListEventsFragment extends Fragment {
     }
     private void fetchData(){
         CollectionReference events = db.collection("events");
-        events.orderBy("created_at", Query.Direction.DESCENDING);
+
         //events.whereEqualTo("status",1);
-        events.orderBy("date", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        events.orderBy("created_at", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
                 dataEvent=new Vector<Events>();
