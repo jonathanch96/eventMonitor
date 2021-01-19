@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.EventLog;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 
@@ -64,33 +66,68 @@ public class ChatRoomAdminActivity extends AppCompatActivity {
                         if (d2.exists()) {
                             Chat c = d2.toObject(Chat.class);
                             c.setBelongsToCurrentUser(true);
-                            if(acr.getChat().size()==0){
+                            if(!c.getUserId().equals("admin")){
+                                if(acr.getChat().size()==0){
 
+                                    if(!c.isIs_read()) {
+                                        c.setUnread_counter(1);
+                                    }
+                                    acr.add(c);
 
-                                acr.add(c);
-
-                            }
-                            boolean flag_same = false;
-                            for(int i = 0 ; i<acr.getCount();i++){
-                                Chat tc = (Chat)acr.getItem(i);
-                                if(c.getUserId().equals(tc.getUserId())||c.getDestUserId().equals(tc.getUserId())) {
-                                    //same user
-
-                                    flag_same = true;
                                 }
-                            }
-                            if(!flag_same){
-
-                                acr.add(c);
-                            }
-//                            for(Chat tc:acr.getChat()){
-//                                if(c.getUserId()==tc.getUserId()||c.getDestUserId()==tc.getUserId()){
-//                                    //same user
-//                                }else{
-//                                    acr.add(c);
-//                                }
+                                boolean flag_same = false;
+                                for(int i = 0 ; i<acr.getCount();i++){
+                                    Chat tc = (Chat)acr.getItem(i);
+                                    if(c.getUserId().equals(tc.getUserId())||c.getDestUserId().equals(tc.getUserId())) {
+                                        //same user
+                                        if(!c.isIs_read()&&!c.getUserId().equals("admin")){
+                                            ArrayList<Chat> temp_chats = new ArrayList<Chat>(acr.getChat());
+                                            tc.setUnread_counter(tc.getUnread_counter()+1);
+                                            temp_chats.set(i,tc);
+                                            acr.updateData(temp_chats);
+                                        }
+                                        flag_same = true;
+                                    }
+                                }
+                                if(!flag_same){
+                                    if(!c.isIs_read()) {
+                                        c.setUnread_counter(1);
+                                    }
+                                    acr.add(c);
+                                }
 //
-//                            }
+                            }
+
+
+                        }
+                    }
+
+                    //update last chat
+                    for (QueryDocumentSnapshot d2 : task.getResult()) {
+
+                        if (d2.exists()) {
+                            Chat c = d2.toObject(Chat.class);
+                            c.setBelongsToCurrentUser(true);
+
+                                for(int i = 0 ; i<acr.getCount();i++){
+                                    Chat tc = (Chat)acr.getItem(i);
+                                    if(c.getUserId().equals(tc.getUserId())||c.getDestUserId().equals(tc.getUserId())) {
+                                        //same user
+                                        ArrayList<Chat> temp_chats = new ArrayList<Chat>(acr.getChat());
+
+                                        if(tc.getCreated_at().compareTo(c.getCreated_at())<1){
+                                            tc.setCreated_at(c.getCreated_at());
+                                            tc.setText(c.getText());
+                                        }
+
+
+                                        temp_chats.set(i,tc);
+                                        Collections.sort(temp_chats);
+                                        acr.updateData(temp_chats);
+
+                                    }
+                                }
+
 
                         }
                     }
@@ -126,7 +163,7 @@ public class ChatRoomAdminActivity extends AppCompatActivity {
                                         ArrayList<Chat> temp_chats = new ArrayList<Chat>(acr.getChat());
                                         tc.setText(c.getText());
                                         tc.setCreated_at(c.getCreated_at());
-                                        if(c.getUserId().equals(userId)) {
+                                        if(c.getDestUserId().equals(userId)) {
                                             tc.setUnread_counter(tc.getUnread_counter() + 1);
                                         }
                                         temp_chats.set(i,tc);
@@ -145,7 +182,8 @@ public class ChatRoomAdminActivity extends AppCompatActivity {
                                 Log.d("DEBUG", "New Msg: " + c.getText());
                                 break;
                             case MODIFIED:
-                                Log.d("DEBUG", "Modified Msg: " + dc.getDocument().toObject(Chat.class));
+
+                                Log.d("DEBUG", "New Msg: " + c.getText());
                                 break;
                             case REMOVED:
                                 Log.d("DEBUG", "Removed Msg: " + dc.getDocument().toObject(Chat.class));
@@ -159,6 +197,29 @@ public class ChatRoomAdminActivity extends AppCompatActivity {
         });
     }
     private void setListener() {
+        lv_cr_messages_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                for(int i = 0 ; i<acr.getCount();i++) {
+                    if (i == position){
+                        Chat tc = (Chat) acr.getItem(i);
+
+                        ArrayList<Chat> temp_chats = new ArrayList<Chat>(acr.getChat());
+                        tc.setUnread_counter(0);
+                        temp_chats.set(i, tc);
+                        acr.updateData(temp_chats);
+                    }
+                }
+
+                Intent i = new Intent(ChatRoomAdminActivity.this,ChatActivity.class);
+                Chat tc = (Chat)acr.getItem(position);
+                i.putExtra("eventId",tc.getEventId());
+                i.putExtra("destUserId",tc.getUserId());
+                i.putExtra("userId","admin");
+                i.putExtra("name","Admin");
+                startActivity(i);
+            }
+        });
     }
 
 

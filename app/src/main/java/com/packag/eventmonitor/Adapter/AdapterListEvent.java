@@ -68,11 +68,13 @@ public class AdapterListEvent extends BaseAdapter {
 
     @Override
     public View getView(final int i, View view, ViewGroup viewGroup) {
+
         View v = View.inflate(ctx, R.layout.adapter_model_event_list,null);
         TextView tv_amel_date = v.findViewById(R.id.tv_amel_date);
         TextView tv_amel_event_code = v.findViewById(R.id.tv_amel_event_code);
         TextView tv_amel_event_themes = v.findViewById(R.id.tv_amel_event_themes);
         TextView tv_amel_total_judges = v.findViewById(R.id.tv_amel_total_judges);
+        final TextView cart_badge_amel = v.findViewById(R.id.cart_badge_amel);
         FrameLayout fl_amel_chat = v.findViewById(R.id.fl_amel_chat);
         TextView tv_amel_total_team = v.findViewById(R.id.tv_amel_total_team);
         Button btn_amel_assign_team = v.findViewById(R.id.btn_amel_assign_team);
@@ -87,6 +89,31 @@ public class AdapterListEvent extends BaseAdapter {
                 ctx.startActivity(intent);
             }
         });
+        //get unread message
+        FirebaseFirestore db=FirebaseFirestore.getInstance();
+        db.collection("chats")
+                .whereEqualTo("eventId",dataEvent.get(i).getKey())
+                .whereEqualTo("destUserId","admin")
+                .whereEqualTo("is_read",false).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@androidx.annotation.Nullable QuerySnapshot value, @androidx.annotation.Nullable FirebaseFirestoreException error) {
+                int unread_message = 0;
+                for (QueryDocumentSnapshot doc : value) {
+                    unread_message++;
+
+                }
+                if(unread_message==0){
+                    cart_badge_amel.setVisibility(View.GONE);
+                    cart_badge_amel.setText(unread_message+"");
+                }else{
+                    cart_badge_amel.setVisibility(View.VISIBLE);
+                    cart_badge_amel.setText(unread_message+"");
+                }
+            }
+        });
+
+        //end
+
 
         final Button btn_amel_event_finish = v.findViewById(R.id.btn_amel_event_finish);
         String[] temp_date = dataEvent.get(i).getDate().split("-");

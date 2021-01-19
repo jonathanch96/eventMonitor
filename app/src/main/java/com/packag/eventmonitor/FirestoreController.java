@@ -31,6 +31,7 @@ public class FirestoreController {
                 .collection("team")
                 .document(teamId).delete();
     }
+
     public void refereeNumbering(final String eventId){
         final Vector<Referee> dataReferee = new Vector<Referee>();
         counter = 1;

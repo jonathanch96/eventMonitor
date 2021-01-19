@@ -41,6 +41,7 @@ public class ChatActivity extends AppCompatActivity {
     String eventId;
 
     String userId;
+    String destUserId;
     String name;
     Intent intent;
     AdapterChat ac;
@@ -59,7 +60,11 @@ public class ChatActivity extends AppCompatActivity {
             public void onClick(View v) {
                String message =  et_c_input.getText().toString();
                if(!message.equals("")){
-                   Chat chat = new Chat(message,name,userId,"admin");
+                   String temp_destUserId = "admin";
+                   if(userId.equals("admin")){
+                       temp_destUserId = destUserId;
+                   }
+                   Chat chat = new Chat(message,name,userId,temp_destUserId);
                    message="";
                    et_c_input.setText("");
                    chat.setEventId(eventId);
@@ -78,8 +83,15 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
     private void getChatData(){
-        final Query chatref = db.collection("chats").orderBy("created_at", Query.Direction.ASCENDING)
-                .whereIn("userId", Arrays.asList("admin", userId));
+        Query chatref;
+        if(userId.equals("admin")){
+            chatref = db.collection("chats").orderBy("created_at", Query.Direction.ASCENDING)
+                    .whereIn("userId", Arrays.asList("admin", destUserId));
+        }else{
+            chatref = db.collection("chats").orderBy("created_at", Query.Direction.ASCENDING)
+                    .whereIn("userId", Arrays.asList("admin", userId));
+        }
+
 
         chatref .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -93,12 +105,15 @@ public class ChatActivity extends AppCompatActivity {
                             }else{
                                 chat.setBelongsToCurrentUser(false);
                                 chat.setIs_read(true);
-//                                db.collection("events").document(eventId)
-//                                        .collection("chat").document(d2.getId()).set(chat);
+                                db.collection("chats").document(d2.getId()).set(chat);
 
                             }
+                            Log.d("debug","showing comparing : "+destUserId+"= "+chat.getDestUserId());
+                            if((userId.equals("admin")&&(chat.getDestUserId().equals(destUserId))
+                                    ||chat.getUserId().equals(destUserId))||!userId.equals("admin")){
+                                ac.add(chat);
+                            }
 
-                            ac.add(chat);
                         }
                     }
 
@@ -154,7 +169,7 @@ public class ChatActivity extends AppCompatActivity {
         et_c_input = findViewById(R.id.et_c_input);
         ib_c_submit = findViewById(R.id.ib_c_submit);
         eventId = intent.getStringExtra("eventId");
-
+        destUserId = intent.getStringExtra("destUserId");
         userId = intent.getStringExtra("userId");
         name = intent.getStringExtra("name");
         ac = new AdapterChat(ChatActivity.this);

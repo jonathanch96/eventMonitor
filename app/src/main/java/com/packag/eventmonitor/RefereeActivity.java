@@ -110,7 +110,7 @@ public class RefereeActivity extends AppCompatActivity {
                         referee = document.toObject(Referee.class);
                         referee.setKey(document.getId());
                         tv_ar_referee_name.setText("Nama Juri : Juri "+referee.getNumber()+" - "+referee.getName());
-
+                        setupBadge();
                     }
 
                 }
@@ -171,7 +171,7 @@ public class RefereeActivity extends AppCompatActivity {
         final MenuItem menuItem = menu.findItem(R.id.action_chat);
         View actionView = menuItem.getActionView();
         textCartItemCount = (TextView) actionView.findViewById(R.id.cart_badge);
-        setupBadge();
+
 
         actionView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,7 +195,6 @@ public class RefereeActivity extends AppCompatActivity {
         }else if(id == R.id.action_chat){
             Intent i = new Intent(RefereeActivity.this,ChatActivity.class);
             i.putExtra("eventId",events.getKey());
-
             i.putExtra("userId",referee.getKey());
             i.putExtra("name","Juri "+referee.getNumber()+" ("+events.getCode()+")"+" - "+referee.getName());
             startActivity(i);
@@ -214,21 +213,35 @@ public class RefereeActivity extends AppCompatActivity {
     }
 
     TextView textCartItemCount;
-    int mCartItemCount = 10;
-    private void setupBadge() {
 
-        if (textCartItemCount != null) {
-            if (mCartItemCount == 0) {
-                if (textCartItemCount.getVisibility() != View.GONE) {
-                    textCartItemCount.setVisibility(View.GONE);
+    private void setupBadge() {
+        //get unread message
+        FirebaseFirestore db=FirebaseFirestore.getInstance();
+        Log.d("debug","setupBadge eventId : "+events.getKey());
+        Log.d("debug","setupBadge destUserId  : "+referee.getKey());
+        db.collection("chats")
+                .whereEqualTo("eventId",events.getKey())
+                .whereEqualTo("destUserId",referee.getKey())
+                .whereEqualTo("userId","admin")
+                .whereEqualTo("is_read",false).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@androidx.annotation.Nullable QuerySnapshot value, @androidx.annotation.Nullable FirebaseFirestoreException error) {
+                int unread_message = 0;
+                for (QueryDocumentSnapshot doc : value) {
+                    unread_message++;
+
                 }
-            } else {
-                textCartItemCount.setText(String.valueOf(Math.min(mCartItemCount, 99)));
-                if (textCartItemCount.getVisibility() != View.VISIBLE) {
+                if(unread_message==0){
+                   // textCartItemCount.setVisibility(View.GONE);
+                    textCartItemCount.setText(unread_message+"");
+                }else{
                     textCartItemCount.setVisibility(View.VISIBLE);
+                    textCartItemCount.setText(unread_message+"");
                 }
             }
-        }
+        });
+
+
     }
 
 }
