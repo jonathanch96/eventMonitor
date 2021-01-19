@@ -5,19 +5,25 @@
     android:padding="20dp">
     <TextView
         android:paddingLeft="20dp"
+        android:id="@+id/tv_amdp_no_urut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/no_urut" />
+    <TextView
+        android:paddingLeft="20dp"
         android:id="@+id/tv_amdp_team_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/team_name" />
 
+
     <TextView
         android:paddingLeft="20dp"
-        android:id="@+id/tv_amdp_no_urut"
+        android:id="@+id/tv_amdp_referee"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/no_urut"
+        android:text="@string/referee"
         android:layout_marginBottom="20dp"/>
-
 
     <ScrollView
         android:layout_width="match_parent"

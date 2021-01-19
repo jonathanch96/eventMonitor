@@ -28,6 +28,10 @@
             android:name=".AdminLoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".ChatActivity"/>
+        <activity
+            android:name=".ChatRoomAdminActivity"/>
+        <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

@@ -63,7 +63,7 @@ public class AdapterListReferee extends RecyclerView.Adapter<AdapterListReferee.
             btn_amrl_lihat_detail = itemView.findViewById(R.id.btn_amrl_lihat_detail);
         }
         public void bindItem(final Context ctx, final Referee referee){
-            tv_amrl_refereeName.setText(referee.getName());
+            tv_amrl_refereeName.setText("Juri "+referee.getNumber()+" - "+referee.getName());
             btn_amrl_lihat_detail.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -75,6 +75,7 @@ public class AdapterListReferee extends RecyclerView.Adapter<AdapterListReferee.
                     //initiate data
                     final TextView tv_amdp_team_name = promptsView.findViewById(R.id.tv_amdp_team_name);
                     final TextView tv_amdp_no_urut = promptsView.findViewById(R.id.tv_amdp_no_urut);
+                    final TextView tv_amdp_referee = promptsView.findViewById(R.id.tv_amdp_referee);
                     final TextView tv_amdp_n1 = promptsView.findViewById(R.id.tv_amdp_n1);
                     final TextView tv_amdp_n2 = promptsView.findViewById(R.id.tv_amdp_n2);
                     final TextView tv_amdp_n3 = promptsView.findViewById(R.id.tv_amdp_n3);
@@ -120,8 +121,15 @@ public class AdapterListReferee extends RecyclerView.Adapter<AdapterListReferee.
                             if(documentSnapshot.exists()){
                                 team = documentSnapshot.toObject(Team.class);
                                 team.setKey(documentSnapshot.getId());
-                                tv_amdp_team_name.setText(team.getTeam_name());
-                                tv_amdp_no_urut.setText(team.getNo_urut()+"");
+                                tv_amdp_team_name.setText(
+                                        ctx.getApplicationContext().getString(R.string.team_name)+" "
+                                                +team.getTeam_name());
+                                tv_amdp_no_urut.setText(
+                                        ctx.getApplicationContext().getString(R.string.no_urut)+" "
+                                                +team.getNo_urut()+"");
+                                tv_amdp_referee.setText(
+                                        ctx.getApplicationContext().getString(R.string.referee)+" Juri "+referee.getNumber()+" - "
+                                                +referee.getName());
 
                             }
                         }

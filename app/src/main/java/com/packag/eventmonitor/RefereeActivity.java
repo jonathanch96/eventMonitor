@@ -109,7 +109,7 @@ public class RefereeActivity extends AppCompatActivity {
                     if (document.exists()) {
                         referee = document.toObject(Referee.class);
                         referee.setKey(document.getId());
-                        tv_ar_referee_name.setText("Nama Juri : "+referee.getName());
+                        tv_ar_referee_name.setText("Nama Juri : Juri "+referee.getNumber()+" - "+referee.getName());
 
                     }
 
@@ -167,6 +167,19 @@ public class RefereeActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        final MenuItem menuItem = menu.findItem(R.id.action_chat);
+        View actionView = menuItem.getActionView();
+        textCartItemCount = (TextView) actionView.findViewById(R.id.cart_badge);
+        setupBadge();
+
+        actionView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onOptionsItemSelected(menuItem);
+            }
+        });
+
         return true;
     }
 
@@ -178,6 +191,14 @@ public class RefereeActivity extends AppCompatActivity {
             Intent i = new Intent(RefereeActivity.this,MainActivity.class);
             startActivity(i);
             this.finish();
+            return true;
+        }else if(id == R.id.action_chat){
+            Intent i = new Intent(RefereeActivity.this,ChatActivity.class);
+            i.putExtra("eventId",events.getKey());
+
+            i.putExtra("userId",referee.getKey());
+            i.putExtra("name","Juri "+referee.getNumber()+" ("+events.getCode()+")"+" - "+referee.getName());
+            startActivity(i);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -191,4 +212,23 @@ public class RefereeActivity extends AppCompatActivity {
                     .show();
         }
     }
+
+    TextView textCartItemCount;
+    int mCartItemCount = 10;
+    private void setupBadge() {
+
+        if (textCartItemCount != null) {
+            if (mCartItemCount == 0) {
+                if (textCartItemCount.getVisibility() != View.GONE) {
+                    textCartItemCount.setVisibility(View.GONE);
+                }
+            } else {
+                textCartItemCount.setText(String.valueOf(Math.min(mCartItemCount, 99)));
+                if (textCartItemCount.getVisibility() != View.VISIBLE) {
+                    textCartItemCount.setVisibility(View.VISIBLE);
+                }
+            }
+        }
+    }
+
 }

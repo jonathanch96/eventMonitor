@@ -30,292 +30,361 @@
         >
 
         <LinearLayout
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="100dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            >
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="100dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:text="@string/penilaian"/>
+                android:text="@string/penilaian"
+                android:textStyle="bold" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/n1_sopan_santun"
-                    android:layout_weight="0.7"/>
+                    android:layout_weight="0.7"
+                    android:text="@string/n1_sopan_santun" />
+
                 <EditText
-                    android:text="@string/def_value"
                     android:id="@+id/et_as_n1"
-                    android:inputType="numberDecimal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
                     android:imeOptions="actionNext"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.3"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/n2_judul_dan_alur_cerita"
-                    android:layout_weight="0.7"/>
-                <EditText
-                    android:text="@string/def_value"
-                    android:id="@+id/et_as_n2"
                     android:inputType="numberDecimal"
-                    android:imeOptions="actionNext"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.3"/>
+                    android:text="@string/def_value" />
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/n3_bentuk_barongsai"
-                    android:layout_weight="0.7"/>
-                <EditText
-                    android:text="@string/def_value"
-                    android:id="@+id/et_as_n3"
-                    android:inputType="numberDecimal"
-                    android:imeOptions="actionNext"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.3"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/n4_ekspresi"
-                    android:layout_weight="0.7"/>
-                <EditText
-                    android:text="@string/def_value"
-                    android:id="@+id/et_as_n4"
-                    android:inputType="numberDecimal"
-                    android:imeOptions="actionNext"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.3"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/n5_musik"
-                    android:layout_weight="0.7"/>
-                <EditText
-                    android:text="@string/def_value"
-                    android:id="@+id/et_as_n5"
-                    android:inputType="numberDecimal"
-                    android:imeOptions="actionNext"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.3"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/n6_cirikhas_traditional"
-                    android:layout_weight="0.7"/>
-                <EditText
-                    android:text="@string/def_value"
-                    android:id="@+id/et_as_n6"
-                    android:inputType="numberDecimal"
-                    android:imeOptions="actionNext"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.3"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/n7_komposisi_permainan"
-                    android:layout_weight="0.7"/>
-                <EditText
-                    android:text="@string/def_value"
-                    android:id="@+id/et_as_n7"
-                    android:inputType="numberDecimal"
-                    android:imeOptions="actionNext"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.3"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/n8_hasil_dan_permainan"
-                    android:layout_weight="0.7"/>
-                <EditText
-                    android:text="@string/def_value"
-                    android:id="@+id/et_as_n8"
-                    android:inputType="numberDecimal"
-                    android:imeOptions="actionNext"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.3"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/n9_keterampilan"
-                    android:layout_weight="0.7"/>
-                <EditText
-                    android:text="@string/def_value"
-                    android:id="@+id/et_as_n9"
-                    android:inputType="numberDecimal"
-                    android:imeOptions="actionNext"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.3"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/n10_seragam_dan_peralatan"
-                    android:layout_weight="0.7"/>
-                <EditText
-                    android:text="@string/def_value"
-                    android:id="@+id/et_as_n10"
-                    android:inputType="numberDecimal"
-                    android:imeOptions="actionNext"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.3"/>
-            </LinearLayout>
-            <TextView
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:text="@string/pengurangan"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/ks1_kesalahan_lain"
-                    android:layout_weight="0.7"/>
-                <EditText
-                    android:text="@string/def_value"
-                    android:id="@+id/et_as_ks1"
-                    android:inputType="numberDecimal"
-                    android:imeOptions="actionNext"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.3"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/ks2_kesalahan_kecil"
-                    android:layout_weight="0.7"/>
-                <EditText
-                    android:text="@string/def_value"
-                    android:id="@+id/et_as_ks2"
-                    android:inputType="numberDecimal"
-                    android:imeOptions="actionNext"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.3"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/ks3_kesalahan_sedang"
-                    android:layout_weight="0.7"/>
-                <EditText
-                    android:text="@string/def_value"
-                    android:id="@+id/et_as_ks3"
-                    android:inputType="numberDecimal"
-                    android:imeOptions="actionNext"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.3"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/ks4_kesalahan_besar"
-                    android:layout_weight="0.7"/>
-                <EditText
-                    android:text="@string/def_value"
-                    android:id="@+id/et_as_ks4"
-                    android:inputType="numberDecimal"
 
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.3"/>
-            </LinearLayout>
-            <TextView
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:text="@string/total"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/total_nilai_kotor"
-                    android:layout_weight="0.7"/>
+                    android:layout_weight="0.7"
+                    android:text="@string/n2_judul_dan_alur_cerita" />
+
+                <EditText
+                    android:id="@+id/et_as_n2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:text="@string/def_value" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:text="@string/n3_bentuk_barongsai" />
+
+                <EditText
+                    android:id="@+id/et_as_n3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:text="@string/def_value" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:text="@string/n4_ekspresi" />
+
+                <EditText
+                    android:id="@+id/et_as_n4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:text="@string/def_value" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:text="@string/n5_musik" />
+
+                <EditText
+                    android:id="@+id/et_as_n5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:text="@string/def_value" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:text="@string/n6_cirikhas_traditional" />
+
+                <EditText
+                    android:id="@+id/et_as_n6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:text="@string/def_value" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:text="@string/n7_komposisi_permainan" />
+
+                <EditText
+                    android:id="@+id/et_as_n7"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:text="@string/def_value" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:text="@string/n8_hasil_dan_permainan" />
+
+                <EditText
+                    android:id="@+id/et_as_n8"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:text="@string/def_value" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:text="@string/n9_keterampilan" />
+
+                <EditText
+                    android:id="@+id/et_as_n9"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:text="@string/def_value" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:text="@string/n10_seragam_dan_peralatan" />
+
+                <EditText
+                    android:id="@+id/et_as_n10"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:text="@string/def_value" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/pengurangan"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="@string/ks1_kesalahan_lain" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="0.2"
+                    android:background="@drawable/rectangle_green" />
+
+                <EditText
+                    android:id="@+id/et_as_ks1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:text="@string/def_value" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="@string/ks2_kesalahan_kecil" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="0.2"
+                    android:background="@drawable/rectangle_yellow" />
+
+                <EditText
+                    android:id="@+id/et_as_ks2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:text="@string/def_value" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="@string/ks3_kesalahan_sedang" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="0.2"
+                    android:background="@drawable/rectangle_black" />
+
+                <EditText
+                    android:id="@+id/et_as_ks3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:text="@string/def_value" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="@string/ks4_kesalahan_besar" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="0.2"
+                    android:background="@drawable/rectangle_red" />
+
+                <EditText
+                    android:id="@+id/et_as_ks4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_weight="0.3"
+                    android:inputType="numberDecimal"
+                    android:text="@string/def_value" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/total"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:text="@string/total_nilai_kotor" />
 
                 <TextView
                     android:id="@+id/tv_as_total_kotor"
@@ -326,52 +395,59 @@
                     android:textAppearance="?android:attr/textAppearanceMediumInverse"
                     android:textColor="?attr/editTextColor" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <TextView
 
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/total_pengurangan"
-                    android:layout_weight="0.7"/>
+                    android:layout_weight="0.7"
+                    android:text="@string/total_pengurangan" />
+
                 <TextView
                     android:id="@+id/tv_as_total_pengurangan"
 
-                    android:textColor="?attr/editTextColor"
-                    android:background="?attr/editTextBackground"
-                    android:textAppearance="?android:attr/textAppearanceMediumInverse"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.3"/>
+                    android:layout_weight="0.3"
+                    android:background="?attr/editTextBackground"
+                    android:textAppearance="?android:attr/textAppearanceMediumInverse"
+                    android:textColor="?attr/editTextColor" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/total_nilai_bersih"
-                    android:layout_weight="0.7"/>
+                    android:layout_weight="0.7"
+                    android:text="@string/total_nilai_bersih" />
+
                 <TextView
                     android:id="@+id/tv_as_total_bersih"
-                    android:textColor="?attr/editTextColor"
-                    android:background="?attr/editTextBackground"
-                    android:textAppearance="?android:attr/textAppearanceMediumInverse"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.3"/>
+                    android:layout_weight="0.3"
+                    android:background="?attr/editTextBackground"
+                    android:textAppearance="?android:attr/textAppearanceMediumInverse"
+                    android:textColor="?attr/editTextColor" />
 
             </LinearLayout>
+
             <Button
-                android:layout_marginTop="30dp"
                 android:id="@+id/btn_as_submit"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/btn_submit"/>
+                android:layout_marginTop="30dp"
+                android:text="@string/btn_submit" />
         </LinearLayout>
     </ScrollView>
 

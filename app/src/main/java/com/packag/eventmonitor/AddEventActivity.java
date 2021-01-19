@@ -11,9 +11,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.developer.kalert.KAlertDialog;
@@ -30,21 +32,25 @@ import com.packag.eventmonitor.Data.Events;
 import com.packag.eventmonitor.Data.Team;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 import java.util.Vector;
 
 public class AddEventActivity extends AppCompatActivity {
     TextView tv_ae_tanggal_event_btn;
-    EditText et_ae_themes;
-    EditText et_ae_judges;
+    //EditText et_ae_themes;
+   // EditText et_ae_judges;
     Button btn_ae_submit;
     DatePickerDialog.OnDateSetListener mDateSetListener;
     SimpleDateFormat formatter;
     Date todayDate;
     FirebaseFirestore db;
     ProgressDialog loadingDialog;
+    Spinner sp_ae_themes;
+    Spinner sp_ae_judges;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,9 +61,12 @@ public class AddEventActivity extends AppCompatActivity {
 
     private void initializeComponent() {
         tv_ae_tanggal_event_btn =findViewById(R.id.tv_ae_tanggal_event_btn);
-        et_ae_themes = findViewById(R.id.et_ae_themes);
-        et_ae_judges = findViewById(R.id.et_ae_judges);
+       // et_ae_themes = findViewById(R.id.et_ae_themes);
+        //et_ae_judges = findViewById(R.id.et_ae_judges);
         btn_ae_submit = findViewById(R.id.btn_ae_submit);
+        sp_ae_themes = findViewById(R.id.sp_ae_themes);
+        sp_ae_judges = findViewById(R.id.sp_ae_judges);
+
         todayDate = new Date();
         formatter = new SimpleDateFormat("dd/MM/yyyy");
         db = FirebaseFirestore.getInstance();
@@ -65,6 +74,23 @@ public class AddEventActivity extends AppCompatActivity {
         loadingDialog.setTitle("Processing your Request");
         loadingDialog.setMessage("Please Wait a second...");
 
+        // Spinner Drop down elements
+        List<String> themes = new ArrayList<String>();
+        themes.add("Naga");
+        themes.add("Barongsai Tradisional");
+        themes.add("Barongsai Taolu Bebas");
+        themes.add("Pekingsai");
+        ArrayAdapter<String> themesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, themes);
+        themesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp_ae_themes.setAdapter(themesAdapter);
+
+        List<String> judges = new ArrayList<String>();
+        judges.add("5");
+        judges.add("7");
+        judges.add("9");
+        ArrayAdapter<String> judgesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, judges);
+        judgesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp_ae_judges.setAdapter(judgesAdapter);
     }
     private void setListener() {
         tv_ae_tanggal_event_btn.setOnClickListener(new View.OnClickListener() {
@@ -96,7 +122,7 @@ public class AddEventActivity extends AppCompatActivity {
                 if(validateInput()){
                     loadingDialog.show();
                     final String input_code = getUniqueCode();
-                    if(et_ae_themes.getText().toString().equals("")){
+                    if( sp_ae_themes.getSelectedItem().toString().equals("")){
                         new KAlertDialog(AddEventActivity.this, KAlertDialog.ERROR_TYPE)
                                 .setTitleText("Error!")
                                 .setContentText("Tema Event harus diisi!")
@@ -106,7 +132,7 @@ public class AddEventActivity extends AppCompatActivity {
                                 .setTitleText("Error!")
                                 .setContentText("Tanggal harus dipilih!")
                                 .show();
-                    }else if(et_ae_judges.getText().toString().equals("")){
+                    }else if(sp_ae_judges.getSelectedItem().toString().equals("")){
                         new KAlertDialog(AddEventActivity.this, KAlertDialog.ERROR_TYPE)
                                 .setTitleText("Error!")
                                 .setContentText("Jumlah Juri harus diisi!")
@@ -114,9 +140,9 @@ public class AddEventActivity extends AppCompatActivity {
                     }else{
                         String temp_date[] = tv_ae_tanggal_event_btn.getText().toString().split("/");
                         String input_date = temp_date[2]+"-"+temp_date[1]+"-"+temp_date[0];
-                        String input_themes = et_ae_themes.getText().toString();
+                        String input_themes = sp_ae_themes.getSelectedItem().toString();
                         int input_total_referee = Integer
-                                .parseInt(et_ae_judges.getText().toString());
+                                .parseInt(sp_ae_judges.getSelectedItem().toString());
                         db.collection("events")
                                 .add(new Events(input_code,input_date,1,input_themes
                                         ,input_total_referee))

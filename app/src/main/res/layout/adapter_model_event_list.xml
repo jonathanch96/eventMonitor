@@ -30,30 +30,72 @@
             android:src="@drawable/ic_barcode"/>
 
     </LinearLayout>
-
-    <LinearLayout
+    <RelativeLayout
         android:paddingLeft="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:textSize="20dp"
-            android:id="@+id/tv_amel_event_themes"
-            android:layout_width="match_parent"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:id="@+id/ll_amel_information_container"
+            android:paddingLeft="20dp"
+            android:layout_alignParentStart="true"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:orientation="vertical">
+            <TextView
+                android:textSize="20dp"
+                android:id="@+id/tv_amel_event_themes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
 
-        <TextView
-            android:id="@+id/tv_amel_total_judges"
-            android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tv_amel_total_judges"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+            <TextView
+                android:id="@+id/tv_amel_total_team"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+
+        </LinearLayout>
+        <FrameLayout
+            android:id="@+id/fl_amel_chat"
+            style="?attr/actionButtonStyle"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
-        <TextView
-            android:id="@+id/tv_amel_total_team"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-    </LinearLayout>
+            android:layout_alignParentRight="true"
+            android:clipToPadding="false"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+
+                android:src="@drawable/chat_icon_black"/>
+
+            <TextView
+                android:id="@+id/cart_badge_amel"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="right|end|top"
+                android:layout_marginEnd="-5dp"
+                android:layout_marginRight="-5dp"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/badge_background"
+                android:gravity="center"
+                android:padding="3dp"
+                android:textColor="@android:color/white"
+                android:text="0"
+                android:textSize="10sp"/>
+
+        </FrameLayout>
+    </RelativeLayout>
+
 
 
     <LinearLayout

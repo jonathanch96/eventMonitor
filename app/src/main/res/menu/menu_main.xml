@@ -3,12 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
-
+    <item
+        android:id="@+id/action_chat"
+        android:orderInCategory="300"
+        android:title="User"
+        app:actionLayout="@layout/chat_icon_action_layout"
+        app:showAsAction="always"></item>
     <item
         android:id="@+id/action_favorite"
         android:orderInCategory="300"
         android:title="User"
         android:icon="@drawable/ic_exit_to_app_24dp"
         app:showAsAction="ifRoom"></item>
+
 
 </menu>

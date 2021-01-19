@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     Session session ;
     Events events;
     ProgressDialog loadingDialog;
+    FirestoreController fc = new FirestoreController();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
                                         .setContentText("Event "+events.getCode()+" sudah berakhir silahkan untuk login ulang!")
                                         .show();
                             }else{
+                                fc.refereeNumbering(events.getKey());
                                 Intent i = new Intent(MainActivity.this,RefereeActivity.class);
                                 startActivity(i);
 

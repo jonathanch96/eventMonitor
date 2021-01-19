@@ -16,7 +16,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.developer.kalert.KAlertDialog;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.packag.eventmonitor.Data.Team;
 import com.packag.eventmonitor.DetailPenilaianActivity;
 import com.packag.eventmonitor.FirestoreController;
@@ -28,6 +32,7 @@ public class AdapterListTeamAdmin extends RecyclerView.Adapter<AdapterListTeamAd
     String eventId;
     Vector<Team> dataTeam;
     private Context ctx;
+    boolean no_urut_validation = true;
     FirestoreController fc = new FirestoreController();
     @NonNull
     @Override
@@ -76,6 +81,7 @@ public class AdapterListTeamAdmin extends RecyclerView.Adapter<AdapterListTeamAd
             btn_amtla_edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     LayoutInflater li = LayoutInflater.from(ctx);
                     View promptsView = li.inflate(R.layout.adapter_model_dialog_assign_team, null);
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
@@ -96,9 +102,51 @@ public class AdapterListTeamAdmin extends RecyclerView.Adapter<AdapterListTeamAd
                                             final FirebaseFirestore db = FirebaseFirestore.getInstance();
                                             final Vector<Team> teams =new Vector<Team>();
 
+                                            if(et_amlat_team_name.getText().toString().equals("")){
+                                                new KAlertDialog(ctx, KAlertDialog.ERROR_TYPE)
+                                                        .setTitleText("Error!")
+                                                        .setContentText("Nama Team harus diisi!")
+                                                        .show();
+                                            }else if(et_amlat_no_urut.getText().toString().equals("")){
+                                                new KAlertDialog(ctx, KAlertDialog.ERROR_TYPE)
+                                                        .setTitleText("Error!")
+                                                        .setContentText("No urut harus diisi!")
+                                                        .show();
+                                            }else{
+                                                no_urut_validation = true;
+                                                //validate no urut
+                                                db.collection("events")
+                                                        .document(eventId)
+                                                        .collection("team").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                        if (task.isSuccessful()) {
+                                                            for (QueryDocumentSnapshot d2 : task.getResult()) {
+                                                                Team temp_team = d2.toObject(Team.class);
+                                                                if(Integer.parseInt(et_amlat_no_urut.getText().toString())
+                                                                        ==temp_team.getNo_urut()&&temp_team.getNo_urut()!=team.getNo_urut()){
+                                                                    no_urut_validation = false;
+                                                                }
+                                                            }
+                                                            if(no_urut_validation == true){
+                                                                fc.updateTeam(eventId,team.getKey(),new Team(et_amlat_team_name.getText().toString(),
+                                                                        Integer.parseInt(et_amlat_no_urut.getText().toString())));
+                                                            }else{
+                                                                new KAlertDialog(ctx, KAlertDialog.ERROR_TYPE)
+                                                                        .setTitleText("Error!")
+                                                                        .setContentText("No urut sudah ada!")
+                                                                        .show();
+                                                            }
 
-                                            fc.updateTeam(eventId,team.getKey(),new Team(et_amlat_team_name.getText().toString(),
-                                                    Integer.parseInt(et_amlat_no_urut.getText().toString())));
+                                                        }
+                                                    }
+                                                });
+
+
+                                            }
+
+
+
 
 
 

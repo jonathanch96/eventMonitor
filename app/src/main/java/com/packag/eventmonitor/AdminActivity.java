@@ -83,7 +83,12 @@ public class AdminActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_refresh) {
+            finish();
+            overridePendingTransition( 0, 0);
+            startActivity(getIntent());
+            overridePendingTransition( 0, 0);
+
             return true;
         }
 

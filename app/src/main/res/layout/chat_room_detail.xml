@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="10dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:clipToPadding="false">
+
+    <View
+        android:id="@+id/avatar_rd"
+        android:layout_alignParentLeft="true"
+        android:scaleType="centerInside"
+        android:background="@drawable/chat_circle"
+        android:layout_width="60dp"
+        android:layout_height="60dp" />
+
+    <TextView
+        android:textStyle="bold"
+        android:id="@+id/name_rd"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@+id/avatar_rd"
+        android:layout_alignTop="@+id/avatar_rd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="4dp"
+        android:textSize="18dp"
+        android:text="Rose"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/message_body_rd"
+        android:layout_below="@+id/name_rd"
+        android:layout_alignLeft="@+id/name_rd"
+        android:maxLines="1"
+        android:paddingVertical="5dp"
+        android:paddingHorizontal="10dp"
+        android:elevation="2dp"
+        android:textSize="16dp"
+        android:text="How are you doing? This is a long message that should probably wrap."
+        />
+
+        <TextView
+            android:id="@+id/cart_badge_rd"
+            android:layout_alignParentRight="true"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="right|end|top"
+            android:layout_marginEnd="-5dp"
+            android:layout_marginRight="-5dp"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/badge_background"
+            android:gravity="center"
+            android:padding="3dp"
+            android:textColor="@android:color/white"
+            android:layout_below="@id/name_rd"
+            android:text="0"
+            android:textSize="10sp"/>
+
+
+</RelativeLayout>

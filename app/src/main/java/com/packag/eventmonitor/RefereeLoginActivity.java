@@ -22,9 +22,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.packag.eventmonitor.Adapter.AdapterListReferee;
 import com.packag.eventmonitor.Data.Events;
 import com.packag.eventmonitor.Data.Referee;
 import com.packag.eventmonitor.Data.Team;
@@ -42,6 +47,7 @@ public class RefereeLoginActivity extends AppCompatActivity {
     Session session;
     Boolean flagFound = false;
     final int REQUEST_CODE = 999;
+    FirestoreController fc = new FirestoreController();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,8 +139,11 @@ public class RefereeLoginActivity extends AppCompatActivity {
 
                                 session.setData("loginType","referee");
                                 session.setData("eventId",events.getKey());
+                                fc.refereeNumbering(events.getKey());
+
 
                                 if(session.getData("refereeId").equals("")) {
+
 
                                     DocumentReference refereeRef=  db.collection("events").document(events.getKey())
                                             .collection("referee").document();

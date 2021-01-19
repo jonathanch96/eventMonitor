@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,6 +30,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.packag.eventmonitor.BarcodeActivity;
+import com.packag.eventmonitor.ChatRoomAdminActivity;
 import com.packag.eventmonitor.Data.Events;
 import com.packag.eventmonitor.Data.Team;
 import com.packag.eventmonitor.FirestoreController;
@@ -42,6 +44,7 @@ public class AdapterListEvent extends BaseAdapter {
     private Context ctx;
     Vector<Events> dataEvent;
     FirestoreController fc = new FirestoreController();
+    boolean no_urut_validation = true;
 
     public AdapterListEvent(Context ctx, Vector<Events> dataEvent) {
         this.ctx = ctx;
@@ -70,6 +73,7 @@ public class AdapterListEvent extends BaseAdapter {
         TextView tv_amel_event_code = v.findViewById(R.id.tv_amel_event_code);
         TextView tv_amel_event_themes = v.findViewById(R.id.tv_amel_event_themes);
         TextView tv_amel_total_judges = v.findViewById(R.id.tv_amel_total_judges);
+        FrameLayout fl_amel_chat = v.findViewById(R.id.fl_amel_chat);
         TextView tv_amel_total_team = v.findViewById(R.id.tv_amel_total_team);
         Button btn_amel_assign_team = v.findViewById(R.id.btn_amel_assign_team);
         Button btn_amel_lihat_team = v.findViewById(R.id.btn_amel_lihat_team);
@@ -96,6 +100,16 @@ public class AdapterListEvent extends BaseAdapter {
         }else{
             btn_amel_event_finish.setText(R.string.btn_event_active);
         }
+        fl_amel_chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ctx, ChatRoomAdminActivity.class);
+                intent.putExtra("eventId",dataEvent.get(i).getKey());
+                intent.putExtra("userId","admin");
+                intent.putExtra("name","Admin");
+                ctx.startActivity(intent);
+            }
+        });
         btn_amel_assign_team.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,10 +143,37 @@ public class AdapterListEvent extends BaseAdapter {
                                                     .setContentText("No urut harus diisi!")
                                                     .show();
                                         }else{
-                                            fc.addTeam(dataEvent.get(i).getKey(),new Team(et_amlat_team_name.getText().toString(),
-                                                    Integer.parseInt(et_amlat_no_urut.getText().toString())));
+                                            no_urut_validation = true;
+                                            //validate no urut
+                                            db.collection("events")
+                                                    .document(dataEvent.get(i).getKey())
+                                                    .collection("team").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                    if (task.isSuccessful()) {
+                                                        for (QueryDocumentSnapshot d2 : task.getResult()) {
+                                                            Team temp_team = d2.toObject(Team.class);
+                                                            if(Integer.parseInt(et_amlat_no_urut.getText().toString())==temp_team.getNo_urut()){
+                                                                no_urut_validation = false;
+                                                            }
+                                                        }
+                                                        if(no_urut_validation == true){
+                                                            fc.addTeam(dataEvent.get(i).getKey(),new Team(et_amlat_team_name.getText().toString(),
+                                                                    Integer.parseInt(et_amlat_no_urut.getText().toString())));
 
-                                            fc.recalculateTotalTeam(dataEvent.get(i).getKey());
+                                                            fc.recalculateTotalTeam(dataEvent.get(i).getKey());
+                                                        }else{
+                                                            new KAlertDialog(ctx, KAlertDialog.ERROR_TYPE)
+                                                                    .setTitleText("Error!")
+                                                                    .setContentText("No urut sudah ada!")
+                                                                    .show();
+                                                        }
+
+                                                    }
+                                                }
+                                            });
+
+
                                         }
 
 
