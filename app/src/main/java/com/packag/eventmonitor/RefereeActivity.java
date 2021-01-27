@@ -28,7 +28,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.packag.eventmonitor.Adapter.AdapterListTeam;
 import com.packag.eventmonitor.Data.Events;
-import com.packag.eventmonitor.Data.Penilaian;
+import com.packag.eventmonitor.Data.PenilaianTraditional;
 import com.packag.eventmonitor.Data.Referee;
 import com.packag.eventmonitor.Data.Team;
 import com.packag.eventmonitor.Util.Session;
@@ -133,7 +133,7 @@ public class RefereeActivity extends AppCompatActivity {
                                 public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
 
                                     if (documentSnapshot.exists()) {
-                                        Penilaian penilaian = documentSnapshot.toObject(Penilaian.class);
+                                        PenilaianTraditional penilaian = documentSnapshot.toObject(PenilaianTraditional.class);
                                         penilaian.setKey(documentSnapshot.getId());
                                         teamClass.setPenilaian(penilaian);
                                     }
@@ -156,7 +156,20 @@ public class RefereeActivity extends AppCompatActivity {
         lv_ar_listTeam.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                themes.add("Naga");
+//                themes.add("Barongsai Tradisional");
+//                themes.add("Barongsai Taolu Bebas");
+//                themes.add("Pekingsai");
                 Intent intent = new Intent(RefereeActivity.this,Scoring.class);
+                if(events.getThemes().equals("Naga")){
+                    intent = new Intent(RefereeActivity.this,ScoringNagaActivity.class);
+                }else if(events.getThemes().equals("Barongsai Taolu Bebas")){
+
+                }else if(events.getThemes().equals("Pekingsai")) {
+
+                }else{
+                    intent = new Intent(RefereeActivity.this,Scoring.class);
+                }
                 intent.putExtra("teamId",dataTeam.get(i).getKey());
                 startActivityForResult(intent,REQUEST);
 

@@ -8,20 +8,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -30,7 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.packag.eventmonitor.Adapter.AdapterListReferee;
-import com.packag.eventmonitor.Data.Penilaian;
+import com.packag.eventmonitor.Data.PenilaianTraditional;
 import com.packag.eventmonitor.Data.Referee;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -47,7 +43,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Locale;
 import java.util.Vector;
 
 import javax.annotation.Nullable;
@@ -60,7 +55,7 @@ public class DetailPenilaianActivity extends AppCompatActivity {
     RecyclerView rv_adp_list_referee;
     TextView tv_adp_team_name;
     Vector<Referee> dataReferee;
-    Vector<Penilaian> dataPenilaian;
+    Vector<PenilaianTraditional> dataPenilaian;
     FirebaseFirestore db;
 
     FloatingActionButton fab_adp;
@@ -83,7 +78,7 @@ public class DetailPenilaianActivity extends AppCompatActivity {
         tv_adp_team_name = findViewById(R.id.tv_adp_team_name);
         fab_adp = findViewById(R.id.fab_adp);
         dataReferee=new Vector<Referee>();
-        dataPenilaian=new Vector<Penilaian>();
+        dataPenilaian=new Vector<PenilaianTraditional>();
         db = FirebaseFirestore.getInstance();
 
     }
@@ -96,9 +91,9 @@ public class DetailPenilaianActivity extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 dataReferee = new Vector<Referee>();
-                dataPenilaian = new Vector<Penilaian>();
+                dataPenilaian = new Vector<PenilaianTraditional>();
                 for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                    final Penilaian penilaian = document.toObject(Penilaian.class);
+                    final PenilaianTraditional penilaian = document.toObject(PenilaianTraditional.class);
                     penilaian.setKey(document.getId());
                     dataPenilaian.add(penilaian);
                     eventRef.collection("referee").document(document.getId()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -193,7 +188,7 @@ public class DetailPenilaianActivity extends AppCompatActivity {
     }
 
 
-    private void exportPenilaianToExcel(Vector<Penilaian> penilaians,Vector<Referee> referees){
+    private void exportPenilaianToExcel(Vector<PenilaianTraditional> penilaians, Vector<Referee> referees){
 
          String[] columns = {
                  "Juri",
@@ -250,7 +245,7 @@ public class DetailPenilaianActivity extends AppCompatActivity {
 
         // Create Other rows and cells with employees data
         int rowNum = 0;
-        for (Penilaian p : penilaians){
+        for (PenilaianTraditional p : penilaians){
             Row row = sheet.createRow(rowNum+1);
 
             row.createCell(0)

@@ -8,24 +8,29 @@ public class Team {
     String team_name;
     String key;
     int no_urut;
-    Vector<Penilaian> dataNilai;
-    Penilaian penilaian;
+    Vector<PenilaianTraditional> dataNilai;
+    PenilaianTraditional penilaian;
 
 
-    @Exclude public Penilaian getPenilaian() {
+    double nilai_bersih;
+    double pengurangan_nb;
+    double total_nilai; //final
+
+
+    @Exclude public PenilaianTraditional getPenilaian() {
         return penilaian;
     }
 
-    @Exclude public void setPenilaian(Penilaian penilaian) {
+    @Exclude public void setPenilaian(PenilaianTraditional penilaian) {
         this.penilaian = penilaian;
     }
 
 
-    @Exclude public Vector<Penilaian> getDataNilai() {
+    @Exclude public Vector<PenilaianTraditional> getDataNilai() {
         return dataNilai;
     }
 
-    @Exclude public void setDataNilai(Vector<Penilaian> dataNilai) {
+    @Exclude public void setDataNilai(Vector<PenilaianTraditional> dataNilai) {
         this.dataNilai = dataNilai;
     }
 

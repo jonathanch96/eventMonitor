@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,7 +17,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.packag.eventmonitor.Data.Penilaian;
+import com.packag.eventmonitor.Data.PenilaianTraditional;
 import com.packag.eventmonitor.Data.Referee;
 import com.packag.eventmonitor.Data.Team;
 import com.packag.eventmonitor.R;
@@ -33,7 +32,7 @@ public class AdapterListReferee extends RecyclerView.Adapter<AdapterListReferee.
     String eventId;
     String teamId;
     FirebaseFirestore db;
-    Penilaian penilaian;
+    PenilaianTraditional penilaian;
     Team team;
 
     @NonNull
@@ -140,7 +139,7 @@ public class AdapterListReferee extends RecyclerView.Adapter<AdapterListReferee.
                                 @Override
                                 public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                                     if(documentSnapshot.exists()){
-                                        penilaian=documentSnapshot.toObject(Penilaian.class);
+                                        penilaian=documentSnapshot.toObject(PenilaianTraditional.class);
                                         penilaian.setKey(documentSnapshot.getId());
 
                                         tv_amdp_n1.setText( String.format("%.2f", penilaian.getN1())+"");
@@ -184,7 +183,7 @@ public class AdapterListReferee extends RecyclerView.Adapter<AdapterListReferee.
         this.eventId = eventId;
         this.teamId = teamId;
         db = FirebaseFirestore.getInstance();
-        penilaian = new Penilaian();
+        penilaian = new PenilaianTraditional();
         team = new Team();
     }
 }

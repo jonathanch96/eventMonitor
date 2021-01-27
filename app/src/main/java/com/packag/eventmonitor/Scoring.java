@@ -21,12 +21,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.packag.eventmonitor.Data.Penilaian;
+import com.packag.eventmonitor.Data.PenilaianTraditional;
 import com.packag.eventmonitor.Data.Team;
 import com.packag.eventmonitor.Util.Session;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 public class Scoring extends AppCompatActivity {
     Intent intent;
@@ -61,7 +58,7 @@ public class Scoring extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scoring);
+        setContentView(R.layout.activity_penilaian_traditional);
         initializeComponent();
         setListener();
     }
@@ -114,7 +111,7 @@ public class Scoring extends AppCompatActivity {
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                     DocumentSnapshot d2 = task.getResult();
                                 if(d2.exists()){
-                                    Penilaian init_nilai = d2.toObject(Penilaian.class);
+                                    PenilaianTraditional init_nilai = d2.toObject(PenilaianTraditional.class);
                                     team.setPenilaian(init_nilai);
 
                                     et_as_n1.setText(Double.toString(init_nilai.getN1()));
@@ -658,7 +655,7 @@ public class Scoring extends AppCompatActivity {
                 if(validateData()){
                     teamRef.collection("penilaian")
                             .document(session.getData("refereeId"))
-                            .set(new Penilaian(
+                            .set(new PenilaianTraditional(
                                     Double.parseDouble(et_as_n1.getText().toString()),
                                     Double.parseDouble(et_as_n2.getText().toString()),
                                     Double.parseDouble(et_as_n3.getText().toString()),

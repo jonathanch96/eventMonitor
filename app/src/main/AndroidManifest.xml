@@ -16,6 +16,7 @@
         <activity android:name=".BarcodeActivity"></activity>
         <activity android:name=".DetailPenilaianActivity" />
         <activity android:name=".Scoring" />
+        <activity android:name=".ScoringNagaActivity" />
         <activity android:name=".AddEventActivity" />
         <activity android:name=".RefereeActivity" />
         <activity

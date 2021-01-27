@@ -79,4 +79,78 @@
     <string name="total_nilai_bersih">Nilai Bersih</string>
 
 
+<!--    FOrm Naga-->
+    <string name="ap_naga_type_1">I. Gerakan</string>
+    <string name="ap_naga_type_1_det_1">- Seluruh Permainan harus sempurna</string>
+    <string name="ap_naga_type_1_det_2">- Nilai Maks 5</string>
+    <string name="ap_naga_type_1_det_3">- Cara Pemotongan : </string>
+    <string name="ap_naga_type_1_det_3_1">* Kecil : 0.1 </string>
+    <string name="ap_naga_type_1_det_3_2">* Sedang : 0.2 </string>
+    <string name="ap_naga_type_1_det_3_3">* Besar : 0.3 </string>
+    <string name="ap_naga_input">- Input : </string>
+    <string name="nilai">Nilai : </string>
+    <string name="ap_naga_potongan">Potongan : </string>
+
+    <string name="ap_naga_type_2">II. Seni dan Penampilan</string>
+    <string name="ap_naga_type_2_det_1">- Nilai Maks 3</string>
+    <string name="ap_naga_type_2_det_1_1">1. Semangat, Variasi, Kompak, Tehnik</string>
+    <string name="ap_naga_type_2_det_1_2">2. Peralatan, Seragam, Bersih, dan Serasi</string>
+    <string name="ap_naga_type_2_det_1_3">3. Keserasian Musik</string>
+
+    <string name="ap_naga_type_3">III. Tingkat Kesulitan</string>
+    <string name="ap_naga_type_3_det_1">- Nilai Maks 2</string>
+    <string name="ap_naga_type_3_det_2">- 10 = 1.5</string>
+    <string name="ap_naga_type_3_det_3">- Lebih 1 grk +0.05</string>
+    <string name="ap_naga_type_3_det_4">- Kurang 1 grk -0.1</string>
+    <string name="ap_naga_total_penilaian">Total Penilaian</string>
+    <string name="ap_naga_total_pengurangan">Total Pengurangan</string>
+    <string name="ap_naga_grand_total">Grand Total</string>
+
+    <string name="ap_naga_type_4">IV. Catatan</string>
+    <string name="tingkat_kesulitan">Tingkat Kesulitan</string>
+
+<!--form Pekingsai-->
+    <string name="ap_pekingsai_type_1">I. Standard</string>
+    <string name="ap_pekingsai_type_1_det_1">1. Keindahan gerakan (kelincahan, semangat &amp; bertenaga)</string>
+    <string name="ap_pekingsai_type_1_det_2">2. Bentuk Pekingsai, kostum, tata tertib keluar-masuk lapangan</string>
+    <string name="ap_pekingsai_type_1_det_3">3. Gerakan masuk akal, rytme kecepatan dan teknik gerakan</string>
+    <string name="ap_pekingsai_type_1_det_4">4. Langkah pemain &amp; variasi kuda-kuda (minimal 10 macam)</string>
+    <string name="ap_pekingsai_type_1_det_5">5. Keserasian / kekompakan kepala dan ekor (harmonisasi &amp; kerjasama)</string>
+
+    <string name="ap_pekingsai_type_2">II. Ekspresi</string>
+    <string name="ap_pekingsai_type_2_det_1">1. Ekspresi (Gembira, Marah, Takut, Curiga, Ragu - Ragu, Mabuk, Tidur, Kaget, dll)</string>
+    <string name="ap_pekingsai_type_2_det_2">2. Kesesuaian dengan alur cerita, keserasian Pekingsai, alat peraga</string>
+    <string name="ap_pekingsai_type_2_det_3">3. Musik jelas dan serasi dengan gerakan Pekingsai</string>
+
+    <string name="ap_pekingsai_type_3">III. Tingkat Kesulitan</string>
+    <string name="ap_pekingsai_type_3_det_1">1. Melaksanakan 5 gerakan tingkat kesulitan</string>
+    <string name="ap_pekingsai_type_3_det_2">2. Setiap kekurangan gerakan potongan nilai</string>
+    <string name="ap_pekingsai_type_3_det_3">3. Setiap kelebihan gerakan tambahan nilai 0,1 max tambahan nilai 0,5</string>
+
+    <string name="ap_pekingsai_type_4">IV. Pengurangan</string>
+    <string name="ap_pekingsai_type_5">V. Catatan</string>
+    <string name="ap_pekingsai_type_5_det_1">Jumlah gerakan tingkat kesulitan</string>
+
+<!--FOrm Taolu-->
+    <string name="ap_taolu_type_1">Gerakan Standard</string>
+    <string name="ap_taolu_type_1_det_1">1. Keindahan gerakan (kelincahan, semangat &amp; bertenaga)</string>
+    <string name="ap_taolu_type_1_det_2">2. Bentuk Barongsai, kostum, tata tertib keluar - masuk lapangan</string>
+    <string name="ap_taolu_type_1_det_3">3. Gerakan masuk akal, rytme kecepatan dan teknik gerakan</string>
+    <string name="ap_taolu_type_1_det_4">4. Langkah pemain &amp; variasi kuda-kuda (minimal 10 macam)</string>
+    <string name="ap_taolu_type_1_det_5">5. Keserasian / kekompakan kepala &amp; ekor (harmonisasi &amp; kerjasama)</string>
+    <string name="ap_taolu_type_2">Ekspresi</string>
+    <string name="ap_taolu_type_2_det_1">1. Ekspresi (gembira,marah, takut, mabuk, tidur, waspada, bangun, diam, dll)</string>
+    <string name="ap_taolu_type_2_det_2">2. Kesesuaian dengan alur cerita, keserasian barongsai, alat peraga,      dekorasi</string>
+    <string name="ap_taolu_type_2_det_3">3. Musik jelas dan serasi dengan gerakan Barongsai</string>
+    <string name="ap_taolu_type_3">Tingkat Kesulitan</string>
+    <string name="ap_taolu_type_3_det_1">1. Melaksanakan 5 gerakan tingkat kesulitan</string>
+    <string name="ap_taolu_type_3_det_2">2. Setiap kekurangan gerakan potong nilai</string>
+    <string name="ap_taolu_type_3_det_3">3. Setiap kelebihangerakan tambahan nilai 0,1 max tambahan nilai 0,5</string>
+    <string name="ap_taolu_type_4">Catatan</string>
+    <string name="ap_taolu_type_4_det_1">Jumlah total gerakan tingkat kesulitan</string>
+
+
+
+
+
 </resources>
