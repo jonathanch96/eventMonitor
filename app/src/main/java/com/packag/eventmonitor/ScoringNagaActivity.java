@@ -76,8 +76,8 @@ public class ScoringNagaActivity extends AppCompatActivity {
         loadingDialog.setMessage("Please Wait a second...");
         teamId = intent.getStringExtra("teamId");
         session = new Session(this.getApplicationContext());
-        tv_ap_naga_no_urut = findViewById(R.id.tv_as_no_urut);
-        tv_ap_naga_team_name = findViewById(R.id.tv_as_team_name);
+        tv_ap_naga_no_urut = findViewById(R.id.tv_ap_naga_no_urut);
+        tv_ap_naga_team_name = findViewById(R.id.tv_ap_naga_team_name);
         et_amdp_naga_n1 = findViewById(R.id.et_amdp_naga_n1);
         et_amdp_naga_n2 = findViewById(R.id.et_amdp_naga_n2);
         et_amdp_naga_n3 = findViewById(R.id.et_amdp_naga_n3);
@@ -107,8 +107,8 @@ public class ScoringNagaActivity extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if(document.exists()) {
                         team = document.toObject(Team.class);
-                        //tv_ap_naga_no_urut.setText("Nomor Urut : " + team.getNo_urut());
-                        //tv_ap_naga_team_name.setText("Nama Team : " + team.getTeam_name());
+                        tv_ap_naga_no_urut.setText("Nomor Urut : " + team.getNo_urut());
+                        tv_ap_naga_team_name.setText("Nama Team : " + team.getTeam_name());
                         teamRef.collection("penilaian")
                                 .document(session.getData("refereeId")).collection("field").get()
                                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -678,6 +678,8 @@ public class ScoringNagaActivity extends AppCompatActivity {
         teamRef.collection("penilaian")
                 .document(session.getData("refereeId"))
                 .set(rp);
+        FirestoreController fc = new FirestoreController();
+        fc.recalculateNilaiBersih(session.getData("eventId"),teamId);
 
 
     }

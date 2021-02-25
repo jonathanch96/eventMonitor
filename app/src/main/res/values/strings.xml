@@ -69,15 +69,20 @@
     <string name="n8_hasil_dan_permainan">Hasil dan Permainan (Max : 1)</string>
     <string name="n9_keterampilan">Keterampilan (Max : 1)</string>
     <string name="n10_seragam_dan_peralatan">Seragam dan Perlatan/Dekorasi (Max : 1)</string>
-    <string name="ks1_kesalahan_lain">Kesalahan lain</string>
-    <string name="ks2_kesalahan_kecil">Kesalahan kecil</string>
-    <string name="ks3_kesalahan_sedang">Kesalahan sedang</string>
-    <string name="ks4_kesalahan_besar">Kesalahan besar</string>
+    <string name="ks1_kesalahan_lain">Kesalahan lain(0.1 x ...)</string>
+    <string name="ks2_kesalahan_kecil">Kesalahan kecil (0.3 x ...)</string>
+    <string name="ks3_kesalahan_sedang">Kesalahan sedang(0.5 x ...)</string>
+    <string name="ks4_kesalahan_besar">Kesalahan besar(1 x ...)</string>
     <string name="total">Total</string>
-    <string name="total_nilai_kotor">Nilai Kotor</string>
-    <string name="total_pengurangan">Pengurangan</string>
-    <string name="total_nilai_bersih">Nilai Bersih</string>
 
+
+
+    <string name="nilai_maks_1">Nilai (Max : 1.0) :</string>
+    <string name="nilai_maks_2">Nilai (Max : 2.0) :</string>
+    <string name="nilai_maks_3">Nilai (Max : 3.0) :</string>
+    <string name="nilai_maks_4">Nilai (Max : 4.0) :</string>
+    <string name="nilai_maks_5">Nilai (Max : 5.0) :</string>
+    <string name="nilai">Nilai : </string>
 
 <!--    FOrm Naga-->
     <string name="ap_naga_type_1">I. Gerakan</string>
@@ -88,7 +93,7 @@
     <string name="ap_naga_type_1_det_3_2">* Sedang : 0.2 </string>
     <string name="ap_naga_type_1_det_3_3">* Besar : 0.3 </string>
     <string name="ap_naga_input">- Input : </string>
-    <string name="nilai">Nilai : </string>
+
     <string name="ap_naga_potongan">Potongan : </string>
 
     <string name="ap_naga_type_2">II. Seni dan Penampilan</string>
@@ -102,14 +107,15 @@
     <string name="ap_naga_type_3_det_2">- 10 = 1.5</string>
     <string name="ap_naga_type_3_det_3">- Lebih 1 grk +0.05</string>
     <string name="ap_naga_type_3_det_4">- Kurang 1 grk -0.1</string>
-    <string name="ap_naga_total_penilaian">Total Penilaian</string>
-    <string name="ap_naga_total_pengurangan">Total Pengurangan</string>
-    <string name="ap_naga_grand_total">Grand Total</string>
+    <string name="total_penilaian">Total Penilaian</string>
+    <string name="total_pengurangan">Total Pengurangan</string>
+    <string name="grand_total">Grand Total</string>
 
     <string name="ap_naga_type_4">IV. Catatan</string>
     <string name="tingkat_kesulitan">Tingkat Kesulitan</string>
 
 <!--form Pekingsai-->
+
     <string name="ap_pekingsai_type_1">I. Standard</string>
     <string name="ap_pekingsai_type_1_det_1">1. Keindahan gerakan (kelincahan, semangat &amp; bertenaga)</string>
     <string name="ap_pekingsai_type_1_det_2">2. Bentuk Pekingsai, kostum, tata tertib keluar-masuk lapangan</string>

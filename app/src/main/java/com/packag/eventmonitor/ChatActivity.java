@@ -86,10 +86,10 @@ public class ChatActivity extends AppCompatActivity {
         Query chatref;
         if(userId.equals("admin")){
             chatref = db.collection("chats").orderBy("created_at", Query.Direction.ASCENDING)
-                    .whereIn("userId", Arrays.asList("admin", destUserId));
+                    .whereIn("userId", Arrays.asList("admin", destUserId)).whereEqualTo("eventId",eventId);
         }else{
             chatref = db.collection("chats").orderBy("created_at", Query.Direction.ASCENDING)
-                    .whereIn("userId", Arrays.asList("admin", userId));
+                    .whereIn("userId", Arrays.asList("admin", userId)).whereEqualTo("eventId",eventId);
         }
 
 

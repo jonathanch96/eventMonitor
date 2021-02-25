@@ -28,8 +28,10 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.packag.eventmonitor.Adapter.AdapterListTeam;
 import com.packag.eventmonitor.Data.Events;
+import com.packag.eventmonitor.Data.Penilaian;
 import com.packag.eventmonitor.Data.PenilaianTraditional;
 import com.packag.eventmonitor.Data.Referee;
+import com.packag.eventmonitor.Data.RefereePenilaian;
 import com.packag.eventmonitor.Data.Team;
 import com.packag.eventmonitor.Util.Session;
 import com.packag.eventmonitor.Util.Setting;
@@ -125,6 +127,7 @@ public class RefereeActivity extends AppCompatActivity {
                 for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                     final Team teamClass = document.toObject(Team.class);
                     teamClass.setKey(document.getId());
+
                     teamRef.document(document.getId())
                             .collection("penilaian")
                             .document(session.getData("refereeId"))
@@ -133,7 +136,8 @@ public class RefereeActivity extends AppCompatActivity {
                                 public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
 
                                     if (documentSnapshot.exists()) {
-                                        PenilaianTraditional penilaian = documentSnapshot.toObject(PenilaianTraditional.class);
+                                        RefereePenilaian penilaian = documentSnapshot.toObject(RefereePenilaian.class);
+                                        //PenilaianTraditional penilaian = documentSnapshot.toObject(PenilaianTraditional.class);
                                         penilaian.setKey(documentSnapshot.getId());
                                         teamClass.setPenilaian(penilaian);
                                     }
@@ -164,11 +168,11 @@ public class RefereeActivity extends AppCompatActivity {
                 if(events.getThemes().equals("Naga")){
                     intent = new Intent(RefereeActivity.this,ScoringNagaActivity.class);
                 }else if(events.getThemes().equals("Barongsai Taolu Bebas")){
-
+                    intent = new Intent(RefereeActivity.this,ScoringTaoluActivity.class);
                 }else if(events.getThemes().equals("Pekingsai")) {
-
+                    intent = new Intent(RefereeActivity.this,ScoringPekingsaiActivity.class);
                 }else{
-                    intent = new Intent(RefereeActivity.this,Scoring.class);
+                    intent = new Intent(RefereeActivity.this,ScoringTraditionalActivity.class);
                 }
                 intent.putExtra("teamId",dataTeam.get(i).getKey());
                 startActivityForResult(intent,REQUEST);

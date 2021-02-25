@@ -5,13 +5,13 @@
     android:padding="20dp">
     <TextView
         android:paddingLeft="20dp"
-        android:id="@+id/tv_amdp_no_urut"
+        android:id="@+id/tv_amdp_no_urut_naga"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/no_urut" />
     <TextView
         android:paddingLeft="20dp"
-        android:id="@+id/tv_amdp_team_name"
+        android:id="@+id/tv_amdp_team_name_naga"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/team_name" />
@@ -19,7 +19,7 @@
 
     <TextView
         android:paddingLeft="20dp"
-        android:id="@+id/tv_amdp_referee"
+        android:id="@+id/tv_amdp_referee_naga"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/referee"
@@ -330,11 +330,11 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/total_nilai_kotor"
+                    android:text="@string/total_penilaian"
                     android:layout_weight="0.7"/>
 
                 <TextView
-                    android:id="@+id/tv_amdp_total_kotor"
+                    android:id="@+id/tv_amdp_total_nilai"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
@@ -369,10 +369,10 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/total_nilai_bersih"
+                    android:text="@string/grand_total"
                     android:layout_weight="0.7"/>
                 <TextView
-                    android:id="@+id/tv_amdp_total_bersih"
+                    android:id="@+id/tv_amdp_grand_total"
                     android:textColor="?attr/editTextColor"
                     android:background="?attr/editTextBackground"
                     android:textAppearance="?android:attr/textAppearanceMediumInverse"

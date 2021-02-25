@@ -6,14 +6,14 @@
     android:padding="20dp">
 
     <TextView
-        android:id="@+id/tv_amdp_no_urut"
+        android:id="@+id/tv_amdp_no_urut_naga"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="20dp"
         android:text="@string/no_urut" />
 
     <TextView
-        android:id="@+id/tv_amdp_team_name"
+        android:id="@+id/tv_amdp_team_name_naga"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="20dp"
@@ -21,7 +21,7 @@
 
 
     <TextView
-        android:id="@+id/tv_amdp_referee"
+        android:id="@+id/tv_amdp_referee_naga"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
@@ -105,7 +105,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="0.7"
-                        android:text="@string/nilai" />
+                        android:text="@string/nilai_maks_5" />
 
                     <TextView
                         android:id="@+id/tv_amdp_naga_n1"
@@ -190,7 +190,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="0.7"
-                        android:text="@string/nilai" />
+                        android:text="@string/nilai_maks_1" />
 
                     <TextView
                         android:id="@+id/tv_amdp_naga_n2"
@@ -246,7 +246,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="0.7"
-                        android:text="@string/nilai" />
+                        android:text="@string/nilai_maks_1" />
 
                     <TextView
                         android:id="@+id/tv_amdp_naga_n3"
@@ -302,7 +302,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="0.7"
-                        android:text="@string/nilai" />
+                        android:text="@string/nilai_maks_1" />
 
                     <TextView
                         android:id="@+id/tv_amdp_naga_n4"
@@ -392,7 +392,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="0.7"
-                        android:text="Nilai" />
+                        android:text="@string/nilai_maks_2" />
 
                     <TextView
                         android:id="@+id/tv_amdp_naga_n5"
@@ -430,6 +430,106 @@
                         android:textColor="?attr/editTextColor" />
                 </LinearLayout>
 
+
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/ap_naga_type_4"
+                android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="15dp">
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="0.7"
+                        android:text="@string/tingkat_kesulitan" />
+                    <TextView
+                        android:id="@+id/tv_amdp_naga_kesulitan"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:background="?attr/editTextBackground"
+                        android:textAppearance="?android:attr/textAppearanceMediumInverse"
+                        android:textColor="?attr/editTextColor"  />
+
+                </LinearLayout>
+            </LinearLayout>
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="@string/total"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/total_penilaian"
+                    android:layout_weight="0.7"/>
+
+                <TextView
+                    android:id="@+id/tv_amdp_total_nilai_naga"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:background="?attr/editTextBackground"
+                    android:textAppearance="?android:attr/textAppearanceMediumInverse"
+                    android:textColor="?attr/editTextColor" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/total_pengurangan"
+                    android:layout_weight="0.7"/>
+                <TextView
+                    android:id="@+id/tv_amdp_total_pengurangan_naga"
+
+                    android:textColor="?attr/editTextColor"
+                    android:background="?attr/editTextBackground"
+                    android:textAppearance="?android:attr/textAppearanceMediumInverse"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/grand_total"
+                    android:layout_weight="0.7"/>
+                <TextView
+                    android:id="@+id/tv_amdp_grand_total_naga"
+                    android:textColor="?attr/editTextColor"
+                    android:background="?attr/editTextBackground"
+                    android:textAppearance="?android:attr/textAppearanceMediumInverse"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"/>
 
             </LinearLayout>
 

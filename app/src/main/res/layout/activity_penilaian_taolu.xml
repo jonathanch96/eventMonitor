@@ -66,7 +66,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="0.7"
-                        android:text="@string/nilai" />
+                        android:text="@string/nilai_maks_1" />
 
                     <EditText
                         android:id="@+id/et_amdp_taolu_n1"
@@ -94,7 +94,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="0.7"
-                        android:text="@string/nilai" />
+                        android:text="@string/nilai_maks_1" />
 
                     <EditText
                         android:id="@+id/et_amdp_taolu_n2"
@@ -121,7 +121,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="0.7"
-                        android:text="@string/nilai" />
+                        android:text="@string/nilai_maks_1" />
 
                     <EditText
                         android:id="@+id/et_amdp_taolu_n3"
@@ -149,7 +149,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="0.7"
-                        android:text="@string/nilai" />
+                        android:text="@string/nilai_maks_1" />
 
                     <EditText
                         android:id="@+id/et_amdp_taolu_n4"
@@ -176,7 +176,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="0.7"
-                        android:text="@string/nilai" />
+                        android:text="@string/nilai_maks_1" />
 
                     <EditText
                         android:id="@+id/et_amdp_taolu_n5"
@@ -218,7 +218,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="0.7"
-                        android:text="@string/nilai" />
+                        android:text="@string/nilai_maks_1" />
 
                     <EditText
                         android:id="@+id/et_amdp_taolu_n6"
@@ -229,6 +229,7 @@
                         android:inputType="numberDecimal"
                         android:text="@string/def_value" />
                 </LinearLayout>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -244,7 +245,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="0.7"
-                        android:text="@string/nilai" />
+                        android:text="@string/nilai_maks_1" />
 
                     <EditText
                         android:id="@+id/et_amdp_taolu_n7"
@@ -272,7 +273,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="0.7"
-                        android:text="@string/nilai" />
+                        android:text="@string/nilai_maks_1" />
 
                     <EditText
                         android:id="@+id/et_amdp_taolu_n8"
@@ -293,91 +294,56 @@
                 android:layout_marginTop="15dp"
                 android:text="@string/ap_taolu_type_3"
                 android:textStyle="bold" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/ap_taolu_type_3_det_1" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="0.7"
-                    android:text="@string/nilai" />
-
-                <EditText
-                    android:id="@+id/et_amdp_taolu_n9"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.3"
-                    android:imeOptions="actionNext"
-                    android:inputType="numberDecimal"
-                    android:text="@string/def_value" />
-            </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/ap_taolu_type_3_det_2" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="0.7"
-                    android:text="@string/nilai" />
-
-                <EditText
-                    android:id="@+id/et_amdp_taolu_n10"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.3"
-                    android:imeOptions="actionNext"
-                    android:inputType="numberDecimal"
-                    android:text="@string/def_value" />
-            </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/ap_taolu_type_3_det_3" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="0.7"
-                    android:text="@string/nilai" />
-
-                <EditText
-                    android:id="@+id/et_amdp_taolu_n11"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.3"
-                    android:imeOptions="actionNext"
-                    android:inputType="numberDecimal"
-                    android:text="@string/def_value" />
-
-            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ap_taolu_type_3_det_1" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ap_taolu_type_3_det_2" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ap_taolu_type_3_det_3" />
+
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ap_naga_input" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="0.7"
+                        android:text="@string/nilai_maks_2" />
+
+                    <EditText
+                        android:id="@+id/et_amdp_taolu_n9"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberDecimal"
+                        android:text="@string/def_value" />
+                </LinearLayout>
 
 
                 <TextView
@@ -386,6 +352,7 @@
                     android:layout_marginTop="15dp"
                     android:text="@string/ap_taolu_type_4"
                     android:textStyle="bold" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -404,7 +371,7 @@
                         android:background="@drawable/rectangle_green" />
 
                     <EditText
-                        android:id="@+id/et_ap_p1"
+                        android:id="@+id/et_ap_taolu_p1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.3"
@@ -431,7 +398,7 @@
                         android:background="@drawable/rectangle_yellow" />
 
                     <EditText
-                        android:id="@+id/et_ap_p2"
+                        android:id="@+id/et_ap_taolu_p2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.3"
@@ -458,7 +425,7 @@
                         android:background="@drawable/rectangle_black" />
 
                     <EditText
-                        android:id="@+id/et_ap_p3"
+                        android:id="@+id/et_ap_taolu_p3"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.3"
@@ -485,7 +452,7 @@
                         android:background="@drawable/rectangle_red" />
 
                     <EditText
-                        android:id="@+id/et_ap_p4"
+                        android:id="@+id/et_ap_taolu_p4"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
 
@@ -493,7 +460,6 @@
                         android:inputType="numberDecimal"
                         android:text="@string/def_value" />
                 </LinearLayout>
-
 
 
             </LinearLayout>
@@ -505,10 +471,11 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/ap_pekingsai_type_5"
                 android:textStyle="bold" />
+
             <LinearLayout
-                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -517,6 +484,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="0.7"
                     android:text="@string/ap_pekingsai_type_5_det_1" />
+
                 <EditText
                     android:id="@+id/et_amdp_taolu_kesulitan"
                     android:layout_width="0dp"
@@ -545,7 +513,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.7"
-                    android:text="@string/ap_naga_total_penilaian" />
+                    android:text="@string/total_penilaian" />
 
                 <TextView
                     android:id="@+id/tv_ap_taolu_total_penilaian"
@@ -567,7 +535,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.7"
-                    android:text="@string/ap_naga_total_pengurangan" />
+                    android:text="@string/total_pengurangan" />
 
                 <TextView
                     android:id="@+id/tv_ap_taolu_nilai_total_pengurangan"
@@ -589,7 +557,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.7"
-                    android:text="@string/ap_naga_grand_total" />
+                    android:text="@string/grand_total" />
 
                 <TextView
                     android:id="@+id/tv_ap_taolu_grand_total"
@@ -601,7 +569,6 @@
                     android:textColor="?attr/editTextColor" />
 
             </LinearLayout>
-
 
 
             <Button

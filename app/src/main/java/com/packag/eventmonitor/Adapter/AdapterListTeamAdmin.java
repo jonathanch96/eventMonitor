@@ -69,6 +69,7 @@ public class AdapterListTeamAdmin extends RecyclerView.Adapter<AdapterListTeamAd
 
             tv_amtl_no_urut.setText(team.getNo_urut()+"");
             tv_amtl_team_name.setText(team.getTeam_name());
+
             btn_amtla_penilaian.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

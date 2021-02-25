@@ -8,29 +8,52 @@ public class Team {
     String team_name;
     String key;
     int no_urut;
-    Vector<PenilaianTraditional> dataNilai;
-    PenilaianTraditional penilaian;
+    Vector<RefereePenilaian> dataNilai;
+    RefereePenilaian penilaian;
 
 
     double nilai_bersih;
     double pengurangan_nb;
     double total_nilai; //final
 
+    public double getNilai_bersih() {
+        return nilai_bersih;
+    }
 
-    @Exclude public PenilaianTraditional getPenilaian() {
+    public void setNilai_bersih(double nilai_bersih) {
+        this.nilai_bersih = nilai_bersih;
+    }
+
+    public double getPengurangan_nb() {
+        return pengurangan_nb;
+    }
+
+    public void setPengurangan_nb(double pengurangan_nb) {
+        this.pengurangan_nb = pengurangan_nb;
+    }
+
+    public double getTotal_nilai() {
+        return total_nilai;
+    }
+
+    public void setTotal_nilai(double total_nilai) {
+        this.total_nilai = total_nilai;
+    }
+
+    @Exclude public RefereePenilaian getPenilaian() {
         return penilaian;
     }
 
-    @Exclude public void setPenilaian(PenilaianTraditional penilaian) {
+    @Exclude public void setPenilaian(RefereePenilaian penilaian) {
         this.penilaian = penilaian;
     }
 
 
-    @Exclude public Vector<PenilaianTraditional> getDataNilai() {
+    @Exclude public Vector<RefereePenilaian> getDataNilai() {
         return dataNilai;
     }
 
-    @Exclude public void setDataNilai(Vector<PenilaianTraditional> dataNilai) {
+    @Exclude public void setDataNilai(Vector<RefereePenilaian> dataNilai) {
         this.dataNilai = dataNilai;
     }
 

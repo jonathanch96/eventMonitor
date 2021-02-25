@@ -469,7 +469,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.7"
-                    android:text="@string/ap_naga_total_penilaian" />
+                    android:text="@string/total_penilaian" />
 
                 <TextView
                     android:id="@+id/tv_ap_naga_total_penilaian"
@@ -491,7 +491,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.7"
-                    android:text="@string/ap_naga_total_pengurangan" />
+                    android:text="@string/total_pengurangan" />
 
                 <TextView
                     android:id="@+id/tv_ap_naga_nilai_total_pengurangan"
@@ -513,7 +513,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.7"
-                    android:text="@string/ap_naga_grand_total" />
+                    android:text="@string/grand_total" />
 
                 <TextView
                     android:id="@+id/tv_ap_naga_grand_total"

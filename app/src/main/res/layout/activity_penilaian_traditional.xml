@@ -384,7 +384,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.7"
-                    android:text="@string/total_nilai_kotor" />
+                    android:text="@string/total_penilaian" />
 
                 <TextView
                     android:id="@+id/tv_as_total_kotor"
@@ -428,7 +428,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.7"
-                    android:text="@string/total_nilai_bersih" />
+                    android:text="@string/grand_total" />
 
                 <TextView
                     android:id="@+id/tv_as_total_bersih"

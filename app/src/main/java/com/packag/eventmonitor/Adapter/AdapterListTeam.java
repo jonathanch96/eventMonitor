@@ -50,13 +50,13 @@ public class AdapterListTeam extends BaseAdapter {
         tv_amtl_no_urut.setText(Integer.toString(dataTeam.get(i).getNo_urut()));
         tv_amtl_team_name.setText(dataTeam.get(i).getTeam_name());
         if(dataTeam.get(i).getPenilaian()!=null) {
-            tv_amtl_nb.setText("Nilai Bersih : "+Double.toString(dataTeam.get(i).getPenilaian().getTb()));
-            tv_amtl_nk.setText("Nilai Kotor : "+Double.toString(dataTeam.get(i).getPenilaian().getTk()));
-            tv_amtl_p.setText("Pengurangan : "+Double.toString(dataTeam.get(i).getPenilaian().getP()));
+            tv_amtl_nk.setText(ctx.getString(R.string.total_penilaian)+" : "+Double.toString(dataTeam.get(i).getPenilaian().getTotal_nilai()));
+            tv_amtl_p.setText(ctx.getString(R.string.total_pengurangan)+" : "+Double.toString(dataTeam.get(i).getPenilaian().getTotal_potongan()));
+            tv_amtl_nb.setText(ctx.getString(R.string.grand_total)+" : "+Double.toString(dataTeam.get(i).getPenilaian().getGrand_total()));
         }else{
-            tv_amtl_nb.setText("Nilai Bersih : Belum di isi");
-            tv_amtl_nk.setText("Nilai Kotor : Belum di isi");
-            tv_amtl_p.setText("Pengurangan : Belum di isi");
+            tv_amtl_nk.setText(ctx.getString(R.string.total_penilaian)+" : Belum di isi");
+            tv_amtl_p.setText(ctx.getString(R.string.total_pengurangan)+" : Belum di isi");
+            tv_amtl_nb.setText(ctx.getString(R.string.grand_total)+" : Belum di isi");
         }
         return v;
     }

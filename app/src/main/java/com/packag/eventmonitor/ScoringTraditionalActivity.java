@@ -1,8 +1,5 @@
 package com.packag.eventmonitor;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -15,25 +12,33 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.developer.kalert.KAlertDialog;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.packag.eventmonitor.Data.PenilaianTraditional;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.packag.eventmonitor.Data.Penilaian;
+import com.packag.eventmonitor.Data.RefereePenilaian;
 import com.packag.eventmonitor.Data.Team;
 import com.packag.eventmonitor.Util.Session;
 
-public class Scoring extends AppCompatActivity {
+import java.util.Vector;
+
+public class ScoringTraditionalActivity extends AppCompatActivity {
     Intent intent;
     String teamId;
     String errorMsg;
     FirebaseFirestore db;
     Team team;
     Session session;
-    TextView tv_as_team_name;
-    TextView tv_as_no_urut;
+    TextView tv_as_team_name;//
+    TextView tv_as_no_urut;//
     EditText et_as_n1;
     EditText et_as_n2;
     EditText et_as_n3;
@@ -48,12 +53,17 @@ public class Scoring extends AppCompatActivity {
     EditText et_as_ks2;
     EditText et_as_ks3;
     EditText et_as_ks4;
-    TextView tv_as_total_kotor;
-    TextView tv_as_total_pengurangan;
-    TextView tv_as_total_bersih;
-    Button btn_as_submit;
+   
+    EditText et_as_kesulitan;
+
+
+    TextView tv_ap_traditional_total_penilaian;
+    TextView tv_ap_traditional_nilai_total_pengurangan;
+    TextView tv_ap_traditional_grand_total;
+    Button btn_ap_traditional_as_submit;
     DocumentReference teamRef;
     ProgressDialog loadingDialog;
+    Vector<Penilaian> penilaians = new Vector<Penilaian>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,14 +92,17 @@ public class Scoring extends AppCompatActivity {
         et_as_n8 = findViewById(R.id.et_as_n8);
         et_as_n9 = findViewById(R.id.et_as_n9);
         et_as_n10 = findViewById(R.id.et_as_n10);
+       // et_as_kesulitan = findViewById(R.id.et_as_kesulitan);
+
         et_as_ks1 = findViewById(R.id.et_as_ks1);
         et_as_ks2 = findViewById(R.id.et_as_ks2);
         et_as_ks3 = findViewById(R.id.et_as_ks3);
         et_as_ks4 = findViewById(R.id.et_as_ks4);
-        tv_as_total_kotor = findViewById(R.id.tv_as_total_kotor);
-        tv_as_total_pengurangan=findViewById(R.id.tv_as_total_pengurangan);
-        tv_as_total_bersih = findViewById(R.id.tv_as_total_bersih);
-        btn_as_submit = findViewById(R.id.btn_as_submit);
+
+        tv_ap_traditional_total_penilaian = findViewById(R.id.tv_as_total_kotor);
+        tv_ap_traditional_nilai_total_pengurangan=findViewById(R.id.tv_as_total_pengurangan);
+        tv_ap_traditional_grand_total = findViewById(R.id.tv_as_total_bersih);
+        btn_ap_traditional_as_submit = findViewById(R.id.btn_as_submit);
         db = FirebaseFirestore.getInstance();
         teamRef = db.collection("events")
                 .document(session.getData("eventId"))
@@ -105,95 +118,123 @@ public class Scoring extends AppCompatActivity {
                         tv_as_no_urut.setText("Nomor Urut : " + team.getNo_urut());
                         tv_as_team_name.setText("Nama Team : " + team.getTeam_name());
                         teamRef.collection("penilaian")
-                                .document(session.getData("refereeId")).get()
-                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                    DocumentSnapshot d2 = task.getResult();
-                                if(d2.exists()){
-                                    PenilaianTraditional init_nilai = d2.toObject(PenilaianTraditional.class);
-                                    //team.setPenilaian(init_nilai);
-
-                                    et_as_n1.setText(Double.toString(init_nilai.getN1()));
-                                    et_as_n2.setText(Double.toString(init_nilai.getN2()));
-                                    et_as_n3.setText(Double.toString(init_nilai.getN3()));
-                                    et_as_n4.setText(Double.toString(init_nilai.getN4()));
-                                    et_as_n5.setText(Double.toString(init_nilai.getN5()));
-                                    et_as_n6.setText(Double.toString(init_nilai.getN6()));
-                                    et_as_n7.setText(Double.toString(init_nilai.getN7()));
-                                    et_as_n8.setText(Double.toString(init_nilai.getN8()));
-                                    et_as_n9.setText(Double.toString(init_nilai.getN9()));
-                                    et_as_n10.setText(Double.toString(init_nilai.getN10()));
-                                    et_as_ks1.setText(Double.toString(init_nilai.getKs1()));
-                                    et_as_ks2.setText(Double.toString(init_nilai.getKs2()));
-                                    et_as_ks3.setText(Double.toString(init_nilai.getKs3()));
-                                    et_as_ks4.setText(Double.toString(init_nilai.getKs4()));
-                                    tv_as_total_kotor.setText(Double.toString(init_nilai.getTk()));
-                                    tv_as_total_bersih.setText(Double.toString(init_nilai.getTb()));
-                                    tv_as_total_pengurangan.setText(Double.toString(init_nilai.getP()));
-
-
-                                }
-                            }
-                        });
+                                .document(session.getData("refereeId")).collection("field").get()
+                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            for (QueryDocumentSnapshot d2 : task.getResult()) {
+                                                Penilaian p = d2.toObject(Penilaian.class);
+                                                p.setKey(d2.getId());
+                                                penilaians.add(p);
+                                            }
+                                            set_first_data();
+                                        }
+                                    }
+                                });
 
                     }
                 }
             }
         });
     }
+    private void set_first_data(){
+        for(Penilaian p:penilaians){
+            if(p.getForm_id().equals("et_as_n1")){
+                et_as_n1.setText(p.getNilai()+"");
+            }else if(p.getForm_id().equals("et_as_n2")) {
+                et_as_n2.setText(p.getNilai()+"");
+            }else if(p.getForm_id().equals("et_as_n3")) {
+                et_as_n3.setText(p.getNilai()+"");
+            }else if(p.getForm_id().equals("et_as_n4")) {
+                et_as_n4.setText(p.getNilai()+"");
+            }else if(p.getForm_id().equals("et_as_n5")) {
+                et_as_n5.setText(p.getNilai()+"");
+            }else if(p.getForm_id().equals("et_as_n6")) {
+                et_as_n6.setText(p.getNilai()+"");
+            }else if(p.getForm_id().equals("et_as_n7")) {
+                et_as_n7.setText(p.getNilai()+"");
+            }else if(p.getForm_id().equals("et_as_n8")) {
+                et_as_n8.setText(p.getNilai()+"");
+            }else if(p.getForm_id().equals("et_as_n9")) {
+                et_as_n9.setText(p.getNilai()+"");
+            }else if(p.getForm_id().equals("et_as_n10")) {
+                et_as_n10.setText(p.getNilai()+"");
+            }else if(p.getForm_id().equals("et_as_ks1")) {
+                et_as_ks1.setText(p.getNilai()+"");
+            }else if(p.getForm_id().equals("et_as_ks2")) {
+                et_as_ks2.setText(p.getNilai()+"");
+            }else if(p.getForm_id().equals("et_as_ks3")) {
+                et_as_ks3.setText(p.getNilai()+"");
+            }else if(p.getForm_id().equals("et_as_ks4")) {
+                et_as_ks4.setText(p.getNilai() + "");
+            }
+
+        }
+        recalculateTotal();
+    }
     private boolean validateData() {
         //TODO NELSON kerjain validasi untuk input nilai
 
         boolean flag = false;
         if (et_as_n1.getText().toString().equals("")) {
-            errorMsg = "Sopan Santun Harus diisi";
+            errorMsg = getString(R.string.n1_sopan_santun)+" harus di isi";
         } else if (Double.parseDouble(et_as_n1.getText().toString()) > 1) {
-            errorMsg = "Sopan Santun Tidak boleh lebih dari 1.0";
-        } else if (et_as_n2.getText().toString().equals("")) {
-            errorMsg = "Judul dan Alur Cerita Harus diisi";
+            errorMsg = getString(R.string.n1_sopan_santun)+" tidak boleh lebih dari 1.0";
+        }else if (et_as_n2.getText().toString().equals("")) {
+            errorMsg =  getString(R.string.n2_judul_dan_alur_cerita)+" harus di isi";
         } else if (Double.parseDouble(et_as_n2.getText().toString()) > 1) {
-            errorMsg = "Judul dan Alur Cerita Tidak boleh lebih dari 1.0";
+            errorMsg = getString(R.string.n2_judul_dan_alur_cerita)+" tidak boleh lebih dari 1.0";
+
         } else if (et_as_n3.getText().toString().equals("")) {
-            errorMsg = "Bentuk Barongsai Harus diisi";
-        } else if (Double.parseDouble(et_as_n3.getText().toString()) > 1) {
-            errorMsg = "Bentuk Barongsai Tidak boleh lebih dari 1.0";
+            errorMsg =  getString(R.string.n3_bentuk_barongsai)+" harus diisi";
+        } else if (Double.parseDouble(et_as_n2.getText().toString()) > 1) {
+            errorMsg =  getString(R.string.n3_bentuk_barongsai)+" tidak boleh lebih dari 1.0";
         } else if (et_as_n4.getText().toString().equals("")) {
-            errorMsg = "Ekspresi Harus diisi";
+            errorMsg = getString(R.string.n4_ekspresi)+" harus diisi";
         } else if (Double.parseDouble(et_as_n4.getText().toString()) > 1) {
-            errorMsg = "Ekspresi Tidak boleh lebih dari 1.0";
+            errorMsg = getString(R.string.n4_ekspresi)+" tidak boleh lebih dari 1.0";
+
         } else if (et_as_n5.getText().toString().equals("")) {
-            errorMsg = "Musik Cerita Harus diisi";
+            errorMsg = getString(R.string.n5_musik)+" harus diisi";
         } else if (Double.parseDouble(et_as_n5.getText().toString()) > 1) {
-            errorMsg = "Musik Tidak boleh lebih dari 1.0";
+            errorMsg = getString(R.string.n5_musik)+" tidak boleh lebih dari 1.0";
         } else if (et_as_n6.getText().toString().equals("")) {
-            errorMsg = "Cirikhas Traditional Harus diisi";
+            errorMsg = getString(R.string.n6_cirikhas_traditional)+" harus diisi";
         } else if (Double.parseDouble(et_as_n6.getText().toString()) > 1) {
-            errorMsg = "Cirikhas Traditional Tidak boleh lebih dari 1.0";
+            errorMsg = getString(R.string.n6_cirikhas_traditional)+" tidak boleh lebih dari 1.0";
+
+
         } else if (et_as_n7.getText().toString().equals("")) {
-            errorMsg = "Komposisi Permainan Harus diisi";
+            errorMsg = getString(R.string.n7_komposisi_permainan)+" harus diisi";
         } else if (Double.parseDouble(et_as_n7.getText().toString()) > 1) {
-            errorMsg = "Komposisi Permainan Tidak boleh lebih dari 1.0";
+            errorMsg = getString(R.string.n7_komposisi_permainan)+" tidak boleh lebih dari 1.0";
         } else if (et_as_n8.getText().toString().equals("")) {
-            errorMsg = "Hasil dari Permainan Harus diisi";
+            errorMsg = getString(R.string.n8_hasil_dan_permainan)+" harus diisi";
         } else if (Double.parseDouble(et_as_n8.getText().toString()) > 1) {
-            errorMsg = "Hasil dari Permainan Tidak boleh lebih dari 1.0";
+            errorMsg = getString(R.string.n8_hasil_dan_permainan)+" tidak boleh lebih dari 1.0";
+
         } else if (et_as_n9.getText().toString().equals("")) {
-            errorMsg = "Keterampilan Harus diisi";
+            errorMsg = getString(R.string.n9_keterampilan)+" harus diisi";
         } else if (Double.parseDouble(et_as_n9.getText().toString()) > 1) {
-            errorMsg = "Keterampilan Tidak boleh lebih dari 1.0";
-        }else if(et_as_n10.getText().toString().equals("")){
-            errorMsg="Seragam & Peralatan/Dekorasi Cerita Harus diisi";
-        }else if(Double.parseDouble(et_as_n10.getText().toString())>1){
-            errorMsg="Seragam & Peralatan/Dekorasi boleh lebih dari 1.0";
-        }else if(et_as_ks1.getText().toString().equals("")){
-            errorMsg="Kesalahan Lain Harus diisi (min:0)";
-        }else if(et_as_ks2.getText().toString().equals("")){
-            errorMsg="Kesalahan Kecil Harus diisi (min:0)";
-        }else if(et_as_ks3.getText().toString().equals("")){
-            errorMsg="Kesalahan Sedang Harus diisi (min:0)";
-        }else if(et_as_ks4.getText().toString().equals("")){
-            errorMsg="Kesalahan Besar Harus diisi (min:0)";
+            errorMsg = getString(R.string.n9_keterampilan)+" tidak boleh lebih dari 1.0";
+
+        } else if (et_as_n10.getText().toString().equals("")) {
+            errorMsg = getString(R.string.n10_seragam_dan_peralatan)+" harus diisi";
+        } else if (Double.parseDouble(et_as_n10.getText().toString()) > 1) {
+            errorMsg = getString(R.string.n10_seragam_dan_peralatan)+" tidak boleh lebih dari 1.0";
+        } else if (et_as_ks1.getText().toString().equals("")) {
+            et_as_ks1.setText("0");
+        } else if (et_as_ks2.getText().toString().equals("")) {
+            et_as_ks2.setText("0");
+        } else if (et_as_ks3.getText().toString().equals("")) {
+            et_as_ks3.setText("0");
+        } else if (et_as_ks4.getText().toString().equals("")) {
+            et_as_ks4.setText("0");
+
+
+
+
         } else {
             flag = true;
         }
@@ -209,6 +250,7 @@ public class Scoring extends AppCompatActivity {
         return roundOff;
     }
     private void recalculateTotal(){
+
         double n1 = et_as_n1.getText().toString().equals("")?0:Double.parseDouble(et_as_n1.getText().toString());
         double n2 = et_as_n2.getText().toString().equals("")?0:Double.parseDouble(et_as_n2.getText().toString());
         double n3 = et_as_n3.getText().toString().equals("")?0:Double.parseDouble(et_as_n3.getText().toString());
@@ -219,13 +261,14 @@ public class Scoring extends AppCompatActivity {
         double n8 = et_as_n8.getText().toString().equals("")?0:Double.parseDouble(et_as_n8.getText().toString());
         double n9 = et_as_n9.getText().toString().equals("")?0:Double.parseDouble(et_as_n9.getText().toString());
         double n10 = et_as_n10.getText().toString().equals("")?0:Double.parseDouble(et_as_n10.getText().toString());
-        double ks1 = et_as_ks1.getText().toString().equals("")?0:Double.parseDouble(et_as_ks1.getText().toString());
-        double ks2 = et_as_ks2.getText().toString().equals("")?0:Double.parseDouble(et_as_ks2.getText().toString());
-        double ks3 = et_as_ks3.getText().toString().equals("")?0:Double.parseDouble(et_as_ks3.getText().toString());
-        double ks4 = et_as_ks4.getText().toString().equals("")?0:Double.parseDouble(et_as_ks4.getText().toString());
+        double p1 = et_as_ks1.getText().toString().equals("")?0:Double.parseDouble(et_as_ks1.getText().toString());
+        double p2 = et_as_ks2.getText().toString().equals("")?0:Double.parseDouble(et_as_ks2.getText().toString());
+        double p3 = et_as_ks3.getText().toString().equals("")?0:Double.parseDouble(et_as_ks3.getText().toString());
+        double p4 = et_as_ks4.getText().toString().equals("")?0:Double.parseDouble(et_as_ks4.getText().toString());
+
         double tb=0,tk=0,p=0;
         tk = n1+n2+n3+n4+n5+n6+n7+n8+n9+n10;
-        p = ks1+ks2+ks3+ks4;
+        p = p1+p2+p3+p4;
         tb=tk-p;
 
         tk = roundTo2Decs(tk);
@@ -233,9 +276,9 @@ public class Scoring extends AppCompatActivity {
         tb = roundTo2Decs(tb);
 
         Log.d("debug","tk = "+tk+" tb = "+tb+" p = "+p);
-        tv_as_total_bersih.setText(Double.toString(tb));
-        tv_as_total_kotor.setText(Double.toString(tk));
-        tv_as_total_pengurangan.setText(Double.toString(p));
+        tv_ap_traditional_grand_total.setText(Double.toString(tb));
+        tv_ap_traditional_total_penilaian.setText(Double.toString(tk));
+        tv_ap_traditional_nilai_total_pengurangan.setText(Double.toString(p));
     }
     private void setListener() {
         et_as_n1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -247,7 +290,7 @@ public class Scoring extends AppCompatActivity {
                         et_as_n1.setText("0");
                     }
                 }else{
-                    if(et_as_n1.getText().toString().equals("0")){
+                    if(et_as_n1.getText().toString().equals("0")||et_as_n1.getText().toString().equals("0.0")){
                         et_as_n1.setText("");
                     }
                 }
@@ -262,7 +305,7 @@ public class Scoring extends AppCompatActivity {
                         et_as_n2.setText("0");
                     }
                 }else{
-                    if(et_as_n2.getText().toString().equals("0")){
+                    if(et_as_n2.getText().toString().equals("0")||et_as_n2.getText().toString().equals("0.0")){
                         et_as_n2.setText("");
                     }
                 }
@@ -277,7 +320,7 @@ public class Scoring extends AppCompatActivity {
                         et_as_n3.setText("0");
                     }
                 }else{
-                    if(et_as_n3.getText().toString().equals("0")){
+                    if(et_as_n3.getText().toString().equals("0")||et_as_n3.getText().toString().equals("0.0")){
                         et_as_n3.setText("");
                     }
                 }
@@ -292,7 +335,7 @@ public class Scoring extends AppCompatActivity {
                         et_as_n4.setText("0");
                     }
                 }else{
-                    if(et_as_n4.getText().toString().equals("0")){
+                    if(et_as_n4.getText().toString().equals("0")||et_as_n4.getText().toString().equals("0.0")){
                         et_as_n4.setText("");
                     }
                 }
@@ -307,7 +350,7 @@ public class Scoring extends AppCompatActivity {
                         et_as_n5.setText("0");
                     }
                 }else{
-                    if(et_as_n5.getText().toString().equals("0")){
+                    if(et_as_n5.getText().toString().equals("0")||et_as_n5.getText().toString().equals("0.0")){
                         et_as_n5.setText("");
                     }
                 }
@@ -322,7 +365,7 @@ public class Scoring extends AppCompatActivity {
                         et_as_n6.setText("0");
                     }
                 }else{
-                    if(et_as_n6.getText().toString().equals("0")){
+                    if(et_as_n6.getText().toString().equals("0")||et_as_n6.getText().toString().equals("0.0")){
                         et_as_n6.setText("");
                     }
                 }
@@ -337,7 +380,7 @@ public class Scoring extends AppCompatActivity {
                         et_as_n7.setText("0");
                     }
                 }else{
-                    if(et_as_n7.getText().toString().equals("0")){
+                    if(et_as_n7.getText().toString().equals("0")||et_as_n7.getText().toString().equals("0.0")){
                         et_as_n7.setText("");
                     }
                 }
@@ -352,7 +395,7 @@ public class Scoring extends AppCompatActivity {
                         et_as_n8.setText("0");
                     }
                 }else{
-                    if(et_as_n8.getText().toString().equals("0")){
+                    if(et_as_n8.getText().toString().equals("0")||et_as_n8.getText().toString().equals("0.0")){
                         et_as_n8.setText("");
                     }
                 }
@@ -367,7 +410,7 @@ public class Scoring extends AppCompatActivity {
                         et_as_n9.setText("0");
                     }
                 }else{
-                    if(et_as_n9.getText().toString().equals("0")){
+                    if(et_as_n9.getText().toString().equals("0")||et_as_n9.getText().toString().equals("0.0")){
                         et_as_n9.setText("");
                     }
                 }
@@ -382,7 +425,7 @@ public class Scoring extends AppCompatActivity {
                         et_as_n10.setText("0");
                     }
                 }else{
-                    if(et_as_n10.getText().toString().equals("0")){
+                    if(et_as_n10.getText().toString().equals("0")||et_as_n10.getText().toString().equals("0.0")){
                         et_as_n10.setText("");
                     }
                 }
@@ -397,7 +440,7 @@ public class Scoring extends AppCompatActivity {
                         et_as_ks1.setText("0");
                     }
                 }else{
-                    if(et_as_ks1.getText().toString().equals("0")){
+                    if(et_as_ks1.getText().toString().equals("0")||et_as_ks1.getText().toString().equals("0.0")){
                         et_as_ks1.setText("");
                     }
                 }
@@ -412,7 +455,7 @@ public class Scoring extends AppCompatActivity {
                         et_as_ks2.setText("0");
                     }
                 }else{
-                    if(et_as_ks2.getText().toString().equals("0")){
+                    if(et_as_ks2.getText().toString().equals("0")||et_as_ks2.getText().toString().equals("0.0")){
                         et_as_ks2.setText("");
                     }
                 }
@@ -427,7 +470,7 @@ public class Scoring extends AppCompatActivity {
                         et_as_ks3.setText("0");
                     }
                 }else{
-                    if(et_as_ks3.getText().toString().equals("0")){
+                    if(et_as_ks3.getText().toString().equals("0")||et_as_ks3.getText().toString().equals("0.0")){
                         et_as_ks3.setText("");
                     }
                 }
@@ -442,12 +485,30 @@ public class Scoring extends AppCompatActivity {
                         et_as_ks4.setText("0");
                     }
                 }else{
-                    if(et_as_ks4.getText().toString().equals("0")){
+                    if(et_as_ks4.getText().toString().equals("0")||et_as_ks4.getText().toString().equals("0.0")){
                         et_as_ks4.setText("");
                     }
                 }
             }
         });
+
+
+//        et_as_kesulitan.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View view, boolean b) {
+//                if(!b){
+//                    recalculateTotal();
+//                    if(et_as_kesulitan.getText().toString().equals("")) {
+//                        et_as_kesulitan.setText("0");
+//                    }
+//                }else{
+//                    if(et_as_kesulitan.getText().toString().equals("0")||et_as_kesulitan.getText().toString().equals("0.0")){
+//                        et_as_kesulitan.setText("");
+//                    }
+//                }
+//            }
+//        });
+
 
 //        on change listener
         et_as_n1.addTextChangedListener(new TextWatcher() {
@@ -562,6 +623,7 @@ public class Scoring extends AppCompatActivity {
                 recalculateTotal();
             }
         });
+
         et_as_n9.addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {
@@ -647,30 +709,90 @@ public class Scoring extends AppCompatActivity {
             }
         });
 
+
         /*end on change listener*/
-        btn_as_submit.setOnClickListener(new View.OnClickListener() {
+        btn_ap_traditional_as_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 loadingDialog.show();
                 if(validateData()){
-                    teamRef.collection("penilaian")
-                            .document(session.getData("refereeId"))
-                            .set(new PenilaianTraditional(
-                                    Double.parseDouble(et_as_n1.getText().toString()),
-                                    Double.parseDouble(et_as_n2.getText().toString()),
-                                    Double.parseDouble(et_as_n3.getText().toString()),
-                                    Double.parseDouble(et_as_n4.getText().toString()),
-                                    Double.parseDouble(et_as_n5.getText().toString()),
-                                    Double.parseDouble(et_as_n6.getText().toString()),
-                                    Double.parseDouble(et_as_n7.getText().toString()),
-                                    Double.parseDouble(et_as_n8.getText().toString()),
-                                    Double.parseDouble(et_as_n9.getText().toString()),
-                                    Double.parseDouble(et_as_n10.getText().toString()),
-                                    Double.parseDouble(et_as_ks1.getText().toString()),
-                                    Double.parseDouble(et_as_ks2.getText().toString()),
-                                    Double.parseDouble(et_as_ks3.getText().toString()),
-                                    Double.parseDouble(et_as_ks4.getText().toString())
-                            ));
+                    penilaians = new Vector<Penilaian>();
+                    Penilaian data = new Penilaian(
+                            Double.parseDouble(et_as_n1.getText().toString()),
+                            "+", null, "et_as_n1");
+                    penilaians.add(data);
+
+                    data = new Penilaian(
+                            Double.parseDouble(et_as_n2.getText().toString()),
+                            "+", null, "et_as_n2");
+                    penilaians.add(data);
+
+                    data = new Penilaian(
+                            Double.parseDouble(et_as_n3.getText().toString()),
+                            "+", null, "et_as_n3");
+                    penilaians.add(data);
+
+                    data= new Penilaian(
+                            Double.parseDouble(et_as_n4.getText().toString()),
+                            "+", null, "et_as_n4");
+                    penilaians.add(data);
+
+                    data = new Penilaian(
+                            Double.parseDouble(et_as_n5.getText().toString()),
+                            "+", null, "et_as_n5");
+                    penilaians.add(data);
+                    data = new Penilaian(
+                            Double.parseDouble(et_as_n6.getText().toString()),
+                            "+", null, "et_as_n6");
+                    penilaians.add(data);
+
+                    data = new Penilaian(
+                            Double.parseDouble(et_as_n7.getText().toString()),
+                            "+", null, "et_as_n7");
+                    penilaians.add(data);
+
+                    data = new Penilaian(
+                            Double.parseDouble(et_as_n8.getText().toString()),
+                            "+", null, "et_as_n8");
+                    penilaians.add(data);
+
+                    data = new Penilaian(
+                            Double.parseDouble(et_as_n9.getText().toString()),
+                            "+", null, "et_as_n9");
+                    penilaians.add(data);
+
+                    data = new Penilaian(
+                            Double.parseDouble(et_as_n10.getText().toString()),
+                            "+", null, "et_as_n10");
+                    penilaians.add(data);
+
+
+                    data = new Penilaian(
+                            Double.parseDouble(et_as_ks1.getText().toString()),
+                            "-", null, "et_as_ks1");
+                    penilaians.add(data);
+
+                    data = new Penilaian(
+                            Double.parseDouble(et_as_ks2.getText().toString()),
+                            "-", null, "et_as_ks2");
+                    penilaians.add(data);
+
+                    data = new Penilaian(
+                            Double.parseDouble(et_as_ks3.getText().toString()),
+                            "-", null, "et_as_ks3");
+                    penilaians.add(data);
+
+                    data = new Penilaian(
+                            Double.parseDouble(et_as_ks4.getText().toString()),
+                            "-", null, "et_as_ks4");
+
+                    penilaians.add(data);
+
+
+
+
+                    saveData();
+
                     Intent return_i = new Intent();
                     return_i.putExtra("msg","Berhasil Memberi Nilai!");
                     setResult(Activity.RESULT_OK,return_i);
@@ -679,7 +801,7 @@ public class Scoring extends AppCompatActivity {
                     finish();
                 }else{
                     loadingDialog.hide();
-                    new KAlertDialog(Scoring.this, KAlertDialog.ERROR_TYPE)
+                    new KAlertDialog(ScoringTraditionalActivity.this, KAlertDialog.ERROR_TYPE)
                             .setTitleText("Oops...")
                             .setContentText(errorMsg)
                             .show();
@@ -687,5 +809,35 @@ public class Scoring extends AppCompatActivity {
                 }
             }
         });
+
+    }
+    private void saveData(){
+        double total_nilai = 0;
+        double total_pengurangan = 0;
+        double grand_total = 0;
+        for(Penilaian p:penilaians){
+            teamRef.collection("penilaian")
+                    .document(session.getData("refereeId"))
+                    .collection("field")
+                    .document(p.getForm_id())
+                    .set(p);
+            if(p.getType().equals("+")){
+                total_nilai+=p.getNilai();
+            }else if(p.getType().equals("-")){
+                total_pengurangan+=p.getNilai();
+            }
+        }
+        grand_total = total_nilai - total_pengurangan;
+        RefereePenilaian rp = new RefereePenilaian();
+        rp.setTotal_nilai(total_nilai);
+        rp.setTotal_potongan(total_pengurangan);
+        rp.setGrand_total(grand_total);
+        teamRef.collection("penilaian")
+                .document(session.getData("refereeId"))
+                .set(rp);
+        FirestoreController fc = new FirestoreController();
+        fc.recalculateNilaiBersih(session.getData("eventId"),teamId);
+
+
     }
 }

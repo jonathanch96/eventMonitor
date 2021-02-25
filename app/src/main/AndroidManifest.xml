@@ -17,6 +17,9 @@
         <activity android:name=".DetailPenilaianActivity" />
         <activity android:name=".Scoring" />
         <activity android:name=".ScoringNagaActivity" />
+        <activity android:name=".ScoringPekingsaiActivity" />
+        <activity android:name=".ScoringTaoluActivity" />
+        <activity android:name=".ScoringTraditionalActivity" />
         <activity android:name=".AddEventActivity" />
         <activity android:name=".RefereeActivity" />
         <activity
