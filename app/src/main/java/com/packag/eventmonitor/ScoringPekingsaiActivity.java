@@ -23,6 +23,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 import com.packag.eventmonitor.Data.Penilaian;
 import com.packag.eventmonitor.Data.RefereePenilaian;
 import com.packag.eventmonitor.Data.Team;
@@ -790,7 +791,7 @@ public class ScoringPekingsaiActivity extends AppCompatActivity {
                     .document(session.getData("refereeId"))
                     .collection("field")
                     .document(p.getForm_id())
-                    .set(p);
+                    .set(p, SetOptions.merge());
             if(p.getType().equals("+")){
                 total_nilai+=p.getNilai();
             }else if(p.getType().equals("-")){
@@ -804,7 +805,7 @@ public class ScoringPekingsaiActivity extends AppCompatActivity {
         rp.setGrand_total(grand_total);
         teamRef.collection("penilaian")
                 .document(session.getData("refereeId"))
-                .set(rp);
+                .set(rp, SetOptions.merge());
         FirestoreController fc = new FirestoreController();
         fc.recalculateNilaiBersih(session.getData("eventId"),teamId);
 

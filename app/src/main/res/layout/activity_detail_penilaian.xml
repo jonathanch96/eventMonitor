@@ -6,30 +6,49 @@
     android:layout_height="match_parent"
     android:padding="20dp"
     tools:context=".DetailPenilaianActivity">
-<TextView
-    android:id="@+id/tv_adp_team_name"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textSize="25dp"
-    android:gravity="center"
-    android:text="@string/penilaian"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@id/tv_adp_team_name"
-        android:id="@+id/rv_adp_list_referee"
-        android:layout_marginTop="10dp"
+
+    <TextView
+        android:id="@+id/penilaian_title"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/penilaian"
+        android:textSize="25dp" />
+
+    <TextView
+        android:layout_below="@id/penilaian_title"
+        android:id="@+id/tv_adp_team_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text=""
+        android:textSize="15dp" />
+    <TextView
+        android:layout_below="@id/tv_adp_team_name"
+        android:id="@+id/tv_adp_no_urut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text=""
+        android:textSize="15dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_adp_list_referee"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tv_adp_no_urut"
+        android:layout_marginTop="10dp"></androidx.recyclerview.widget.RecyclerView>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_adp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
         android:layout_gravity="bottom|center"
-        android:src="@drawable/ic_file_download_24dp"
-        android:layout_marginBottom="30dp"
         android:layout_marginRight="30dp"
-        app:fabSize="normal"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/ic_file_download_24dp"
         app:backgroundTint="@color/colorPrimary"
-        />
+        app:fabSize="normal" />
 </RelativeLayout>

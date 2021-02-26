@@ -23,6 +23,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 import com.packag.eventmonitor.Data.Penilaian;
 import com.packag.eventmonitor.Data.RefereePenilaian;
 import com.packag.eventmonitor.Data.Team;
@@ -805,7 +806,7 @@ public class ScoringTaoluActivity extends AppCompatActivity {
         rp.setGrand_total(grand_total);
         teamRef.collection("penilaian")
                 .document(session.getData("refereeId"))
-                .set(rp);
+                .set(rp, SetOptions.merge());
         FirestoreController fc = new FirestoreController();
         fc.recalculateNilaiBersih(session.getData("eventId"),teamId);
 

@@ -23,6 +23,8 @@ import com.packag.eventmonitor.Data.Team;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 public class FirestoreController {
@@ -75,12 +77,15 @@ public class FirestoreController {
                         division= total_data-1;
                         total_nilai-=nilai_perjuri[0];
                         total_nilai-=nilai_perjuri[total_data-1];
+                    }else{
+                        total_nilai = 0;
                     }
                     nilai_bersih = Math.round(total_nilai/division);
-                    Team temp_team = new Team();
-                    temp_team.setNilai_bersih(nilai_bersih);
-                    db.collection("events").document(teamId)
-                            .set(temp_team, SetOptions.merge());
+
+                    Map<String, Double> dataToSave = new HashMap<>();
+                    dataToSave.put("nilai_bersih",nilai_bersih);
+                    db.collection("events").document(eventId).collection("team").document(teamId)
+                            .set(dataToSave, SetOptions.merge());
                 }
             }
         });
@@ -89,7 +94,7 @@ public class FirestoreController {
 
     public void refereeNumbering(final String eventId) {
         final Vector<Referee> dataReferee = new Vector<Referee>();
-        counter = 1;
+        counter = 0;
         db.collection("events").document(eventId).collection("referee")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -108,7 +113,7 @@ public class FirestoreController {
                                 referee.setNumber(counter);
 
                                 db.collection("events").document(eventId).
-                                        collection("referee").document(d2.getId()).set(referee);
+                                        collection("referee").document(d2.getId()).set(referee, SetOptions.merge());
                             }
                             dataReferee.add(referee);
 
@@ -158,7 +163,7 @@ public class FirestoreController {
                 .document(eventId)
                 .collection("team")
                 .document(teamId);
-        teamRef.set(team);
+        teamRef.set(team, SetOptions.merge());
     }
 
     public void updateEventStatus(String eventId, int status) {

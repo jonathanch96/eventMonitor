@@ -1,5 +1,6 @@
 package com.packag.eventmonitor;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -17,6 +18,8 @@ import android.os.StrictMode;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -28,6 +31,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.packag.eventmonitor.Adapter.AdapterListReferee;
 import com.packag.eventmonitor.Data.PenilaianTraditional;
 import com.packag.eventmonitor.Data.Referee;
+import com.packag.eventmonitor.Data.Team;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -54,6 +58,7 @@ public class DetailPenilaianActivity extends AppCompatActivity {
     String teamId;
     RecyclerView rv_adp_list_referee;
     TextView tv_adp_team_name;
+    TextView tv_adp_no_urut;
     Vector<Referee> dataReferee;
     Vector<PenilaianTraditional> dataPenilaian;
     FirebaseFirestore db;
@@ -76,6 +81,7 @@ public class DetailPenilaianActivity extends AppCompatActivity {
     public void initData(){
         rv_adp_list_referee = findViewById(R.id.rv_adp_list_referee);
         tv_adp_team_name = findViewById(R.id.tv_adp_team_name);
+        tv_adp_no_urut = findViewById(R.id.tv_adp_no_urut);
         fab_adp = findViewById(R.id.fab_adp);
         dataReferee=new Vector<Referee>();
         dataPenilaian=new Vector<PenilaianTraditional>();
@@ -86,7 +92,18 @@ public class DetailPenilaianActivity extends AppCompatActivity {
         final DocumentReference eventRef =
                 db.collection("events").document(eventId);
                         ;
-        eventRef.collection("team").document(teamId)
+
+            eventRef.collection("team").document(teamId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        Team temp_team = task.getResult().toObject(Team.class);
+                        tv_adp_team_name.setText("Team : "+temp_team.getTeam_name());
+                        tv_adp_no_urut.setText("No Urut : "+temp_team.getNo_urut());
+                    }
+                }
+            });
+            eventRef.collection("team").document(teamId)
                 .collection("penilaian").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {

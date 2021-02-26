@@ -53,6 +53,7 @@ public class AdapterListTeamAdmin extends RecyclerView.Adapter<AdapterListTeamAd
     public class MyViewHolder extends RecyclerView.ViewHolder{
         TextView tv_amtl_no_urut;
         TextView tv_amtl_team_name;
+        TextView tv_amtl_nilai_bersih;
         Button btn_amtla_penilaian;
         Button btn_amtla_edit;
         Button btn_amtla_delete;
@@ -61,6 +62,7 @@ public class AdapterListTeamAdmin extends RecyclerView.Adapter<AdapterListTeamAd
             tv_amtl_no_urut = v.findViewById(R.id.tv_amtl_no_urut);
             tv_amtl_team_name = v.findViewById(R.id.tv_amtl_team_name);
             btn_amtla_penilaian = v.findViewById(R.id.btn_amtla_penilaian);
+            tv_amtl_nilai_bersih = v.findViewById(R.id.tv_amtl_nilai_bersih);
             btn_amtla_edit = v.findViewById(R.id.btn_amtla_edit);
             btn_amtla_delete = v.findViewById(R.id.btn_amtla_delete);
         }
@@ -69,7 +71,7 @@ public class AdapterListTeamAdmin extends RecyclerView.Adapter<AdapterListTeamAd
 
             tv_amtl_no_urut.setText(team.getNo_urut()+"");
             tv_amtl_team_name.setText(team.getTeam_name());
-
+            tv_amtl_nilai_bersih.setText("Nilai Bersih : "+team.getNilai_bersih());
             btn_amtla_penilaian.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -94,6 +96,7 @@ public class AdapterListTeamAdmin extends RecyclerView.Adapter<AdapterListTeamAd
                             .findViewById(R.id.et_amlat_no_urut);
                     et_amlat_no_urut.setText(team.getNo_urut()+"");
                     et_amlat_team_name.setText(team.getTeam_name());
+
                     alertDialogBuilder
                             .setCancelable(false)
                             .setPositiveButton("OK",
