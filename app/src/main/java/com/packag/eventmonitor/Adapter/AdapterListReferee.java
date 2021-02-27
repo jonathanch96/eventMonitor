@@ -29,6 +29,7 @@ import com.packag.eventmonitor.Data.RefereePenilaian;
 import com.packag.eventmonitor.Data.Team;
 import com.packag.eventmonitor.R;
 
+import java.util.Collections;
 import java.util.Vector;
 
 import javax.annotation.Nullable;
@@ -797,6 +798,7 @@ public class AdapterListReferee extends RecyclerView.Adapter<AdapterListReferee.
         this.dataReferee = dataReferee;
         this.eventId = eventId;
         this.teamId = teamId;
+
         db = FirebaseFirestore.getInstance();
         penilaian = new PenilaianTraditional();
         team = new Team();

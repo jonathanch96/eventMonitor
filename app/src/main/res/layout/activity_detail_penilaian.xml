@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
+
     tools:context=".DetailPenilaianActivity">
 
     <TextView
@@ -31,12 +32,38 @@
 
         android:text=""
         android:textSize="15dp" />
+    <TextView
+        android:layout_below="@id/tv_adp_no_urut"
+        android:id="@+id/tv_adp_nilai_bersih"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text=""
+        android:textSize="15dp" />
+    <TextView
+        android:layout_below="@id/tv_adp_nilai_bersih"
+        android:id="@+id/tv_adp_potongan_admin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text=""
+        android:textSize="15dp" />
+    <TextView
+        android:layout_below="@id/tv_adp_potongan_admin"
+        android:id="@+id/tv_adp_total_nilai"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text=""
+        android:textSize="15dp" />
+
 
     <androidx.recyclerview.widget.RecyclerView
+        android:paddingBottom="100dp"
         android:id="@+id/rv_adp_list_referee"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tv_adp_no_urut"
+        android:layout_below="@id/tv_adp_total_nilai"
         android:layout_marginTop="10dp"></androidx.recyclerview.widget.RecyclerView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -46,9 +73,22 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom|center"
-        android:layout_marginRight="30dp"
+        android:layout_marginRight="100dp"
         android:layout_marginBottom="30dp"
         android:src="@drawable/ic_file_download_24dp"
         app:backgroundTint="@color/colorPrimary"
+        app:fabSize="normal" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_adp_pengurangan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom|center"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/ic_add_24dp"
+        app:backgroundTint="@color/red"
         app:fabSize="normal" />
 </RelativeLayout>

@@ -2,7 +2,7 @@ package com.packag.eventmonitor.Data;
 
 import com.google.firebase.firestore.Exclude;
 
-public class Referee {
+public class Referee implements Comparable<Referee>{
     String key;
     String name;
     int number;
@@ -38,5 +38,13 @@ public class Referee {
 
     public Referee() {
 
+    }
+
+    @Override
+    public int compareTo(Referee referee) {
+        Integer number1 = (Integer)getNumber();
+        Integer number2 = (Integer)referee.getNumber();
+        //return number2.compareTo(number1); //desc
+        return number1.compareTo(number2); //asc
     }
 }

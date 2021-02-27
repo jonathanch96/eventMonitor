@@ -163,7 +163,10 @@ public class FirestoreController {
                 .document(eventId)
                 .collection("team")
                 .document(teamId);
-        teamRef.set(team, SetOptions.merge());
+        Map<String, Object> dataToSave = new HashMap<>();
+        dataToSave.put("team_name",team.getTeam_name());
+        dataToSave.put("no_urut",team.getNo_urut());
+        teamRef.set(dataToSave, SetOptions.merge());
     }
 
     public void updateEventStatus(String eventId, int status) {

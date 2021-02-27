@@ -221,20 +221,20 @@ public class ScoringTaoluActivity extends AppCompatActivity {
             errorMsg = "Nilai "+getResources().getString(R.string.ap_pekingsai_type_3)+" tidak boleh lebih dari 2.0";
         } else if (et_ap_taolu_p1.getText().toString().equals("")) {
             et_ap_taolu_p1.setText("0");
-        } else if (Double.parseDouble(et_ap_taolu_p1.getText().toString()) > 1) {
-            errorMsg = "Pengurangan Nilai "+getResources().getString(R.string.ks1_kesalahan_lain)+" tidak boleh lebih dari 1.0";
+//        } else if (Double.parseDouble(et_ap_taolu_p1.getText().toString()) > 1) {
+//            errorMsg = "Pengurangan Nilai "+getResources().getString(R.string.ks1_kesalahan_lain)+" tidak boleh lebih dari 1.0";
         } else if (et_ap_taolu_p2.getText().toString().equals("")) {
             et_ap_taolu_p2.setText("0");
-        } else if (Double.parseDouble(et_ap_taolu_p2.getText().toString()) > 1) {
-            errorMsg = "Pengurangan Nilai "+getResources().getString(R.string.ks2_kesalahan_kecil)+" tidak boleh lebih dari 1.0";
+//        } else if (Double.parseDouble(et_ap_taolu_p2.getText().toString()) > 1) {
+//            errorMsg = "Pengurangan Nilai "+getResources().getString(R.string.ks2_kesalahan_kecil)+" tidak boleh lebih dari 1.0";
         } else if (et_ap_taolu_p3.getText().toString().equals("")) {
             et_ap_taolu_p3.setText("0");
-        } else if (Double.parseDouble(et_ap_taolu_p3.getText().toString()) > 1) {
-            errorMsg = "Pengurangan Nilai "+getResources().getString(R.string.ks3_kesalahan_sedang)+" tidak boleh lebih dari 1.0";
+//        } else if (Double.parseDouble(et_ap_taolu_p3.getText().toString()) > 1) {
+//            errorMsg = "Pengurangan Nilai "+getResources().getString(R.string.ks3_kesalahan_sedang)+" tidak boleh lebih dari 1.0";
         } else if (et_ap_taolu_p4.getText().toString().equals("")) {
             et_ap_taolu_p4.setText("0");
-        } else if (Double.parseDouble(et_ap_taolu_p4.getText().toString()) > 1) {
-            errorMsg = "Pengurangan Nilai "+getResources().getString(R.string.ks4_kesalahan_besar)+" tidak boleh lebih dari 1.0";
+//        } else if (Double.parseDouble(et_ap_taolu_p4.getText().toString()) > 1) {
+//            errorMsg = "Pengurangan Nilai "+getResources().getString(R.string.ks4_kesalahan_besar)+" tidak boleh lebih dari 1.0";
 
         } else {
             flag = true;

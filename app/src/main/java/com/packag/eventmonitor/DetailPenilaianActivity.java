@@ -8,19 +8,26 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import com.developer.kalert.KAlertDialog;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -28,9 +35,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 import com.packag.eventmonitor.Adapter.AdapterListReferee;
 import com.packag.eventmonitor.Data.PenilaianTraditional;
 import com.packag.eventmonitor.Data.Referee;
+import com.packag.eventmonitor.Data.RefereePenilaian;
 import com.packag.eventmonitor.Data.Team;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -47,10 +56,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 import javax.annotation.Nullable;
-
 
 
 public class DetailPenilaianActivity extends AppCompatActivity {
@@ -59,11 +70,17 @@ public class DetailPenilaianActivity extends AppCompatActivity {
     RecyclerView rv_adp_list_referee;
     TextView tv_adp_team_name;
     TextView tv_adp_no_urut;
+    TextView tv_adp_nilai_bersih;
+    TextView tv_adp_potongan_admin;
+    TextView tv_adp_total_nilai;
+    Team team;
     Vector<Referee> dataReferee;
     Vector<PenilaianTraditional> dataPenilaian;
     FirebaseFirestore db;
 
     FloatingActionButton fab_adp;
+    FloatingActionButton fab_adp_pengurangan;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,49 +95,64 @@ public class DetailPenilaianActivity extends AppCompatActivity {
         getData();
         setListener();
     }
-    public void initData(){
+
+    public void initData() {
         rv_adp_list_referee = findViewById(R.id.rv_adp_list_referee);
         tv_adp_team_name = findViewById(R.id.tv_adp_team_name);
         tv_adp_no_urut = findViewById(R.id.tv_adp_no_urut);
+        tv_adp_nilai_bersih = findViewById(R.id.tv_adp_nilai_bersih);
+        tv_adp_potongan_admin = findViewById(R.id.tv_adp_potongan_admin);
+        tv_adp_total_nilai = findViewById(R.id.tv_adp_total_nilai);
         fab_adp = findViewById(R.id.fab_adp);
-        dataReferee=new Vector<Referee>();
-        dataPenilaian=new Vector<PenilaianTraditional>();
+        fab_adp_pengurangan = findViewById(R.id.fab_adp_pengurangan);
+
+        dataReferee = new Vector<Referee>();
+        dataPenilaian = new Vector<PenilaianTraditional>();
         db = FirebaseFirestore.getInstance();
+        team = new Team();
 
     }
-    public void getData(){
+
+    public void getData() {
         final DocumentReference eventRef =
                 db.collection("events").document(eventId);
-                        ;
+        ;
 
-            eventRef.collection("team").document(teamId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        Team temp_team = task.getResult().toObject(Team.class);
-                        tv_adp_team_name.setText("Team : "+temp_team.getTeam_name());
-                        tv_adp_no_urut.setText("No Urut : "+temp_team.getNo_urut());
-                    }
+        eventRef.collection("team").document(teamId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@androidx.annotation.Nullable DocumentSnapshot value, @androidx.annotation.Nullable FirebaseFirestoreException error) {
+                if(value.exists()){
+                    team = value.toObject(Team.class);
+                    tv_adp_team_name.setText("Team : " + team.getTeam_name());
+                    tv_adp_no_urut.setText("No Urut : " + team.getNo_urut());
+                    tv_adp_nilai_bersih.setText("Nilai Bersih : " + String.format("%.2f", team.getNilai_bersih()) + "");
+                    tv_adp_potongan_admin.setText("Potongan Admin : " + String.format("%.2f", team.getPengurangan_nb()) + "");
+                    tv_adp_total_nilai.setText("Total : " + String.format("%.2f", team.getTotal_nilai()) + "");
                 }
-            });
-            eventRef.collection("team").document(teamId)
+            }
+        });
+        eventRef.collection("team").document(teamId)
                 .collection("penilaian").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 dataReferee = new Vector<Referee>();
                 dataPenilaian = new Vector<PenilaianTraditional>();
                 for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                    final PenilaianTraditional penilaian = document.toObject(PenilaianTraditional.class);
-                    penilaian.setKey(document.getId());
-                    dataPenilaian.add(penilaian);
+//                    final PenilaianTraditional penilaian = document.toObject(PenilaianTraditional.class);
+//                    penilaian.setKey(document.getId());
+//                    dataPenilaian.add(penilaian);
+
+
                     eventRef.collection("referee").document(document.getId()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                         @Override
                         public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                            if(documentSnapshot.exists()) {
+                            if (documentSnapshot.exists()) {
                                 final Referee refereeClass = documentSnapshot.toObject(Referee.class);
                                 refereeClass.setKey(documentSnapshot.getId());
                                 dataReferee.add(refereeClass);
-                                rv_adp_list_referee.setAdapter(new AdapterListReferee(DetailPenilaianActivity.this,dataReferee,eventId,teamId));
+                                Collections.sort(dataReferee);
+                                rv_adp_list_referee.setAdapter(new AdapterListReferee(DetailPenilaianActivity.this, dataReferee, eventId, teamId));
+
                             }
                         }
                     });
@@ -133,16 +165,97 @@ public class DetailPenilaianActivity extends AppCompatActivity {
                 // use a linear layout manager
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(DetailPenilaianActivity.this);
                 rv_adp_list_referee.setLayoutManager(layoutManager);
-                rv_adp_list_referee.setAdapter(new AdapterListReferee(DetailPenilaianActivity.this,dataReferee,eventId,teamId));
+                rv_adp_list_referee.setAdapter(new AdapterListReferee(DetailPenilaianActivity.this, dataReferee, eventId, teamId));
             }
         });
     }
-    public void getIntentData(){
+
+    public void getIntentData() {
         Intent intent = getIntent();
         eventId = intent.getStringExtra("eventId");
         teamId = intent.getStringExtra("teamId");
     }
-    public void setListener(){
+
+    public void setListener() {
+        fab_adp_pengurangan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LayoutInflater li = LayoutInflater.from(DetailPenilaianActivity.this);
+                View promptsView = li.inflate(R.layout.adapter_model_dialog_tambah_pengurangan, null);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        DetailPenilaianActivity.this);
+                alertDialogBuilder.setView(promptsView);
+                final EditText et_amltp_pengurangan_nb = (EditText) promptsView
+                        .findViewById(R.id.et_amltp_pengurangan_nb);
+                et_amltp_pengurangan_nb.setText(String.format("%.2f", team.getPengurangan_nb()) + "");
+
+                alertDialogBuilder
+                        .setCancelable(false)
+                        .setPositiveButton("OK",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+
+
+                                        if (et_amltp_pengurangan_nb.getText().toString().equals("")
+                                                || et_amltp_pengurangan_nb.getText().toString().equals(".")) {
+                                            et_amltp_pengurangan_nb.setText("0");
+
+                                        }
+
+                                        db.collection("events").document(eventId)
+                                                .collection("team").document(teamId).get()
+                                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                        if (task.isSuccessful()) {
+                                                            if (task.getResult().exists()) {
+                                                                Team team = task.getResult().toObject(Team.class);
+                                                                team.setKey(task.getResult().getId());
+                                                                double pengurangan = Double.parseDouble
+                                                                        (et_amltp_pengurangan_nb.getText().toString());
+                                                                double total = team.getNilai_bersih() - pengurangan;
+                                                                if(total <0){
+                                                                    new KAlertDialog(DetailPenilaianActivity.this, KAlertDialog.ERROR_TYPE)
+                                                                            .setTitleText("Error!")
+                                                                            .setContentText("Pengurangan lebih dari nilai bersih!")
+                                                                            .show();
+                                                                }else{
+                                                                    Map<String, Double> dataToSave = new HashMap<>();
+                                                                    dataToSave.put("pengurangan_nb",pengurangan);
+                                                                    dataToSave.put("total_nilai",total);
+                                                                    db.collection("events").document(eventId)
+                                                                            .collection("team").document(teamId)
+                                                                            .set(dataToSave, SetOptions.merge());
+                                                                    new KAlertDialog(DetailPenilaianActivity.this, KAlertDialog.SUCCESS_TYPE)
+                                                                            .setTitleText("Success!")
+                                                                            .setContentText("Berhasil menambah pengurangan nilai admin!")
+                                                                            .show();
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                });
+
+
+
+
+
+                                    }
+                                })
+                        .setNegativeButton("Cancel",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // show it
+                alertDialog.show();
+            }
+        });
         fab_adp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -192,7 +305,7 @@ public class DetailPenilaianActivity extends AppCompatActivity {
                         }
                     } else {
                         // Permission has already been granted
-                        exportPenilaianToExcel(dataPenilaian,dataReferee);
+                        exportPenilaianToExcel(dataPenilaian, dataReferee);
 
                     }
                 }
@@ -201,32 +314,31 @@ public class DetailPenilaianActivity extends AppCompatActivity {
         });
 
 
-
     }
 
 
-    private void exportPenilaianToExcel(Vector<PenilaianTraditional> penilaians, Vector<Referee> referees){
+    private void exportPenilaianToExcel(Vector<PenilaianTraditional> penilaians, Vector<Referee> referees) {
 
-         String[] columns = {
-                 "Juri",
-                 "N1",
-                 "N2",
-                 "N3",
-                 "N4",
-                 "N5",
-                 "N6",
-                 "N7",
-                 "N8",
-                 "N9",
-                 "N10",
-                 "KS1",
-                 "KS2",
-                 "KS3",
-                 "KS4",
-                 "Total Kotor",
-                 "Total Pengurangan",
-                 "Total Bersih"
-         };
+        String[] columns = {
+                "Juri",
+                "N1",
+                "N2",
+                "N3",
+                "N4",
+                "N5",
+                "N6",
+                "N7",
+                "N8",
+                "N9",
+                "N10",
+                "KS1",
+                "KS2",
+                "KS3",
+                "KS4",
+                "Total Kotor",
+                "Total Pengurangan",
+                "Total Bersih"
+        };
         Workbook workbook = new XSSFWorkbook(); // new HSSFWorkbook() for generating `.xls` file
 
         /* CreationHelper helps us create instances of various things like DataFormat,
@@ -250,7 +362,7 @@ public class DetailPenilaianActivity extends AppCompatActivity {
         Row headerRow = sheet.createRow(0);
 
         // Create cells
-        for(int i = 0; i < columns.length; i++) {
+        for (int i = 0; i < columns.length; i++) {
             Cell cell = headerRow.createCell(i);
             cell.setCellValue(columns[i]);
             cell.setCellStyle(headerCellStyle);
@@ -262,8 +374,8 @@ public class DetailPenilaianActivity extends AppCompatActivity {
 
         // Create Other rows and cells with employees data
         int rowNum = 0;
-        for (PenilaianTraditional p : penilaians){
-            Row row = sheet.createRow(rowNum+1);
+        for (PenilaianTraditional p : penilaians) {
+            Row row = sheet.createRow(rowNum + 1);
 
             row.createCell(0)
                     .setCellValue(referees.get(rowNum).getName());
@@ -314,10 +426,10 @@ public class DetailPenilaianActivity extends AppCompatActivity {
        /* for(int i = 0; i < columns.length; i++) {
             sheet.setColumnWidth(2, 250);
         }*/
-       String path_folder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/Event Monitor/";
-       File directory = new File(path_folder);
-       /*check Dir*/
-        if (! directory.exists()){
+        String path_folder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/Event Monitor/";
+        File directory = new File(path_folder);
+        /*check Dir*/
+        if (!directory.exists()) {
             directory.mkdir();
             // If you require it to make the entire directory path including parents,
             // use directory.mkdirs(); here instead.
@@ -327,7 +439,7 @@ public class DetailPenilaianActivity extends AppCompatActivity {
         try {
             fileOut = new FileOutputStream
                     (Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-                            +"/Event Monitor/Exported Data.xlsx");
+                            + "/Event Monitor/Exported Data.xlsx");
             workbook.write(fileOut);
             fileOut.close();
 
@@ -341,16 +453,15 @@ public class DetailPenilaianActivity extends AppCompatActivity {
         }
 
         File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-                +"/Event Monitor/Exported Data.xlsx");
+                + "/Event Monitor/Exported Data.xlsx");
         Uri path = Uri.fromFile(file);
         Intent pdfOpenintent = new Intent(Intent.ACTION_VIEW);
         pdfOpenintent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        pdfOpenintent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION );
+        pdfOpenintent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         pdfOpenintent.setDataAndType(path, "application/vnd.ms-excel");
         try {
             startActivity(pdfOpenintent);
-        }
-        catch (ActivityNotFoundException e) {
+        } catch (ActivityNotFoundException e) {
 
         }
 

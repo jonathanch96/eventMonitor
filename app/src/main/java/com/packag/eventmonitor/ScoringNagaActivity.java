@@ -613,7 +613,7 @@ public class ScoringNagaActivity extends AppCompatActivity {
 
                     data = new Penilaian(
                             Double.parseDouble(et_amdp_naga_p3.getText().toString()),
-                            "-", null, "et_amdp_naga_p1");
+                            "-", null, "et_amdp_naga_p3");
                     penilaians.add(data);
 
                     data = new Penilaian(
