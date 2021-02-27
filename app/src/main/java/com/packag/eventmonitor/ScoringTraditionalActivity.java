@@ -234,8 +234,6 @@ public class ScoringTraditionalActivity extends AppCompatActivity {
             et_as_ks4.setText("0");
 
 
-
-
         } else {
             flag = true;
         }
@@ -252,20 +250,20 @@ public class ScoringTraditionalActivity extends AppCompatActivity {
     }
     private void recalculateTotal(){
 
-        double n1 = et_as_n1.getText().toString().equals("")?0:Double.parseDouble(et_as_n1.getText().toString());
-        double n2 = et_as_n2.getText().toString().equals("")?0:Double.parseDouble(et_as_n2.getText().toString());
-        double n3 = et_as_n3.getText().toString().equals("")?0:Double.parseDouble(et_as_n3.getText().toString());
-        double n4 = et_as_n4.getText().toString().equals("")?0:Double.parseDouble(et_as_n4.getText().toString());
-        double n5 = et_as_n5.getText().toString().equals("")?0:Double.parseDouble(et_as_n5.getText().toString());
-        double n6 = et_as_n6.getText().toString().equals("")?0:Double.parseDouble(et_as_n6.getText().toString());
-        double n7 = et_as_n7.getText().toString().equals("")?0:Double.parseDouble(et_as_n7.getText().toString());
-        double n8 = et_as_n8.getText().toString().equals("")?0:Double.parseDouble(et_as_n8.getText().toString());
-        double n9 = et_as_n9.getText().toString().equals("")?0:Double.parseDouble(et_as_n9.getText().toString());
-        double n10 = et_as_n10.getText().toString().equals("")?0:Double.parseDouble(et_as_n10.getText().toString());
-        double p1 = et_as_ks1.getText().toString().equals("")?0:Double.parseDouble(et_as_ks1.getText().toString());
-        double p2 = et_as_ks2.getText().toString().equals("")?0:Double.parseDouble(et_as_ks2.getText().toString());
-        double p3 = et_as_ks3.getText().toString().equals("")?0:Double.parseDouble(et_as_ks3.getText().toString());
-        double p4 = et_as_ks4.getText().toString().equals("")?0:Double.parseDouble(et_as_ks4.getText().toString());
+        double n1 = et_as_n1.getText().toString().equals("")||et_as_n1.getText().toString().equals(".")?0:Double.parseDouble(et_as_n1.getText().toString());
+        double n2 = et_as_n2.getText().toString().equals("")||et_as_n2.getText().toString().equals(".")?0:Double.parseDouble(et_as_n2.getText().toString());
+        double n3 = et_as_n3.getText().toString().equals("")||et_as_n3.getText().toString().equals(".")?0:Double.parseDouble(et_as_n3.getText().toString());
+        double n4 = et_as_n4.getText().toString().equals("")||et_as_n4.getText().toString().equals(".")?0:Double.parseDouble(et_as_n4.getText().toString());
+        double n5 = et_as_n5.getText().toString().equals("")||et_as_n5.getText().toString().equals(".")?0:Double.parseDouble(et_as_n5.getText().toString());
+        double n6 = et_as_n6.getText().toString().equals("")||et_as_n6.getText().toString().equals(".")?0:Double.parseDouble(et_as_n6.getText().toString());
+        double n7 = et_as_n7.getText().toString().equals("")||et_as_n7.getText().toString().equals(".")?0:Double.parseDouble(et_as_n7.getText().toString());
+        double n8 = et_as_n8.getText().toString().equals("")||et_as_n8.getText().toString().equals(".")?0:Double.parseDouble(et_as_n8.getText().toString());
+        double n9 = et_as_n9.getText().toString().equals("")||et_as_n9.getText().toString().equals(".")?0:Double.parseDouble(et_as_n9.getText().toString());
+        double n10 = et_as_n10.getText().toString().equals("")||et_as_n10.getText().toString().equals(".")?0:Double.parseDouble(et_as_n10.getText().toString());
+        double p1 = et_as_ks1.getText().toString().equals("")||et_as_ks1.getText().toString().equals(".")?0:Double.parseDouble(et_as_ks1.getText().toString());
+        double p2 = et_as_ks2.getText().toString().equals("")||et_as_ks2.getText().toString().equals(".")?0:Double.parseDouble(et_as_ks2.getText().toString());
+        double p3 = et_as_ks3.getText().toString().equals("")||et_as_ks3.getText().toString().equals(".")?0:Double.parseDouble(et_as_ks3.getText().toString());
+        double p4 = et_as_ks4.getText().toString().equals("")||et_as_ks4.getText().toString().equals(".")?0:Double.parseDouble(et_as_ks4.getText().toString());
 
         double tb=0,tk=0,p=0;
         tk = n1+n2+n3+n4+n5+n6+n7+n8+n9+n10;

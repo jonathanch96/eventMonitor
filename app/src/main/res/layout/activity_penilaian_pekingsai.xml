@@ -1,34 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
-    tools:context=".Scoring">
+    android:padding="20dp">
 
     <TextView
-        android:id="@+id/tv_ap_pekingsai_team_name"
+        android:id="@+id/tv_amdp_no_urut_pekingsai"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:text="@string/no_urut" />
+
+    <TextView
+        android:id="@+id/tv_amdp_team_name_pekingsai"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="20dp"
         android:text="@string/team_name" />
 
-    <TextView
-        android:id="@+id/tv_ap_pekingsai_no_urut"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:paddingLeft="20dp"
-        android:text="@string/no_urut" />
-    <TextView
-        android:id="@+id/tv_amdp_referee_pekingsai"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:paddingLeft="20dp"
-        android:text="@string/referee" />
+
 
 
     <ScrollView
@@ -74,16 +65,15 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="0.7"
                         android:text="@string/nilai_maks_1" />
-                    <TextView
-                        android:id="@+id/tv_amdp_pekingsai_n1"
-                        android:textColor="?attr/editTextColor"
-                        android:background="?attr/editTextBackground"
-                        android:textAppearance="?android:attr/textAppearanceMediumInverse"
-                        android:imeOptions="actionNext"
+
+                    <EditText
+                        android:id="@+id/et_amdp_pekingsai_n1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.3"/>
-
+                        android:layout_weight="0.3"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberDecimal"
+                        android:text="@string/def_value" />
                 </LinearLayout>
 
 
@@ -104,15 +94,14 @@
                         android:layout_weight="0.7"
                         android:text="@string/nilai_maks_1" />
 
-                    <TextView
-                        android:id="@+id/tv_amdp_pekingsai_n2"
-                        android:textColor="?attr/editTextColor"
-                        android:background="?attr/editTextBackground"
-                        android:textAppearance="?android:attr/textAppearanceMediumInverse"
-                        android:imeOptions="actionNext"
+                    <EditText
+                        android:id="@+id/et_amdp_pekingsai_n2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.3"/>
+                        android:layout_weight="0.3"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberDecimal"
+                        android:text="@string/def_value" />
                 </LinearLayout>
 
                 <TextView
@@ -132,15 +121,14 @@
                         android:layout_weight="0.7"
                         android:text="@string/nilai_maks_1" />
 
-                    <TextView
-                        android:id="@+id/tv_amdp_pekingsai_n3"
-                        android:textColor="?attr/editTextColor"
-                        android:background="?attr/editTextBackground"
-                        android:textAppearance="?android:attr/textAppearanceMediumInverse"
-                        android:imeOptions="actionNext"
+                    <EditText
+                        android:id="@+id/et_amdp_pekingsai_n3"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.3"/>
+                        android:layout_weight="0.3"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberDecimal"
+                        android:text="@string/def_value" />
                 </LinearLayout>
 
 
@@ -161,15 +149,14 @@
                         android:layout_weight="0.7"
                         android:text="@string/nilai_maks_1" />
 
-                    <TextView
-                        android:id="@+id/tv_amdp_pekingsai_n4"
-                        android:textColor="?attr/editTextColor"
-                        android:background="?attr/editTextBackground"
-                        android:textAppearance="?android:attr/textAppearanceMediumInverse"
-                        android:imeOptions="actionNext"
+                    <EditText
+                        android:id="@+id/et_amdp_pekingsai_n4"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.3"/>
+                        android:layout_weight="0.3"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberDecimal"
+                        android:text="@string/def_value" />
                 </LinearLayout>
 
                 <TextView
@@ -189,15 +176,14 @@
                         android:layout_weight="0.7"
                         android:text="@string/nilai_maks_1" />
 
-                    <TextView
-                        android:id="@+id/tv_amdp_pekingsai_n5"
-                        android:textColor="?attr/editTextColor"
-                        android:background="?attr/editTextBackground"
-                        android:textAppearance="?android:attr/textAppearanceMediumInverse"
-                        android:imeOptions="actionNext"
+                    <EditText
+                        android:id="@+id/et_amdp_pekingsai_n5"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.3"/>
+                        android:layout_weight="0.3"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberDecimal"
+                        android:text="@string/def_value" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -232,15 +218,14 @@
                         android:layout_weight="0.7"
                         android:text="@string/nilai_maks_1" />
 
-                    <TextView
-                        android:id="@+id/tv_amdp_pekingsai_n6"
-                        android:textColor="?attr/editTextColor"
-                        android:background="?attr/editTextBackground"
-                        android:textAppearance="?android:attr/textAppearanceMediumInverse"
-                        android:imeOptions="actionNext"
+                    <EditText
+                        android:id="@+id/et_amdp_pekingsai_n6"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.3"/>
+                        android:layout_weight="0.3"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberDecimal"
+                        android:text="@string/def_value" />
                 </LinearLayout>
 
                 <TextView
@@ -260,15 +245,14 @@
                         android:layout_weight="0.7"
                         android:text="@string/nilai_maks_1" />
 
-                    <TextView
-                        android:id="@+id/tv_amdp_pekingsai_n7"
-                        android:textColor="?attr/editTextColor"
-                        android:background="?attr/editTextBackground"
-                        android:textAppearance="?android:attr/textAppearanceMediumInverse"
-                        android:imeOptions="actionNext"
+                    <EditText
+                        android:id="@+id/et_amdp_pekingsai_n7"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.3"/>
+                        android:layout_weight="0.3"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberDecimal"
+                        android:text="@string/def_value" />
                 </LinearLayout>
 
 
@@ -289,15 +273,14 @@
                         android:layout_weight="0.7"
                         android:text="@string/nilai_maks_1" />
 
-                    <TextView
-                        android:id="@+id/tv_amdp_pekingsai_n8"
-                        android:textColor="?attr/editTextColor"
-                        android:background="?attr/editTextBackground"
-                        android:textAppearance="?android:attr/textAppearanceMediumInverse"
-                        android:imeOptions="actionNext"
+                    <EditText
+                        android:id="@+id/et_amdp_pekingsai_n8"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.3"/>
+                        android:layout_weight="0.3"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberDecimal"
+                        android:text="@string/def_value" />
                 </LinearLayout>
 
 
@@ -343,15 +326,14 @@
                     android:layout_weight="0.7"
                     android:text="@string/nilai_maks_2" />
 
-                <TextView
-                    android:id="@+id/tv_amdp_pekingsai_n9"
-                    android:textColor="?attr/editTextColor"
-                    android:background="?attr/editTextBackground"
-                    android:textAppearance="?android:attr/textAppearanceMediumInverse"
-                    android:imeOptions="actionNext"
+                <EditText
+                    android:id="@+id/et_amdp_pekingsai_n9"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.3"/>
+                    android:layout_weight="0.3"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:text="@string/def_value" />
             </LinearLayout>
 
             <LinearLayout
@@ -375,19 +357,23 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.7"
+                        android:layout_weight="0.5"
                         android:text="@string/ks1_kesalahan_lain" />
 
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="0.2"
+                        android:background="@drawable/rectangle_green" />
 
-                    <TextView
-                        android:id="@+id/tv_amdp_pekingsai_p1"
-                        android:textColor="?attr/editTextColor"
-                        android:background="?attr/editTextBackground"
-                        android:textAppearance="?android:attr/textAppearanceMediumInverse"
-                        android:imeOptions="actionNext"
+                    <EditText
+                        android:id="@+id/et_ap_pekingsai_p1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.3"/>
+                        android:layout_weight="0.3"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberDecimal"
+                        android:text="@string/def_value" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -398,19 +384,23 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.7"
+                        android:layout_weight="0.5"
                         android:text="@string/ks2_kesalahan_kecil" />
 
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="0.2"
+                        android:background="@drawable/rectangle_yellow" />
 
-                    <TextView
-                        android:id="@+id/tv_amdp_pekingsai_p2"
-                        android:textColor="?attr/editTextColor"
-                        android:background="?attr/editTextBackground"
-                        android:textAppearance="?android:attr/textAppearanceMediumInverse"
-                        android:imeOptions="actionNext"
+                    <EditText
+                        android:id="@+id/et_ap_pekingsai_p2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.3"/>
+                        android:layout_weight="0.3"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberDecimal"
+                        android:text="@string/def_value" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -421,20 +411,23 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.7"
+                        android:layout_weight="0.5"
                         android:text="@string/ks3_kesalahan_sedang" />
 
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="0.2"
+                        android:background="@drawable/rectangle_black" />
 
-
-                    <TextView
-                        android:id="@+id/tv_amdp_pekingsai_p3"
-                        android:textColor="?attr/editTextColor"
-                        android:background="?attr/editTextBackground"
-                        android:textAppearance="?android:attr/textAppearanceMediumInverse"
-                        android:imeOptions="actionNext"
+                    <EditText
+                        android:id="@+id/et_ap_pekingsai_p3"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.3"/>
+                        android:layout_weight="0.3"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberDecimal"
+                        android:text="@string/def_value" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -445,19 +438,23 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.7"
+                        android:layout_weight="0.5"
                         android:text="@string/ks4_kesalahan_besar" />
 
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="0.2"
+                        android:background="@drawable/rectangle_red" />
 
-                    <TextView
-                        android:id="@+id/tv_amdp_pekingsai_p4"
-                        android:textColor="?attr/editTextColor"
-                        android:background="?attr/editTextBackground"
-                        android:textAppearance="?android:attr/textAppearanceMediumInverse"
-                        android:imeOptions="actionNext"
+                    <EditText
+                        android:id="@+id/et_ap_pekingsai_p4"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.3"/>
+
+                        android:layout_weight="0.3"
+                        android:inputType="numberDecimal"
+                        android:text="@string/def_value" />
                 </LinearLayout>
 
 
@@ -484,15 +481,14 @@
                     android:layout_weight="0.7"
                     android:text="@string/ap_pekingsai_type_5_det_1" />
 
-                <TextView
-                    android:id="@+id/tv_amdp_pekingsai_kesulitan"
-                    android:textColor="?attr/editTextColor"
-                    android:background="?attr/editTextBackground"
-                    android:textAppearance="?android:attr/textAppearanceMediumInverse"
-                    android:imeOptions="actionNext"
+                <EditText
+                    android:id="@+id/et_amdp_pekingsai_kesulitan"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.3"/>
+                    android:layout_weight="0.3"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:text="@string/def_value" />
 
             </LinearLayout>
 
@@ -571,9 +567,13 @@
             </LinearLayout>
 
 
-
+            <Button
+                android:id="@+id/btn_ap_pekingsai_as_submit"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="@string/btn_submit" />
         </LinearLayout>
     </ScrollView>
-
-
 </LinearLayout>

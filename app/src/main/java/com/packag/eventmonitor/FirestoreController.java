@@ -68,19 +68,19 @@ public class FirestoreController {
                     }
                     Arrays.sort(nilai_perjuri);
                     if(total_data==9){
-                        division = total_data-2;
+                        division = total_data-4;
                         total_nilai-=nilai_perjuri[0];
                         total_nilai-=nilai_perjuri[1];
                         total_nilai-=nilai_perjuri[total_data-1];
                         total_nilai-=nilai_perjuri[total_data-2];
                     }else if(total_data==7||total_data==5){
-                        division= total_data-1;
+                        division= total_data-2;
                         total_nilai-=nilai_perjuri[0];
                         total_nilai-=nilai_perjuri[total_data-1];
                     }else{
                         total_nilai = 0;
                     }
-                    nilai_bersih = Math.round(total_nilai/division);
+                    nilai_bersih = total_nilai/(double)division;
 
                     Map<String, Double> dataToSave = new HashMap<>();
                     dataToSave.put("nilai_bersih",nilai_bersih);

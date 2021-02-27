@@ -175,6 +175,7 @@ public class RefereeActivity extends AppCompatActivity {
                     intent = new Intent(RefereeActivity.this,ScoringTraditionalActivity.class);
                 }
                 intent.putExtra("teamId",dataTeam.get(i).getKey());
+
                 startActivityForResult(intent,REQUEST);
 
             }

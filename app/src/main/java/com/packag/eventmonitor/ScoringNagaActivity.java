@@ -174,7 +174,7 @@ public class ScoringNagaActivity extends AppCompatActivity {
         } else if (Double.parseDouble(et_amdp_naga_n1.getText().toString()) > 5) {
             errorMsg = "Nilai Gerakan Tidak boleh lebih dari 5.0";
         }else if (et_amdp_naga_p1.getText().toString().equals("")) {
-            errorMsg = "Pengurangan nilai Gerakan harus di isi";
+            et_amdp_naga_p1.setText("0");
         } else if (Double.parseDouble(et_amdp_naga_p1.getText().toString()) > 5) {
             errorMsg = "Pengurangan nilai Gerakan Tidak boleh lebih dari 5.0";
 
@@ -183,7 +183,7 @@ public class ScoringNagaActivity extends AppCompatActivity {
         } else if (Double.parseDouble(et_amdp_naga_n2.getText().toString()) > 1) {
             errorMsg = "Nilai Semangat, Variasi, Kompak, Tehnik Tidak boleh lebih dari 1.0";
         } else if (et_amdp_naga_p2.getText().toString().equals("")) {
-            errorMsg = "Pengurangan Nilai Semangat, Variasi, Kompak, Tehnik Harus diisi";
+            et_amdp_naga_p2.setText("0");
         } else if (Double.parseDouble(et_amdp_naga_p2.getText().toString()) > 1) {
             errorMsg = "Pengurangan Semangat, Variasi, Kompak, Tehnik Tidak boleh lebih dari 1.0";
 
@@ -192,7 +192,7 @@ public class ScoringNagaActivity extends AppCompatActivity {
         } else if (Double.parseDouble(et_amdp_naga_n3.getText().toString()) > 1) {
             errorMsg = "Nilai Peralatan, Seragam, Bersih, dan Serasi Tidak boleh lebih dari 1.0";
         } else if (et_amdp_naga_p3.getText().toString().equals("")) {
-            errorMsg = "Pengurangan Nilai Peralatan, Seragam, Bersih, dan Serasi Harus diisi";
+            et_amdp_naga_p3.setText("0");
         } else if (Double.parseDouble(et_amdp_naga_p3.getText().toString()) > 1) {
             errorMsg = "Pengurangan Nilai Peralatan, Seragam, Bersih, dan Serasi Tidak boleh lebih dari 1.0";
 
@@ -202,7 +202,7 @@ public class ScoringNagaActivity extends AppCompatActivity {
         } else if (Double.parseDouble(et_amdp_naga_n4.getText().toString()) > 1) {
             errorMsg = "Nilai Keserasian Musik Tidak boleh lebih dari 1.0";
         } else if (et_amdp_naga_p4.getText().toString().equals("")) {
-            errorMsg = "Pengurangan Nilai Keserasian Musik Harus diisi";
+            et_amdp_naga_p4.setText("0");
         } else if (Double.parseDouble(et_amdp_naga_p4.getText().toString()) > 1) {
             errorMsg = "Pengurangan Nilai Keserasian Musik Tidak boleh lebih dari 1.0";
 
@@ -212,7 +212,7 @@ public class ScoringNagaActivity extends AppCompatActivity {
         } else if (Double.parseDouble(et_amdp_naga_n5.getText().toString()) > 2) {
             errorMsg = "Nilai Tingkat Kesulitan Tidak boleh lebih dari 2.0";
         } else if (et_amdp_naga_p5.getText().toString().equals("")) {
-            errorMsg = "Pengurangan Nilai Tingkat Kesulitan Harus diisi";
+            et_amdp_naga_p5.setText("0");
         } else if (Double.parseDouble(et_amdp_naga_p5.getText().toString()) > 2) {
             errorMsg = "Pengurangan Nilai Tingkat Kesulitan Tidak boleh lebih dari 2.0";
 
@@ -232,16 +232,16 @@ public class ScoringNagaActivity extends AppCompatActivity {
     }
     private void recalculateTotal(){
 
-        double n1 = et_amdp_naga_n1.getText().toString().equals("")?0:Double.parseDouble(et_amdp_naga_n1.getText().toString());
-        double n2 = et_amdp_naga_n2.getText().toString().equals("")?0:Double.parseDouble(et_amdp_naga_n2.getText().toString());
-        double n3 = et_amdp_naga_n3.getText().toString().equals("")?0:Double.parseDouble(et_amdp_naga_n3.getText().toString());
-        double n4 = et_amdp_naga_n4.getText().toString().equals("")?0:Double.parseDouble(et_amdp_naga_n4.getText().toString());
-        double n5 = et_amdp_naga_n5.getText().toString().equals("")?0:Double.parseDouble(et_amdp_naga_n5.getText().toString());
-        double p1 = et_amdp_naga_p1.getText().toString().equals("")?0:Double.parseDouble(et_amdp_naga_p1.getText().toString());
-        double p2 = et_amdp_naga_p2.getText().toString().equals("")?0:Double.parseDouble(et_amdp_naga_p2.getText().toString());
-        double p3 = et_amdp_naga_p3.getText().toString().equals("")?0:Double.parseDouble(et_amdp_naga_p3.getText().toString());
-        double p4 = et_amdp_naga_p4.getText().toString().equals("")?0:Double.parseDouble(et_amdp_naga_p4.getText().toString());
-        double p5 = et_amdp_naga_p5.getText().toString().equals("")?0:Double.parseDouble(et_amdp_naga_p5.getText().toString());
+        double n1 = et_amdp_naga_n1.getText().toString().equals("")||et_amdp_naga_n1.getText().toString().equals(".")?0:Double.parseDouble(et_amdp_naga_n1.getText().toString());
+        double n2 = et_amdp_naga_n2.getText().toString().equals("")||et_amdp_naga_n2.getText().toString().equals(".")?0:Double.parseDouble(et_amdp_naga_n2.getText().toString());
+        double n3 = et_amdp_naga_n3.getText().toString().equals("")||et_amdp_naga_n3.getText().toString().equals(".")?0:Double.parseDouble(et_amdp_naga_n3.getText().toString());
+        double n4 = et_amdp_naga_n4.getText().toString().equals("")||et_amdp_naga_n4.getText().toString().equals(".")?0:Double.parseDouble(et_amdp_naga_n4.getText().toString());
+        double n5 = et_amdp_naga_n5.getText().toString().equals("")||et_amdp_naga_n5.getText().toString().equals(".")?0:Double.parseDouble(et_amdp_naga_n5.getText().toString());
+        double p1 = et_amdp_naga_p1.getText().toString().equals("")||et_amdp_naga_p1.getText().toString().equals(".")?0:Double.parseDouble(et_amdp_naga_p1.getText().toString());
+        double p2 = et_amdp_naga_p2.getText().toString().equals("")||et_amdp_naga_p2.getText().toString().equals(".")?0:Double.parseDouble(et_amdp_naga_p2.getText().toString());
+        double p3 = et_amdp_naga_p3.getText().toString().equals("")||et_amdp_naga_p3.getText().toString().equals(".")?0:Double.parseDouble(et_amdp_naga_p3.getText().toString());
+        double p4 = et_amdp_naga_p4.getText().toString().equals("")||et_amdp_naga_p4.getText().toString().equals(".")?0:Double.parseDouble(et_amdp_naga_p4.getText().toString());
+        double p5 = et_amdp_naga_p5.getText().toString().equals("")||et_amdp_naga_p5.getText().toString().equals(".")?0:Double.parseDouble(et_amdp_naga_p5.getText().toString());
 
         double tb=0,tk=0,p=0;
         tk = n1+n2+n3+n4+n5;

@@ -33,10 +33,10 @@ public class Referee {
 
     public Referee(String name) {
         this.name = name;
-        this.number = 0;
+
     }
 
     public Referee() {
-        this.number= 0;
+
     }
 }

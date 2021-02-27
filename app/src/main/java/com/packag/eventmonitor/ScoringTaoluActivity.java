@@ -190,7 +190,7 @@ public class ScoringTaoluActivity extends AppCompatActivity {
         }else if (et_amdp_taolu_n2.getText().toString().equals("")) {
             errorMsg = "Nilai "+getResources().getString(R.string.ap_taolu_type_1_det_2)+" harus di isi";
         } else if (Double.parseDouble(et_amdp_taolu_n2.getText().toString()) > 1) {
-            errorMsg = "Nilai "+getResources().getString(R.string.ap_taolu_type_1_det_2)+" tidak boleh lebih dari 5.0";
+            errorMsg = "Nilai "+getResources().getString(R.string.ap_taolu_type_1_det_2)+" tidak boleh lebih dari 1.0";
         } else if (et_amdp_taolu_n3.getText().toString().equals("")) {
             errorMsg = "Nilai "+getResources().getString(R.string.ap_taolu_type_1_det_3)+" harus diisi";
         } else if (Double.parseDouble(et_amdp_taolu_n3.getText().toString()) > 1) {
@@ -220,19 +220,19 @@ public class ScoringTaoluActivity extends AppCompatActivity {
         } else if (Double.parseDouble(et_amdp_taolu_n9.getText().toString()) > 2) {
             errorMsg = "Nilai "+getResources().getString(R.string.ap_pekingsai_type_3)+" tidak boleh lebih dari 2.0";
         } else if (et_ap_taolu_p1.getText().toString().equals("")) {
-            errorMsg = "Pengurangan Nilai "+getResources().getString(R.string.ks1_kesalahan_lain)+" harus diisi";
+            et_ap_taolu_p1.setText("0");
         } else if (Double.parseDouble(et_ap_taolu_p1.getText().toString()) > 1) {
             errorMsg = "Pengurangan Nilai "+getResources().getString(R.string.ks1_kesalahan_lain)+" tidak boleh lebih dari 1.0";
         } else if (et_ap_taolu_p2.getText().toString().equals("")) {
-            errorMsg = "Pengurangan Nilai "+getResources().getString(R.string.ks2_kesalahan_kecil)+" harus diisi";
+            et_ap_taolu_p2.setText("0");
         } else if (Double.parseDouble(et_ap_taolu_p2.getText().toString()) > 1) {
             errorMsg = "Pengurangan Nilai "+getResources().getString(R.string.ks2_kesalahan_kecil)+" tidak boleh lebih dari 1.0";
         } else if (et_ap_taolu_p3.getText().toString().equals("")) {
-            errorMsg = "Pengurangan Nilai "+getResources().getString(R.string.ks3_kesalahan_sedang)+" harus diisi";
+            et_ap_taolu_p3.setText("0");
         } else if (Double.parseDouble(et_ap_taolu_p3.getText().toString()) > 1) {
             errorMsg = "Pengurangan Nilai "+getResources().getString(R.string.ks3_kesalahan_sedang)+" tidak boleh lebih dari 1.0";
         } else if (et_ap_taolu_p4.getText().toString().equals("")) {
-            errorMsg = "Pengurangan Nilai "+getResources().getString(R.string.ks4_kesalahan_besar)+" harus diisi";
+            et_ap_taolu_p4.setText("0");
         } else if (Double.parseDouble(et_ap_taolu_p4.getText().toString()) > 1) {
             errorMsg = "Pengurangan Nilai "+getResources().getString(R.string.ks4_kesalahan_besar)+" tidak boleh lebih dari 1.0";
 
@@ -252,19 +252,19 @@ public class ScoringTaoluActivity extends AppCompatActivity {
     }
     private void recalculateTotal(){
 
-        double n1 = et_amdp_taolu_n1.getText().toString().equals("")?0:Double.parseDouble(et_amdp_taolu_n1.getText().toString());
-        double n2 = et_amdp_taolu_n2.getText().toString().equals("")?0:Double.parseDouble(et_amdp_taolu_n2.getText().toString());
-        double n3 = et_amdp_taolu_n3.getText().toString().equals("")?0:Double.parseDouble(et_amdp_taolu_n3.getText().toString());
-        double n4 = et_amdp_taolu_n4.getText().toString().equals("")?0:Double.parseDouble(et_amdp_taolu_n4.getText().toString());
-        double n5 = et_amdp_taolu_n5.getText().toString().equals("")?0:Double.parseDouble(et_amdp_taolu_n5.getText().toString());
-        double n6 = et_amdp_taolu_n6.getText().toString().equals("")?0:Double.parseDouble(et_amdp_taolu_n6.getText().toString());
-        double n7 = et_amdp_taolu_n7.getText().toString().equals("")?0:Double.parseDouble(et_amdp_taolu_n7.getText().toString());
-        double n8 = et_amdp_taolu_n8.getText().toString().equals("")?0:Double.parseDouble(et_amdp_taolu_n8.getText().toString());
-        double n9 = et_amdp_taolu_n9.getText().toString().equals("")?0:Double.parseDouble(et_amdp_taolu_n9.getText().toString());
-        double p1 = et_ap_taolu_p1.getText().toString().equals("")?0:Double.parseDouble(et_ap_taolu_p1.getText().toString());
-        double p2 = et_ap_taolu_p2.getText().toString().equals("")?0:Double.parseDouble(et_ap_taolu_p2.getText().toString());
-        double p3 = et_ap_taolu_p3.getText().toString().equals("")?0:Double.parseDouble(et_ap_taolu_p3.getText().toString());
-        double p4 = et_ap_taolu_p4.getText().toString().equals("")?0:Double.parseDouble(et_ap_taolu_p4.getText().toString());
+        double n1 = et_amdp_taolu_n1.getText().toString().equals("")||et_amdp_taolu_n1.getText().toString().equals(".")?0:Double.parseDouble(et_amdp_taolu_n1.getText().toString());
+        double n2 = et_amdp_taolu_n2.getText().toString().equals("")||et_amdp_taolu_n2.getText().toString().equals(".")?0:Double.parseDouble(et_amdp_taolu_n2.getText().toString());
+        double n3 = et_amdp_taolu_n3.getText().toString().equals("")||et_amdp_taolu_n3.getText().toString().equals(".")?0:Double.parseDouble(et_amdp_taolu_n3.getText().toString());
+        double n4 = et_amdp_taolu_n4.getText().toString().equals("")||et_amdp_taolu_n4.getText().toString().equals(".")?0:Double.parseDouble(et_amdp_taolu_n4.getText().toString());
+        double n5 = et_amdp_taolu_n5.getText().toString().equals("")||et_amdp_taolu_n5.getText().toString().equals(".")?0:Double.parseDouble(et_amdp_taolu_n5.getText().toString());
+        double n6 = et_amdp_taolu_n6.getText().toString().equals("")||et_amdp_taolu_n6.getText().toString().equals(".")?0:Double.parseDouble(et_amdp_taolu_n6.getText().toString());
+        double n7 = et_amdp_taolu_n7.getText().toString().equals("")||et_amdp_taolu_n7.getText().toString().equals(".")?0:Double.parseDouble(et_amdp_taolu_n7.getText().toString());
+        double n8 = et_amdp_taolu_n8.getText().toString().equals("")||et_amdp_taolu_n8.getText().toString().equals(".")?0:Double.parseDouble(et_amdp_taolu_n8.getText().toString());
+        double n9 = et_amdp_taolu_n9.getText().toString().equals("")||et_amdp_taolu_n9.getText().toString().equals(".")?0:Double.parseDouble(et_amdp_taolu_n9.getText().toString());
+        double p1 = et_ap_taolu_p1.getText().toString().equals("")||et_ap_taolu_p1.getText().toString().equals(".")?0:Double.parseDouble(et_ap_taolu_p1.getText().toString());
+        double p2 = et_ap_taolu_p2.getText().toString().equals("")||et_ap_taolu_p2.getText().toString().equals(".")?0:Double.parseDouble(et_ap_taolu_p2.getText().toString());
+        double p3 = et_ap_taolu_p3.getText().toString().equals("")||et_ap_taolu_p3.getText().toString().equals(".")?0:Double.parseDouble(et_ap_taolu_p3.getText().toString());
+        double p4 = et_ap_taolu_p4.getText().toString().equals("")||et_ap_taolu_p4.getText().toString().equals(".")?0:Double.parseDouble(et_ap_taolu_p4.getText().toString());
 
         double tb=0,tk=0,p=0;
         tk = n1+n2+n3+n4+n5+n6+n7+n8+n9;

@@ -68,7 +68,7 @@ public class ScoringPekingsaiActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_penilaian_naga);
+        setContentView(R.layout.activity_penilaian_pekingsai);
         initializeComponent();
         setListener();
     }
@@ -80,8 +80,8 @@ public class ScoringPekingsaiActivity extends AppCompatActivity {
         loadingDialog.setMessage("Please Wait a second...");
         teamId = intent.getStringExtra("teamId");
         session = new Session(this.getApplicationContext());
-        tv_ap_pekingsai_no_urut = findViewById(R.id.tv_ap_pekingsai_no_urut);
-        tv_ap_pekingsai_team_name = findViewById(R.id.tv_ap_pekingsai_team_name);
+        tv_ap_pekingsai_no_urut = findViewById(R.id.tv_amdp_no_urut_pekingsai);
+        tv_ap_pekingsai_team_name = findViewById(R.id.tv_amdp_team_name_pekingsai);
         et_amdp_pekingsai_n1 = findViewById(R.id.et_amdp_pekingsai_n1);
         et_amdp_pekingsai_n2 = findViewById(R.id.et_amdp_pekingsai_n2);
         et_amdp_pekingsai_n3 = findViewById(R.id.et_amdp_pekingsai_n3);
@@ -184,11 +184,11 @@ public class ScoringPekingsaiActivity extends AppCompatActivity {
         if (et_amdp_pekingsai_n1.getText().toString().equals("")) {
             errorMsg = "Nilai "+getResources().getString(R.string.ap_pekingsai_type_1_det_1)+" harus di isi";
         } else if (Double.parseDouble(et_amdp_pekingsai_n1.getText().toString()) > 1) {
-            errorMsg = "Nilai "+getResources().getString(R.string.ap_pekingsai_type_1_det_1)+" tidak boleh lebih dari 5.0";
+            errorMsg = "Nilai "+getResources().getString(R.string.ap_pekingsai_type_1_det_1)+" tidak boleh lebih dari 1.0";
         }else if (et_amdp_pekingsai_n2.getText().toString().equals("")) {
             errorMsg = "Nilai "+getResources().getString(R.string.ap_pekingsai_type_1_det_2)+" harus di isi";
         } else if (Double.parseDouble(et_amdp_pekingsai_n2.getText().toString()) > 1) {
-            errorMsg = "Nilai "+getResources().getString(R.string.ap_pekingsai_type_1_det_2)+" tidak boleh lebih dari 5.0";
+            errorMsg = "Nilai "+getResources().getString(R.string.ap_pekingsai_type_1_det_2)+" tidak boleh lebih dari 1.0";
         } else if (et_amdp_pekingsai_n3.getText().toString().equals("")) {
             errorMsg = "Nilai "+getResources().getString(R.string.ap_pekingsai_type_1_det_3)+" harus diisi";
         } else if (Double.parseDouble(et_amdp_pekingsai_n3.getText().toString()) > 1) {
@@ -218,19 +218,19 @@ public class ScoringPekingsaiActivity extends AppCompatActivity {
         } else if (Double.parseDouble(et_amdp_pekingsai_n9.getText().toString()) > 2) {
             errorMsg = "Nilai "+getResources().getString(R.string.ap_pekingsai_type_3_det_1)+" tidak boleh lebih dari 2.0";
         } else if (et_ap_pekingsai_p1.getText().toString().equals("")) {
-            errorMsg = "Pengurangan Nilai "+getResources().getString(R.string.ks1_kesalahan_lain)+" harus diisi";
+            et_ap_pekingsai_p1.setText("0");
         } else if (Double.parseDouble(et_ap_pekingsai_p1.getText().toString()) > 1) {
             errorMsg = "Pengurangan Nilai "+getResources().getString(R.string.ks1_kesalahan_lain)+" tidak boleh lebih dari 1.0";
         } else if (et_ap_pekingsai_p2.getText().toString().equals("")) {
-            errorMsg = "Pengurangan Nilai "+getResources().getString(R.string.ks2_kesalahan_kecil)+" harus diisi";
+            et_ap_pekingsai_p2.setText("0");
         } else if (Double.parseDouble(et_ap_pekingsai_p2.getText().toString()) > 1) {
             errorMsg = "Pengurangan Nilai "+getResources().getString(R.string.ks2_kesalahan_kecil)+" tidak boleh lebih dari 1.0";
         } else if (et_ap_pekingsai_p3.getText().toString().equals("")) {
-            errorMsg = "Pengurangan Nilai "+getResources().getString(R.string.ks3_kesalahan_sedang)+" harus diisi";
+            et_ap_pekingsai_p3.setText("0");
         } else if (Double.parseDouble(et_ap_pekingsai_p3.getText().toString()) > 1) {
             errorMsg = "Pengurangan Nilai "+getResources().getString(R.string.ks3_kesalahan_sedang)+" tidak boleh lebih dari 1.0";
         } else if (et_ap_pekingsai_p4.getText().toString().equals("")) {
-            errorMsg = "Pengurangan Nilai "+getResources().getString(R.string.ks4_kesalahan_besar)+" harus diisi";
+            et_ap_pekingsai_p4.setText("0");
         } else if (Double.parseDouble(et_ap_pekingsai_p4.getText().toString()) > 1) {
             errorMsg = "Pengurangan Nilai "+getResources().getString(R.string.ks4_kesalahan_besar)+" tidak boleh lebih dari 1.0";
 
@@ -250,19 +250,19 @@ public class ScoringPekingsaiActivity extends AppCompatActivity {
     }
     private void recalculateTotal(){
 
-        double n1 = et_amdp_pekingsai_n1.getText().toString().equals("")?0:Double.parseDouble(et_amdp_pekingsai_n1.getText().toString());
-        double n2 = et_amdp_pekingsai_n2.getText().toString().equals("")?0:Double.parseDouble(et_amdp_pekingsai_n2.getText().toString());
-        double n3 = et_amdp_pekingsai_n3.getText().toString().equals("")?0:Double.parseDouble(et_amdp_pekingsai_n3.getText().toString());
-        double n4 = et_amdp_pekingsai_n4.getText().toString().equals("")?0:Double.parseDouble(et_amdp_pekingsai_n4.getText().toString());
-        double n5 = et_amdp_pekingsai_n5.getText().toString().equals("")?0:Double.parseDouble(et_amdp_pekingsai_n5.getText().toString());
-        double n6 = et_amdp_pekingsai_n6.getText().toString().equals("")?0:Double.parseDouble(et_amdp_pekingsai_n6.getText().toString());
-        double n7 = et_amdp_pekingsai_n7.getText().toString().equals("")?0:Double.parseDouble(et_amdp_pekingsai_n7.getText().toString());
-        double n8 = et_amdp_pekingsai_n8.getText().toString().equals("")?0:Double.parseDouble(et_amdp_pekingsai_n8.getText().toString());
-        double n9 = et_amdp_pekingsai_n9.getText().toString().equals("")?0:Double.parseDouble(et_amdp_pekingsai_n9.getText().toString());
-        double p1 = et_ap_pekingsai_p1.getText().toString().equals("")?0:Double.parseDouble(et_ap_pekingsai_p1.getText().toString());
-        double p2 = et_ap_pekingsai_p2.getText().toString().equals("")?0:Double.parseDouble(et_ap_pekingsai_p2.getText().toString());
-        double p3 = et_ap_pekingsai_p3.getText().toString().equals("")?0:Double.parseDouble(et_ap_pekingsai_p3.getText().toString());
-        double p4 = et_ap_pekingsai_p4.getText().toString().equals("")?0:Double.parseDouble(et_ap_pekingsai_p4.getText().toString());
+        double n1 = et_amdp_pekingsai_n1.getText().toString().equals("")||et_amdp_pekingsai_n1.getText().toString().equals(".")?0:Double.parseDouble(et_amdp_pekingsai_n1.getText().toString());
+        double n2 = et_amdp_pekingsai_n2.getText().toString().equals("")||et_amdp_pekingsai_n2.getText().toString().equals(".")?0:Double.parseDouble(et_amdp_pekingsai_n2.getText().toString());
+        double n3 = et_amdp_pekingsai_n3.getText().toString().equals("")||et_amdp_pekingsai_n3.getText().toString().equals(".")?0:Double.parseDouble(et_amdp_pekingsai_n3.getText().toString());
+        double n4 = et_amdp_pekingsai_n4.getText().toString().equals("")||et_amdp_pekingsai_n4.getText().toString().equals(".")?0:Double.parseDouble(et_amdp_pekingsai_n4.getText().toString());
+        double n5 = et_amdp_pekingsai_n5.getText().toString().equals("")||et_amdp_pekingsai_n5.getText().toString().equals(".")?0:Double.parseDouble(et_amdp_pekingsai_n5.getText().toString());
+        double n6 = et_amdp_pekingsai_n6.getText().toString().equals("")||et_amdp_pekingsai_n6.getText().toString().equals(".")?0:Double.parseDouble(et_amdp_pekingsai_n6.getText().toString());
+        double n7 = et_amdp_pekingsai_n7.getText().toString().equals("")||et_amdp_pekingsai_n7.getText().toString().equals(".")?0:Double.parseDouble(et_amdp_pekingsai_n7.getText().toString());
+        double n8 = et_amdp_pekingsai_n8.getText().toString().equals("")||et_amdp_pekingsai_n8.getText().toString().equals(".")?0:Double.parseDouble(et_amdp_pekingsai_n8.getText().toString());
+        double n9 = et_amdp_pekingsai_n9.getText().toString().equals("")||et_amdp_pekingsai_n9.getText().toString().equals(".")?0:Double.parseDouble(et_amdp_pekingsai_n9.getText().toString());
+        double p1 = et_ap_pekingsai_p1.getText().toString().equals("")||et_ap_pekingsai_p1.getText().toString().equals(".")?0:Double.parseDouble(et_ap_pekingsai_p1.getText().toString());
+        double p2 = et_ap_pekingsai_p2.getText().toString().equals("")||et_ap_pekingsai_p2.getText().toString().equals(".")?0:Double.parseDouble(et_ap_pekingsai_p2.getText().toString());
+        double p3 = et_ap_pekingsai_p3.getText().toString().equals("")||et_ap_pekingsai_p3.getText().toString().equals(".")?0:Double.parseDouble(et_ap_pekingsai_p3.getText().toString());
+        double p4 = et_ap_pekingsai_p4.getText().toString().equals("")||et_ap_pekingsai_p4.getText().toString().equals(".")?0:Double.parseDouble(et_ap_pekingsai_p4.getText().toString());
 
         double tb=0,tk=0,p=0;
         tk = n1+n2+n3+n4+n5+n6+n7+n8+n9;
