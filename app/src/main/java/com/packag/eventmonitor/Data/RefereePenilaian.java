@@ -2,9 +2,19 @@ package com.packag.eventmonitor.Data;
 
 import com.google.firebase.firestore.Exclude;
 
-public class RefereePenilaian {
-    String key;
+import java.util.Vector;
 
+public class RefereePenilaian implements Comparable<RefereePenilaian>{
+    String key;
+    int order;
+    @Exclude public int getOrder() {
+        return order;
+    }
+
+    @Exclude public void setOrder(int order) {
+        this.order = order;
+    }
+    Vector<Penilaian> penilaians  = new Vector<Penilaian>();
     public double getTotal_nilai() {
         return total_nilai;
     }
@@ -32,13 +42,29 @@ public class RefereePenilaian {
     double total_nilai;
     double total_potongan;
     double grand_total;
-    @Exclude
-    public String getKey() {
+
+    @Exclude public Vector<Penilaian> getPenilaians() {
+        return penilaians;
+    }
+
+    @Exclude public void setPenilaians(Vector<Penilaian> penilaians) {
+        this.penilaians = penilaians;
+    }
+
+    @Exclude public String getKey() {
         return key;
     }
 
     @Exclude public void setKey(String key) {
         this.key = key;
+    }
+
+    @Override
+    public int compareTo(RefereePenilaian rp) {
+        Integer number1 = (Integer)getOrder();
+        Integer number2 = (Integer)rp.getOrder();
+        //return number2.compareTo(number1); //desc
+        return number1.compareTo(number2); //asc
     }
 
 }

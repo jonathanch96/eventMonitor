@@ -2,12 +2,21 @@ package com.packag.eventmonitor.Data;
 
 import com.google.firebase.firestore.Exclude;
 
-public class Penilaian {
+public class Penilaian implements Comparable<Penilaian>{
     double nilai;
     String type;
     String keterangan;
     String form_id;
     String key;
+    int order;
+
+    @Exclude public int getOrder() {
+        return order;
+    }
+
+    @Exclude public void setOrder(int order) {
+        this.order = order;
+    }
 
     @Exclude
     public String getKey() {
@@ -59,5 +68,12 @@ public class Penilaian {
         this.type = type;
         this.keterangan = keterangan;
         this.form_id = form_id;
+    }
+    @Override
+    public int compareTo(Penilaian penilaian) {
+        Integer number1 = (Integer)getOrder();
+        Integer number2 = (Integer)penilaian.getOrder();
+        //return number2.compareTo(number1); //desc
+        return number1.compareTo(number2); //asc
     }
 }

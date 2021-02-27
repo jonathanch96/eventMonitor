@@ -37,6 +37,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 import com.packag.eventmonitor.Adapter.AdapterListReferee;
+import com.packag.eventmonitor.Data.Events;
+import com.packag.eventmonitor.Data.Penilaian;
 import com.packag.eventmonitor.Data.PenilaianTraditional;
 import com.packag.eventmonitor.Data.Referee;
 import com.packag.eventmonitor.Data.RefereePenilaian;
@@ -56,6 +58,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -75,9 +78,14 @@ public class DetailPenilaianActivity extends AppCompatActivity {
     TextView tv_adp_total_nilai;
     TextView tv_adp_edit_button;
     Team team;
+    Events events;
     Vector<Referee> dataReferee;
-    Vector<PenilaianTraditional> dataPenilaian;
+    Vector<RefereePenilaian> refereePenilaians;
     FirebaseFirestore db;
+
+    boolean getData1 = false;
+    boolean getData2 = false;
+    boolean getData3 = false;
 
     FloatingActionButton fab_adp;
     //FloatingActionButton fab_adp_pengurangan;
@@ -105,12 +113,129 @@ public class DetailPenilaianActivity extends AppCompatActivity {
         tv_adp_potongan_admin = findViewById(R.id.tv_adp_potongan_admin);
         tv_adp_total_nilai = findViewById(R.id.tv_adp_total_nilai);
         fab_adp = findViewById(R.id.fab_adp);
-       // fab_adp_pengurangan = findViewById(R.id.fab_adp_pengurangan);
+        // fab_adp_pengurangan = findViewById(R.id.fab_adp_pengurangan);
         tv_adp_edit_button = findViewById(R.id.tv_adp_edit_button);
         dataReferee = new Vector<Referee>();
-        dataPenilaian = new Vector<PenilaianTraditional>();
+        refereePenilaians = new Vector<RefereePenilaian>();
         db = FirebaseFirestore.getInstance();
         team = new Team();
+
+    }
+
+    public int getOrder(String name) {
+        int order = 999;
+        if (events.getThemes().equals("Naga")) {
+            if (name.equals("et_amdp_naga_n1")) {
+                order=1;
+            } else if (name.equals("et_amdp_naga_n2")) {
+                order=2;
+            } else if (name.equals("et_amdp_naga_n3")) {
+                order=3;
+            } else if (name.equals("et_amdp_naga_n4")) {
+                order=4;
+            } else if (name.equals("et_amdp_naga_n5")) {
+                order=5;
+            } else if (name.equals("et_amdp_naga_p1")) {
+                order=6;
+            } else if (name.equals("et_amdp_naga_p2")) {
+                order=7;
+            } else if (name.equals("et_amdp_naga_p3")) {
+                order=8;
+            } else if (name.equals("et_amdp_naga_p4")) {
+                order=9;
+            } else if (name.equals("et_amdp_naga_p5")) {
+                order=10;
+            }
+
+        } else if (events.getThemes().equals("Barongsai Taolu Bebas")) {
+            if (name.equals("et_amdp_taolu_n1")) {
+                order=1;
+            } else if (name.equals("et_amdp_taolu_n2")) {
+                order=2;
+            } else if (name.equals("et_amdp_taolu_n3")) {
+                order=3;
+            } else if (name.equals("et_amdp_taolu_n4")) {
+                order=4;
+            } else if (name.equals("et_amdp_taolu_n5")) {
+                order=5;
+            } else if (name.equals("et_amdp_taolu_n6")) {
+                order=6;
+            } else if (name.equals("et_amdp_taolu_n7")) {
+                order=7;
+            } else if (name.equals("et_amdp_taolu_n8")) {
+                order=8;
+            } else if (name.equals("et_amdp_taolu_n9")) {
+                order=9;
+            } else if (name.equals("et_ap_taolu_p1")) {
+                order=10;
+            } else if (name.equals("et_ap_taolu_p2")) {
+                order=11;
+            } else if (name.equals("et_ap_taolu_p3")) {
+                order=12;
+            } else if (name.equals("et_ap_taolu_p4")) {
+                order=13;
+            }
+
+        } else if (events.getThemes().equals("Pekingsai")) {
+            if (name.equals("et_amdp_pekingsai_n1")) {
+                order=1;
+            } else if (name.equals("et_amdp_pekingsai_n2")) {
+                order=2;
+            } else if (name.equals("et_amdp_pekingsai_n3")) {
+                order=3;
+            } else if (name.equals("et_amdp_pekingsai_n4")) {
+                order=4;
+            } else if (name.equals("et_amdp_pekingsai_n5")) {
+                order=5;
+            } else if (name.equals("et_amdp_pekingsai_n6")) {
+                order=6;
+            } else if (name.equals("et_amdp_pekingsai_n7")) {
+                order=7;
+            } else if (name.equals("et_amdp_pekingsai_n8")) {
+                order=8;
+            } else if (name.equals("et_amdp_pekingsai_n9")) {
+                order=9;
+            } else if (name.equals("et_ap_pekingsai_p1")) {
+                order=10;
+            } else if (name.equals("et_ap_pekingsai_p2")) {
+                order=11;
+            } else if (name.equals("et_ap_pekingsai_p3")) {
+                order=12;
+            } else if (name.equals("et_ap_pekingsai_p4")) {
+                order=13;
+            }
+        } else {
+            if (name.equals("et_as_n1")) {
+                order=1;
+            } else if (name.equals("et_as_n2")) {
+                order=2;
+            } else if (name.equals("et_as_n3")) {
+                order=3;
+            } else if (name.equals("et_as_n4")) {
+                order=4;
+            } else if (name.equals("et_as_n5")) {
+                order=5;
+            } else if (name.equals("et_as_n6")) {
+                order=6;
+            } else if (name.equals("et_as_n7")) {
+                order=7;
+            } else if (name.equals("et_as_n8")) {
+                order=8;
+            } else if (name.equals("et_as_n9")) {
+                order=9;
+            } else if (name.equals("et_as_n10")) {
+                order=10;
+            } else if (name.equals("et_as_ks1")) {
+                order=11;
+            } else if (name.equals("et_as_ks2")) {
+                order=12;
+            } else if (name.equals("et_as_ks3")) {
+                order=13;
+            } else if (name.equals("et_as_ks4")) {
+                order=14;
+            }
+        }
+        return order;
 
     }
 
@@ -118,17 +243,27 @@ public class DetailPenilaianActivity extends AppCompatActivity {
         final DocumentReference eventRef =
                 db.collection("events").document(eventId);
         ;
-
+        eventRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    events = task.getResult().toObject(Events.class);
+                    events.setKey(task.getResult().getId());
+                    getData1 = true;
+                }
+            }
+        });
         eventRef.collection("team").document(teamId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@androidx.annotation.Nullable DocumentSnapshot value, @androidx.annotation.Nullable FirebaseFirestoreException error) {
-                if(value.exists()){
+                if (value.exists()) {
                     team = value.toObject(Team.class);
                     tv_adp_team_name.setText("Team : " + team.getTeam_name());
                     tv_adp_no_urut.setText("No Urut : " + team.getNo_urut());
                     tv_adp_nilai_bersih.setText("Nilai Bersih : " + String.format("%.2f", team.getNilai_bersih()) + "");
                     tv_adp_potongan_admin.setText("Potongan Admin : " + String.format("%.2f", team.getPengurangan_nb()) + "");
                     tv_adp_total_nilai.setText("Total : " + String.format("%.2f", team.getTotal_nilai()) + "");
+                    getData2 = true;
                 }
             }
         });
@@ -137,12 +272,46 @@ public class DetailPenilaianActivity extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 dataReferee = new Vector<Referee>();
-                dataPenilaian = new Vector<PenilaianTraditional>();
+                refereePenilaians = new Vector<RefereePenilaian>();
                 for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
 //                    final PenilaianTraditional penilaian = document.toObject(PenilaianTraditional.class);
 //                    penilaian.setKey(document.getId());
 //                    dataPenilaian.add(penilaian);
+                    final RefereePenilaian rp = document.toObject(RefereePenilaian.class);
+                    rp.setKey(document.getId());
+                    eventRef.collection("team")
+                            .document(teamId).collection("penilaian")
+                            .document(rp.getKey()).collection("field").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                Vector<Penilaian> temp_penilaians = new Vector<Penilaian>();
+                                for (QueryDocumentSnapshot ds : task.getResult()) {
+                                    Penilaian tp = ds.toObject(Penilaian.class);
+                                    tp.setKey(ds.getId());
+                                    tp.setOrder(getOrder(tp.getForm_id()));
+                                    temp_penilaians.add(tp);
+                                }
+                                Collections.sort(temp_penilaians);
 
+                                rp.setPenilaians(temp_penilaians);
+                                eventRef.collection("referee").document(rp.getKey()).get()
+                                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    final Referee refereeClass = task.getResult().toObject(Referee.class);
+                                                    refereeClass.setKey(task.getResult().getId());
+                                                    rp.setOrder(refereeClass.getNumber());
+                                                    refereePenilaians.add(rp);
+                                                    getData3 = true;
+                                                }
+                                            }
+                                        });
+
+                            }
+                        }
+                    });
 
                     eventRef.collection("referee").document(document.getId()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                         @Override
@@ -157,6 +326,8 @@ public class DetailPenilaianActivity extends AppCompatActivity {
                             }
                         }
                     });
+
+
 
                 }
                 // use this setting to improve performance if you know that changes
@@ -215,15 +386,15 @@ public class DetailPenilaianActivity extends AppCompatActivity {
                                                                 double pengurangan = Double.parseDouble
                                                                         (et_amltp_pengurangan_nb.getText().toString());
                                                                 double total = team.getNilai_bersih() - pengurangan;
-                                                                if(total <0){
+                                                                if (total < 0) {
                                                                     new KAlertDialog(DetailPenilaianActivity.this, KAlertDialog.ERROR_TYPE)
                                                                             .setTitleText("Error!")
                                                                             .setContentText("Pengurangan lebih dari nilai bersih!")
                                                                             .show();
-                                                                }else{
+                                                                } else {
                                                                     Map<String, Double> dataToSave = new HashMap<>();
-                                                                    dataToSave.put("pengurangan_nb",pengurangan);
-                                                                    dataToSave.put("total_nilai",total);
+                                                                    dataToSave.put("pengurangan_nb", pengurangan);
+                                                                    dataToSave.put("total_nilai", total);
                                                                     db.collection("events").document(eventId)
                                                                             .collection("team").document(teamId)
                                                                             .set(dataToSave, SetOptions.merge());
@@ -236,9 +407,6 @@ public class DetailPenilaianActivity extends AppCompatActivity {
                                                         }
                                                     }
                                                 });
-
-
-
 
 
                                     }
@@ -306,7 +474,7 @@ public class DetailPenilaianActivity extends AppCompatActivity {
                         }
                     } else {
                         // Permission has already been granted
-                        exportPenilaianToExcel(dataPenilaian, dataReferee);
+                        exportPenilaianToExcel();
 
                     }
                 }
@@ -318,153 +486,136 @@ public class DetailPenilaianActivity extends AppCompatActivity {
     }
 
 
-    private void exportPenilaianToExcel(Vector<PenilaianTraditional> penilaians, Vector<Referee> referees) {
+    private void exportPenilaianToExcel() {
+        if (getData1 && getData2 && getData3) {
+            Collections.sort(refereePenilaians);
+            ArrayList<String> header = new ArrayList<String>();
+            header.add("Keterangan");
+            for (RefereePenilaian rp : refereePenilaians) {
+                header.add("Juri - " + rp.getOrder());
+            }
 
-        String[] columns = {
-                "Juri",
-                "N1",
-                "N2",
-                "N3",
-                "N4",
-                "N5",
-                "N6",
-                "N7",
-                "N8",
-                "N9",
-                "N10",
-                "KS1",
-                "KS2",
-                "KS3",
-                "KS4",
-                "Total Kotor",
-                "Total Pengurangan",
-                "Total Bersih"
-        };
-        Workbook workbook = new XSSFWorkbook(); // new HSSFWorkbook() for generating `.xls` file
+            Workbook workbook = new XSSFWorkbook(); // new HSSFWorkbook() for generating `.xls` file
 
         /* CreationHelper helps us create instances of various things like DataFormat,
            Hyperlink, RichTextString etc, in a format (HSSF, XSSF) independent way */
-        CreationHelper createHelper = workbook.getCreationHelper();
+            CreationHelper createHelper = workbook.getCreationHelper();
 
-        // Create a Sheet
-        Sheet sheet = workbook.createSheet("Employee");
+            // Create a Sheet
+            Sheet sheet = workbook.createSheet("Penilaian");
 
-        // Create a Font for styling header cells
-        Font headerFont = workbook.createFont();
-        headerFont.setBold(true);
-        headerFont.setFontHeightInPoints((short) 14);
-        headerFont.setColor(IndexedColors.RED.getIndex());
+            // Create a Font for styling header cells
+            Font headerFont = workbook.createFont();
+            headerFont.setBold(true);
+            headerFont.setFontHeightInPoints((short) 14);
+            headerFont.setColor(IndexedColors.RED.getIndex());
 
-        // Create a CellStyle with the font
-        CellStyle headerCellStyle = workbook.createCellStyle();
-        headerCellStyle.setFont(headerFont);
+            // Create a CellStyle with the font
+            CellStyle headerCellStyle = workbook.createCellStyle();
+            headerCellStyle.setFont(headerFont);
 
-        // Create a Row
-        Row headerRow = sheet.createRow(0);
+            // Create a Row
+            Row headerRow = sheet.createRow(0);
 
-        // Create cells
-        for (int i = 0; i < columns.length; i++) {
-            Cell cell = headerRow.createCell(i);
-            cell.setCellValue(columns[i]);
-            cell.setCellStyle(headerCellStyle);
-        }
+            // Create cells
+            for (int i = 0; i < header.size(); i++) {
+                Cell cell = headerRow.createCell(i);
+                cell.setCellValue(header.get(i));
+                cell.setCellStyle(headerCellStyle);
+            }
 
-        // Create Cell Style for formatting Date
-        CellStyle dateCellStyle = workbook.createCellStyle();
-        dateCellStyle.setDataFormat(createHelper.createDataFormat().getFormat("dd-MM-yyyy"));
+            // Create Cell Style for formatting Date
+            CellStyle dateCellStyle = workbook.createCellStyle();
+            dateCellStyle.setDataFormat(createHelper.createDataFormat().getFormat("dd-MM-yyyy"));
 
-        // Create Other rows and cells with employees data
-        int rowNum = 0;
-        for (PenilaianTraditional p : penilaians) {
-            Row row = sheet.createRow(rowNum + 1);
+            // Create Other rows and cells with employees data
+            int rowNum = 0;
+            int saveRowNum=0;
+            double multiplier = 1.0;
 
-            row.createCell(0)
-                    .setCellValue(referees.get(rowNum).getName());
+            for (Penilaian p : refereePenilaians.get(0).getPenilaians()) {
+                Row row = sheet.createRow(rowNum + 1);
+                //no
+                boolean flag_not_print = false;
+                if(p.getType().equals("+")){
+                    row.createCell(0)
+                            .setCellValue("Nilai "+(rowNum + 1));
+                    saveRowNum++;
+                    multiplier = 1.0;
+                }else if(p.getType().equals("-")){
+                    row.createCell(0)
+                            .setCellValue("Pengurangan "+(rowNum-saveRowNum + 1));
+                    multiplier = -1.0;
 
-            row.createCell(1)
-                    .setCellValue(p.getN1());
+                }else{
+                    flag_not_print = true;
+                }
 
-            /*Cell dateOfBirthCell = row.createCell(2);
-            dateOfBirthCell.setCellValue(employee.getDateOfBirth());
-            dateOfBirthCell.setCellStyle(dateCellStyle);*/
-            row.createCell(2)
-                    .setCellValue(p.getN2());
+                if(!flag_not_print){
 
-            row.createCell(3)
-                    .setCellValue(p.getN3());
-            row.createCell(4)
-                    .setCellValue(p.getN4());
-            row.createCell(5)
-                    .setCellValue(p.getN5());
-            row.createCell(6)
-                    .setCellValue(p.getN6());
-            row.createCell(7)
-                    .setCellValue(p.getN7());
-            row.createCell(8)
-                    .setCellValue(p.getN8());
-            row.createCell(9)
-                    .setCellValue(p.getN9());
-            row.createCell(10)
-                    .setCellValue(p.getN10());
-            row.createCell(11)
-                    .setCellValue(p.getKs1());
-            row.createCell(12)
-                    .setCellValue(p.getKs2());
-            row.createCell(13)
-                    .setCellValue(p.getKs3());
-            row.createCell(14)
-                    .setCellValue(p.getKs4());
-            row.createCell(15)
-                    .setCellValue(p.getTk());
-            row.createCell(16)
-                    .setCellValue(p.getP());
-            row.createCell(17)
-                    .setCellValue(p.getTb());
-            rowNum++;
-        }
+                    int cellNum = 1;
+                    for (RefereePenilaian rp : refereePenilaians) {
+                        //nilai juri
+                        row.createCell(cellNum)
+                                .setCellValue(rp.getPenilaians().get(rowNum).getNilai()*multiplier);
+                        cellNum++;
+                    }
+                    rowNum++;
+                }
 
-        // Resize all columns to fit the content size
+            }
+
+
+            // Resize all columns to fit the content size
        /* for(int i = 0; i < columns.length; i++) {
             sheet.setColumnWidth(2, 250);
         }*/
-        String path_folder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/Event Monitor/";
-        File directory = new File(path_folder);
-        /*check Dir*/
-        if (!directory.exists()) {
-            directory.mkdir();
-            // If you require it to make the entire directory path including parents,
-            // use directory.mkdirs(); here instead.
+            String path_folder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/Event Monitor/";
+            File directory = new File(path_folder);
+            /*check Dir*/
+            if (!directory.exists()) {
+                directory.mkdir();
+                // If you require it to make the entire directory path including parents,
+                // use directory.mkdirs(); here instead.
+            }
+            // Write the output to a file
+            FileOutputStream fileOut = null;
+            try {
+                fileOut = new FileOutputStream
+                        (Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                                + "/Event Monitor/Exported Data.xlsx");
+                workbook.write(fileOut);
+                fileOut.close();
+
+
+                // Closing the workbook
+                workbook.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                    + "/Event Monitor/Exported Data.xlsx");
+            Uri path = Uri.fromFile(file);
+            Intent pdfOpenintent = new Intent(Intent.ACTION_VIEW);
+            pdfOpenintent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            pdfOpenintent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            pdfOpenintent.setDataAndType(path, "application/vnd.ms-excel");
+            try {
+                startActivity(pdfOpenintent);
+            } catch (ActivityNotFoundException e) {
+
+            }
+
+        } else {
+            new KAlertDialog(DetailPenilaianActivity.this, KAlertDialog.ERROR_TYPE)
+                    .setTitleText("Oops...")
+                    .setContentText("Data not loaded, Please try again in a minutes")
+                    .show();
         }
-        // Write the output to a file
-        FileOutputStream fileOut = null;
-        try {
-            fileOut = new FileOutputStream
-                    (Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-                            + "/Event Monitor/Exported Data.xlsx");
-            workbook.write(fileOut);
-            fileOut.close();
 
-
-            // Closing the workbook
-            workbook.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-                + "/Event Monitor/Exported Data.xlsx");
-        Uri path = Uri.fromFile(file);
-        Intent pdfOpenintent = new Intent(Intent.ACTION_VIEW);
-        pdfOpenintent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        pdfOpenintent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        pdfOpenintent.setDataAndType(path, "application/vnd.ms-excel");
-        try {
-            startActivity(pdfOpenintent);
-        } catch (ActivityNotFoundException e) {
-
-        }
 
     }
 
