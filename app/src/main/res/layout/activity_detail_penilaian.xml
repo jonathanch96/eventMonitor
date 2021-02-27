@@ -40,16 +40,33 @@
 
         android:text=""
         android:textSize="15dp" />
-    <TextView
+
+    <LinearLayout
         android:layout_below="@id/tv_adp_nilai_bersih"
-        android:id="@+id/tv_adp_potongan_admin"
+
+        android:id="@+id/ll_adp_potongan_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tv_adp_potongan_admin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
-        android:text=""
-        android:textSize="15dp" />
+            android:text="test"
+            android:textSize="15dp" />
+        <TextView
+            android:id="@+id/tv_adp_edit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:layout_marginLeft="10dp"
+            android:text="Edit"
+            android:textSize="15dp" />
+    </LinearLayout>
+
     <TextView
-        android:layout_below="@id/tv_adp_potongan_admin"
+        android:layout_below="@id/ll_adp_potongan_container"
         android:id="@+id/tv_adp_total_nilai"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -73,22 +90,22 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom|center"
-        android:layout_marginRight="100dp"
+        android:layout_marginRight="30dp"
         android:layout_marginBottom="30dp"
         android:src="@drawable/ic_file_download_24dp"
         app:backgroundTint="@color/colorPrimary"
         app:fabSize="normal" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_adp_pengurangan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom|center"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="30dp"
-        android:src="@drawable/ic_add_24dp"
-        app:backgroundTint="@color/red"
-        app:fabSize="normal" />
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/fab_adp_pengurangan"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentRight="true"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_gravity="bottom|center"-->
+<!--        android:layout_marginRight="30dp"-->
+<!--        android:layout_marginBottom="30dp"-->
+<!--        android:src="@drawable/ic_add_24dp"-->
+<!--        app:backgroundTint="@color/red"-->
+<!--        app:fabSize="normal" />-->
 </RelativeLayout>

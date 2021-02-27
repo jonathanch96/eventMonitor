@@ -73,13 +73,14 @@ public class DetailPenilaianActivity extends AppCompatActivity {
     TextView tv_adp_nilai_bersih;
     TextView tv_adp_potongan_admin;
     TextView tv_adp_total_nilai;
+    TextView tv_adp_edit_button;
     Team team;
     Vector<Referee> dataReferee;
     Vector<PenilaianTraditional> dataPenilaian;
     FirebaseFirestore db;
 
     FloatingActionButton fab_adp;
-    FloatingActionButton fab_adp_pengurangan;
+    //FloatingActionButton fab_adp_pengurangan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,8 +105,8 @@ public class DetailPenilaianActivity extends AppCompatActivity {
         tv_adp_potongan_admin = findViewById(R.id.tv_adp_potongan_admin);
         tv_adp_total_nilai = findViewById(R.id.tv_adp_total_nilai);
         fab_adp = findViewById(R.id.fab_adp);
-        fab_adp_pengurangan = findViewById(R.id.fab_adp_pengurangan);
-
+       // fab_adp_pengurangan = findViewById(R.id.fab_adp_pengurangan);
+        tv_adp_edit_button = findViewById(R.id.tv_adp_edit_button);
         dataReferee = new Vector<Referee>();
         dataPenilaian = new Vector<PenilaianTraditional>();
         db = FirebaseFirestore.getInstance();
@@ -177,7 +178,7 @@ public class DetailPenilaianActivity extends AppCompatActivity {
     }
 
     public void setListener() {
-        fab_adp_pengurangan.setOnClickListener(new View.OnClickListener() {
+        tv_adp_edit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 LayoutInflater li = LayoutInflater.from(DetailPenilaianActivity.this);
