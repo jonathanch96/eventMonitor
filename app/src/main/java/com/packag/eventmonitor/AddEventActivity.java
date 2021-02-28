@@ -41,7 +41,7 @@ import java.util.Vector;
 
 public class AddEventActivity extends AppCompatActivity {
     TextView tv_ae_tanggal_event_btn;
-    //EditText et_ae_themes;
+    EditText et_ae_names;
    // EditText et_ae_judges;
     Button btn_ae_submit;
     DatePickerDialog.OnDateSetListener mDateSetListener;
@@ -61,7 +61,7 @@ public class AddEventActivity extends AppCompatActivity {
 
     private void initializeComponent() {
         tv_ae_tanggal_event_btn =findViewById(R.id.tv_ae_tanggal_event_btn);
-       // et_ae_themes = findViewById(R.id.et_ae_themes);
+        et_ae_names = findViewById(R.id.et_ae_names);
         //et_ae_judges = findViewById(R.id.et_ae_judges);
         btn_ae_submit = findViewById(R.id.btn_ae_submit);
         sp_ae_themes = findViewById(R.id.sp_ae_themes);
@@ -120,17 +120,22 @@ public class AddEventActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(validateInput()){
-                    loadingDialog.show();
+
                     final String input_code = getUniqueCode();
                     if( sp_ae_themes.getSelectedItem().toString().equals("")){
                         new KAlertDialog(AddEventActivity.this, KAlertDialog.ERROR_TYPE)
                                 .setTitleText("Error!")
                                 .setContentText("Tema Event harus diisi!")
                                 .show();
-                    }else if(tv_ae_tanggal_event_btn.getText().toString().equals("")){
+                    }else if(tv_ae_tanggal_event_btn.getText().toString().equals("")) {
                         new KAlertDialog(AddEventActivity.this, KAlertDialog.ERROR_TYPE)
                                 .setTitleText("Error!")
                                 .setContentText("Tanggal harus dipilih!")
+                                .show();
+                    }else if(et_ae_names.getText().toString().equals("")){
+                        new KAlertDialog(AddEventActivity.this, KAlertDialog.ERROR_TYPE)
+                                .setTitleText("Error!")
+                                .setContentText("Nama Acara harus diisi!")
                                 .show();
                     }else if(sp_ae_judges.getSelectedItem().toString().equals("")){
                         new KAlertDialog(AddEventActivity.this, KAlertDialog.ERROR_TYPE)
@@ -138,14 +143,16 @@ public class AddEventActivity extends AppCompatActivity {
                                 .setContentText("Jumlah Juri harus diisi!")
                                 .show();
                     }else{
+                        loadingDialog.show();
                         String temp_date[] = tv_ae_tanggal_event_btn.getText().toString().split("/");
                         String input_date = temp_date[2]+"-"+temp_date[1]+"-"+temp_date[0];
                         String input_themes = sp_ae_themes.getSelectedItem().toString();
+                        String event_name = et_ae_names.getText().toString();
                         int input_total_referee = Integer
                                 .parseInt(sp_ae_judges.getSelectedItem().toString());
                         db.collection("events")
                                 .add(new Events(input_code,input_date,1,input_themes
-                                        ,input_total_referee))
+                                        ,input_total_referee,event_name))
                                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                     @Override
                                     public void onSuccess(DocumentReference documentReference) {

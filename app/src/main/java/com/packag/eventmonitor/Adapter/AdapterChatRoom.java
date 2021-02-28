@@ -69,7 +69,7 @@ public class AdapterChatRoom extends BaseAdapter {
             holder.cart_badge.setText(message.getUnread_counter()+"");
         }else{
             holder.cart_badge.setVisibility(View.VISIBLE);
-            holder.cart_badge.setText(message.getUnread_counter()+"");
+            holder.cart_badge.setText((message.getUnread_counter())+"");
         }
 
 

@@ -12,6 +12,16 @@ public class Events {
     String date;
     int status;
     String themes;
+    String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     int total_referee;
     int total_team = 0;
     Vector<Team> team  = new Vector<Team>();
@@ -29,11 +39,12 @@ public class Events {
         this.key = key;
     }
 
-    public Events(String code, String date, int status, String themes, int total_referee) {
+    public Events(String code, String date, int status, String themes, int total_referee,String name) {
         this.code = code;
         this.date = date;
         this.status = status;
         this.themes = themes;
+        this.name = name;
         this.total_referee = total_referee;
         this.created_at = new Timestamp(new Date());
     }

@@ -45,7 +45,8 @@
     <!--add event-->
     <string name="tanggal_event">Tanggal Event</string>
     <string name="pilih_tanggal">Pilih Tanggal</string>
-    <string name="tema_acara">Nama Acara</string>
+    <string name="tema_acara">Tema Acara</string>
+    <string name="nama_acara">Nama Acara</string>
     <string name="input_tema">Input Nama Acara</string>
     <string name="jumlah_juri">Jumlah Juri</string>
     <string name="input_jumlah_juri">Input Jumlah Juri</string>

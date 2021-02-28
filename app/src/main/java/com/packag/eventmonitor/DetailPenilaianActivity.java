@@ -548,7 +548,10 @@ public class DetailPenilaianActivity extends AppCompatActivity {
                     multiplier = -1.0;
 
                 }else{
-                    flag_not_print = true;
+                    row.createCell(0)
+                            .setCellValue("Kesulitan");
+                    multiplier = 1;
+                    //flag_not_print = true;
                 }
 
                 if(!flag_not_print){

@@ -65,17 +65,18 @@ public class ChatRoomAdminActivity extends AppCompatActivity {
 
                         if (d2.exists()) {
                             Chat c = d2.toObject(Chat.class);
-                            c.setBelongsToCurrentUser(true);
-                            if(!c.getUserId().equals("admin")){
+                            c.setBelongsToCurrentUser(true); //not effect
+                            if(!c.getUserId().equals("admin")){ //not from admin
                                 if(acr.getChat().size()==0){
-
+                                    //init first data add first chat room
                                     if(!c.isIs_read()) {
-                                        c.setUnread_counter(1);
+                                        c.setUnread_counter(0); //set zero because we loop all data at next code
                                     }
                                     acr.add(c);
 
                                 }
                                 boolean flag_same = false;
+                                //loop all chat data
                                 for(int i = 0 ; i<acr.getCount();i++){
                                     Chat tc = (Chat)acr.getItem(i);
                                     if(c.getUserId().equals(tc.getUserId())||c.getDestUserId().equals(tc.getUserId())) {

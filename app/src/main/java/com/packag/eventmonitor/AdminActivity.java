@@ -22,6 +22,7 @@ public class AdminActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Session session;
     FragmentManager fm;
+    FirestoreController fc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +45,8 @@ public class AdminActivity extends AppCompatActivity
     }
 
     private void initializeComponent() {
-
+        fc = new FirestoreController();
+        fc.generateToken("admin",null);
         session = new Session(this.getApplicationContext());
         fm = getSupportFragmentManager();
         Setting.checkAppVersion(AdminActivity.this);
@@ -108,6 +110,7 @@ public class AdminActivity extends AppCompatActivity
         } else if (id == R.id.nav_logout) {
             session.removeData("loginType");
             Intent i = new Intent(AdminActivity.this,MainActivity.class);
+            fc.removeToken(fc.getToken());
             startActivity(i);
             this.finish();
         }

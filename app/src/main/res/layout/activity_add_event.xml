@@ -36,7 +36,18 @@
                 android:hint="@string/pilih_tanggal"
                 android:textAppearance="?android:attr/textAppearanceMediumInverse"
                 android:textColor="?attr/editTextColor" />
-
+            <TextView
+                android:id="@+id/tv_ae_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/nama_acara" />
+            <EditText
+                android:id="@+id/et_ae_names"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/input_tema"
+                android:inputType="textPersonName" />
             <TextView
                 android:id="@+id/tv_ae_themes"
                 android:layout_width="match_parent"
@@ -53,13 +64,7 @@
 
                  />
 
-<!--            <EditText-->
-<!--                android:id="@+id/et_ae_themes"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:ems="10"-->
-<!--                android:hint="@string/input_tema"-->
-<!--                android:inputType="textPersonName" />-->
+
 
             <TextView
                 android:id="@+id/tv_ae_judges"

@@ -54,6 +54,7 @@ public class RefereeActivity extends AppCompatActivity {
     TextView tv_ar_total_team;
     TextView tv_ar_status;
     TextView tv_ar_referee_name;
+    FirestoreController fc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,10 +64,15 @@ public class RefereeActivity extends AppCompatActivity {
         initializeComponent();
         setListener();
     }
+
     private void initializeComponent() {
         dataTeam = new Vector<Team>();
         db = FirebaseFirestore.getInstance();
+        fc = new FirestoreController();
+
+
         session = new Session(this.getApplicationContext());
+        fc.generateToken("referee",session.getData("refereeId"));
         lv_ar_listTeam = findViewById(R.id.lv_ar_listTeam);
         events = new Events();
         tv_ar_event_code = findViewById(R.id.tv_ar_event_code);
@@ -78,7 +84,8 @@ public class RefereeActivity extends AppCompatActivity {
         Setting.checkAppVersion(RefereeActivity.this);
 
     }
-    private void fetchData(){
+
+    private void fetchData() {
         final DocumentReference eventRef = db.collection("events")
                 .document(session.getData("eventId"));
         eventRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -89,10 +96,10 @@ public class RefereeActivity extends AppCompatActivity {
                     if (document.exists()) {
                         events = document.toObject(Events.class);
                         events.setKey(document.getId());
-                        tv_ar_event_code.setText("Kode Event : "+events.getCode());
-                        tv_ar_themes.setText("Tema : "+events.getThemes());
-                        tv_ar_total_team.setText("Total Team : "+events.getTotal_team());
-                        if(events.getStatus()==1){
+                        tv_ar_event_code.setText("Kode Event : " + events.getCode());
+                        tv_ar_themes.setText("Tema : " + events.getThemes());
+                        tv_ar_total_team.setText("Total Team : " + events.getTotal_team());
+                        if (events.getStatus() == 1) {
                             tv_ar_status.setText("Status : Open");
                         }
                     }
@@ -103,27 +110,40 @@ public class RefereeActivity extends AppCompatActivity {
         final DocumentReference refereeRef = eventRef
                 .collection("referee")
                 .document(session.getData("refereeId"));
-        refereeRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//        refereeRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    DocumentSnapshot document = task.getResult();
+//                    if (document.exists()) {
+//                        referee = document.toObject(Referee.class);
+//                        referee.setKey(document.getId());
+//                        tv_ar_referee_name.setText("Nama Juri : Juri "+referee.getNumber()+" - "+referee.getName());
+//                        setupBadge();
+//                    }
+//
+//                }
+//            }
+//        });
+        //realtime
+        refereeRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        referee = document.toObject(Referee.class);
-                        referee.setKey(document.getId());
-                        tv_ar_referee_name.setText("Nama Juri : Juri "+referee.getNumber()+" - "+referee.getName());
-                        setupBadge();
-                    }
-
+            public void onEvent(@androidx.annotation.Nullable DocumentSnapshot value, @androidx.annotation.Nullable FirebaseFirestoreException error) {
+                if (value.exists()) {
+                    referee = value.toObject(Referee.class);
+                    referee.setKey(value.getId());
+                    tv_ar_referee_name.setText("Nama Juri : Juri " + referee.getNumber() + " - " + referee.getName());
+                    setupBadge();
                 }
             }
         });
-         final CollectionReference teamRef = eventRef
+
+        final CollectionReference teamRef = eventRef
                 .collection("team");
         teamRef.orderBy("no_urut").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                dataTeam=new Vector<Team>();
+                dataTeam = new Vector<Team>();
                 for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                     final Team teamClass = document.toObject(Team.class);
                     teamClass.setKey(document.getId());
@@ -142,13 +162,13 @@ public class RefereeActivity extends AppCompatActivity {
                                         teamClass.setPenilaian(penilaian);
                                     }
 
-                                    lv_ar_listTeam.setAdapter(new AdapterListTeam(getApplicationContext(),dataTeam));
+                                    lv_ar_listTeam.setAdapter(new AdapterListTeam(getApplicationContext(), dataTeam));
 
                                 }
                             });
 
                     dataTeam.add(teamClass);
-                    lv_ar_listTeam.setAdapter(new AdapterListTeam(getApplicationContext(),dataTeam));
+                    lv_ar_listTeam.setAdapter(new AdapterListTeam(getApplicationContext(), dataTeam));
                 }
 
 
@@ -156,6 +176,7 @@ public class RefereeActivity extends AppCompatActivity {
         });
 
     }
+
     private void setListener() {
         lv_ar_listTeam.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -164,23 +185,24 @@ public class RefereeActivity extends AppCompatActivity {
 //                themes.add("Barongsai Tradisional");
 //                themes.add("Barongsai Taolu Bebas");
 //                themes.add("Pekingsai");
-                Intent intent = new Intent(RefereeActivity.this,Scoring.class);
-                if(events.getThemes().equals("Naga")){
-                    intent = new Intent(RefereeActivity.this,ScoringNagaActivity.class);
-                }else if(events.getThemes().equals("Barongsai Taolu Bebas")){
-                    intent = new Intent(RefereeActivity.this,ScoringTaoluActivity.class);
-                }else if(events.getThemes().equals("Pekingsai")) {
-                    intent = new Intent(RefereeActivity.this,ScoringPekingsaiActivity.class);
-                }else{
-                    intent = new Intent(RefereeActivity.this,ScoringTraditionalActivity.class);
+                Intent intent = new Intent(RefereeActivity.this, Scoring.class);
+                if (events.getThemes().equals("Naga")) {
+                    intent = new Intent(RefereeActivity.this, ScoringNagaActivity.class);
+                } else if (events.getThemes().equals("Barongsai Taolu Bebas")) {
+                    intent = new Intent(RefereeActivity.this, ScoringTaoluActivity.class);
+                } else if (events.getThemes().equals("Pekingsai")) {
+                    intent = new Intent(RefereeActivity.this, ScoringPekingsaiActivity.class);
+                } else {
+                    intent = new Intent(RefereeActivity.this, ScoringTraditionalActivity.class);
                 }
-                intent.putExtra("teamId",dataTeam.get(i).getKey());
+                intent.putExtra("teamId", dataTeam.get(i).getKey());
 
-                startActivityForResult(intent,REQUEST);
+                startActivityForResult(intent, REQUEST);
 
             }
         });
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -206,23 +228,25 @@ public class RefereeActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.action_favorite) {
             session.removeData("loginType");
-            Intent i = new Intent(RefereeActivity.this,MainActivity.class);
+            Intent i = new Intent(RefereeActivity.this, MainActivity.class);
+            fc.removeToken(fc.getToken());
             startActivity(i);
             this.finish();
             return true;
-        }else if(id == R.id.action_chat){
-            Intent i = new Intent(RefereeActivity.this,ChatActivity.class);
-            i.putExtra("eventId",events.getKey());
-            i.putExtra("userId",referee.getKey());
-            i.putExtra("name","Juri "+referee.getNumber()+" ("+events.getCode()+")"+" - "+referee.getName());
+        } else if (id == R.id.action_chat) {
+            Intent i = new Intent(RefereeActivity.this, ChatActivity.class);
+            i.putExtra("eventId", events.getKey());
+            i.putExtra("userId", referee.getKey());
+            i.putExtra("name", "Juri " + referee.getNumber() + " (" + events.getCode() + ")" + " - " + referee.getName());
             startActivity(i);
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if(resultCode == Activity.RESULT_OK&&requestCode== REQUEST){
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST) {
             new KAlertDialog(RefereeActivity.this, KAlertDialog.SUCCESS_TYPE)
                     .setTitleText("Good job!")
                     .setContentText(data.getStringExtra("msg"))
@@ -234,14 +258,14 @@ public class RefereeActivity extends AppCompatActivity {
 
     private void setupBadge() {
         //get unread message
-        FirebaseFirestore db=FirebaseFirestore.getInstance();
-        Log.d("debug","setupBadge eventId : "+events.getKey());
-        Log.d("debug","setupBadge destUserId  : "+referee.getKey());
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Log.d("debug", "setupBadge eventId : " + events.getKey());
+        Log.d("debug", "setupBadge destUserId  : " + referee.getKey());
         db.collection("chats")
-                .whereEqualTo("eventId",events.getKey())
-                .whereEqualTo("destUserId",referee.getKey())
-                .whereEqualTo("userId","admin")
-                .whereEqualTo("is_read",false).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                .whereEqualTo("eventId", events.getKey())
+                .whereEqualTo("destUserId", referee.getKey())
+                .whereEqualTo("userId", "admin")
+                .whereEqualTo("is_read", false).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@androidx.annotation.Nullable QuerySnapshot value, @androidx.annotation.Nullable FirebaseFirestoreException error) {
                 int unread_message = 0;
@@ -249,12 +273,12 @@ public class RefereeActivity extends AppCompatActivity {
                     unread_message++;
 
                 }
-                if(unread_message==0){
-                   // textCartItemCount.setVisibility(View.GONE);
-                    textCartItemCount.setText(unread_message+"");
-                }else{
+                if (unread_message == 0) {
+                    // textCartItemCount.setVisibility(View.GONE);
+                    textCartItemCount.setText(unread_message + "");
+                } else {
                     textCartItemCount.setVisibility(View.VISIBLE);
-                    textCartItemCount.setText(unread_message+"");
+                    textCartItemCount.setText(unread_message + "");
                 }
             }
         });

@@ -1,25 +1,20 @@
 package com.packag.eventmonitor;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import com.developer.kalert.KAlertDialog;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.packag.eventmonitor.Data.AppConfig;
 import com.packag.eventmonitor.Data.Events;
 import com.packag.eventmonitor.Util.Session;
 import com.packag.eventmonitor.Util.Setting;
@@ -30,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
     Session session ;
     Events events;
     ProgressDialog loadingDialog;
-    FirestoreController fc = new FirestoreController();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
                                         .setContentText("Event "+events.getCode()+" sudah berakhir silahkan untuk login ulang!")
                                         .show();
                             }else{
-                                fc.refereeNumbering(events.getKey());
                                 Intent i = new Intent(MainActivity.this,RefereeActivity.class);
                                 startActivity(i);
 
@@ -79,6 +72,10 @@ public class MainActivity extends AppCompatActivity {
            //admin
             loadingDialog.hide();
             Intent i = new Intent(MainActivity.this,AdminActivity.class);
+
+//            fc.sendMessage("test dari hp note9","test title",
+//                    "fIS801FASkmyatbDFwA_zt:APA91bF4KDpZEvoezV0o9_4Go7SPOqi5xN-jp7a2t2OHbuzm82PNKZJVcyaQQFUI61ocwU6uFgeEdfPznYKeb8uNSyIROUbJYIzn34s-qKr5RZhnqmEpk7oCXnHPC-30VrYjXJhtn_Vi",
+//                    MainActivity.this);
             startActivity(i);
             finish();
         }else{

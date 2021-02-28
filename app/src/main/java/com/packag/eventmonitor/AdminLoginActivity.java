@@ -60,10 +60,12 @@ public class AdminLoginActivity extends AppCompatActivity {
                                         if(et_al_username.getText().toString().equals(users.getUsername())
                                                 && et_al_password.getText().toString().equals(users.getPassword())){
                                             session.setData("loginType","admin");
+
                                             Intent i = new Intent(AdminLoginActivity.this,AdminActivity.class);
                                             startActivity(i);
                                             finish();
                                         }else{
+
                                             new KAlertDialog(AdminLoginActivity.this, KAlertDialog.ERROR_TYPE)
                                                     .setTitleText("Oops...")
                                                     .setContentText("Invalid Username / Password!")

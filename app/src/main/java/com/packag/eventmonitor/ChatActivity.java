@@ -26,6 +26,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.packag.eventmonitor.Adapter.AdapterChat;
 import com.packag.eventmonitor.Data.Chat;
+import com.packag.eventmonitor.Data.FCMToken;
 
 
 import java.util.Arrays;
@@ -46,6 +47,7 @@ public class ChatActivity extends AppCompatActivity {
     Intent intent;
     AdapterChat ac;
     boolean firstRun = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,63 +56,98 @@ public class ChatActivity extends AppCompatActivity {
         getChatData();
         setListener();
     }
-    private void setListener(){
+
+    private void setListener() {
         ib_c_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               String message =  et_c_input.getText().toString();
-               if(!message.equals("")){
-                   String temp_destUserId = "admin";
-                   if(userId.equals("admin")){
-                       temp_destUserId = destUserId;
-                   }
-                   Chat chat = new Chat(message,name,userId,temp_destUserId);
-                   message="";
-                   et_c_input.setText("");
-                   chat.setEventId(eventId);
-                   db.collection("chats").add(chat);
-               }
+                String message = et_c_input.getText().toString();
+                if (!message.equals("")) {
+                    String temp_destUserId = "admin";
+                    if (userId.equals("admin")) {
+                        temp_destUserId = destUserId;
+                    }
+                    final Chat chat = new Chat(message, name, userId, temp_destUserId);
+                    message = "";
+                    et_c_input.setText("");
+                    chat.setEventId(eventId);
+                    db.collection("chats").add(chat);
+                    final FirestoreController fc = new FirestoreController();
+                    //notif
+                    if (temp_destUserId.equals("admin")) {
+                        db.collection("fcm_token").whereEqualTo("type", "admin")
+                                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot ds : task.getResult()) {
+                                        FCMToken fcmToken = ds.toObject(FCMToken.class);
+                                        fc.sendMessage("New Message", "You have a new message from "+chat.getName(),
+                                                fcmToken.getToken(), ChatActivity.this);
+                                    }
+                                }
+                            }
+                        });
+                    }else{
+                        db.collection("fcm_token").whereEqualTo("id",destUserId)
+                                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if(task.getResult().size()>0){
+                                    FCMToken fcmToken = new FCMToken();
+                                    for (QueryDocumentSnapshot ds : task.getResult()) {
+                                         fcmToken = ds.toObject(FCMToken.class);
+                                    }
+                                    fc.sendMessage("New Message", "You have a new message from admin",
+                                            fcmToken.getToken(), ChatActivity.this);
+                                }
+                            }
+                        });
+                    }
+                }
             }
         });
         et_c_input.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
-                   ib_c_submit.callOnClick();
+                    ib_c_submit.callOnClick();
                 }
                 return false;
             }
         });
     }
-    private void getChatData(){
+
+    private void getChatData() {
         Query chatref;
-        if(userId.equals("admin")){
+        if (userId.equals("admin")) {
             chatref = db.collection("chats").orderBy("created_at", Query.Direction.ASCENDING)
-                    .whereIn("userId", Arrays.asList("admin", destUserId)).whereEqualTo("eventId",eventId);
-        }else{
+                    .whereIn("userId", Arrays.asList("admin", destUserId)).whereEqualTo("eventId", eventId);
+        } else {
             chatref = db.collection("chats").orderBy("created_at", Query.Direction.ASCENDING)
-                    .whereIn("userId", Arrays.asList("admin", userId)).whereEqualTo("eventId",eventId);
+                    .whereIn("userId", Arrays.asList("admin", userId)).whereEqualTo("eventId", eventId);
         }
 
 
-        chatref .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        chatref.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot d2 : task.getResult()) {
                         if (d2.exists()) {
-                            Chat chat =  d2.toObject(Chat.class);
-                            if(chat.getUserId().equals(userId)){
+                            Chat chat = d2.toObject(Chat.class);
+                            if (chat.getUserId().equals(userId)) {
                                 chat.setBelongsToCurrentUser(true);
-                            }else{
+                            } else {
                                 chat.setBelongsToCurrentUser(false);
                                 chat.setIs_read(true);
                                 db.collection("chats").document(d2.getId()).set(chat);
 
                             }
-                            Log.d("debug","showing comparing : "+destUserId+"= "+chat.getDestUserId());
-                            if((userId.equals("admin")&&(chat.getDestUserId().equals(destUserId))
-                                    ||chat.getUserId().equals(destUserId))||!userId.equals("admin")){
+                            Log.d("debug", "showing comparing : " + destUserId + "= " + chat.getDestUserId());
+                            if ((userId.equals("admin") && (chat.getDestUserId().equals(destUserId))
+                                    || chat.getUserId().equals(destUserId)) || !userId.equals("admin")) {
                                 ac.add(chat);
                             }
 
@@ -129,9 +166,9 @@ public class ChatActivity extends AppCompatActivity {
                     Log.w("DEBUG", "listen:error", e);
                     return;
                 }
-                if(firstRun){
+                if (firstRun) {
                     firstRun = false;
-                }else {
+                } else {
 
 
                     for (DocumentChange dc : queryDocumentSnapshots.getDocumentChanges()) {
@@ -161,7 +198,8 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
     }
-    private void initComponent(){
+
+    private void initComponent() {
         db = FirebaseFirestore.getInstance();
         intent = getIntent();
 
