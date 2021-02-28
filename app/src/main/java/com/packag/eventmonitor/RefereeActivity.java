@@ -80,7 +80,6 @@ public class RefereeActivity extends AppCompatActivity {
         tv_ar_total_team = findViewById(R.id.tv_ar_total_team);
         tv_ar_status = findViewById(R.id.tv_ar_status);
         tv_ar_referee_name = findViewById(R.id.tv_ar_referee_name);
-        fetchData();
         Setting.checkAppVersion(RefereeActivity.this);
 
     }
@@ -219,6 +218,7 @@ public class RefereeActivity extends AppCompatActivity {
                 onOptionsItemSelected(menuItem);
             }
         });
+        fetchData();
 
         return true;
     }
