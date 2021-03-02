@@ -258,6 +258,8 @@ public class RefereeLoginActivity extends AppCompatActivity {
                             .setTitleText("Oops...")
                             .setContentText("No urut harus dipilih")
                             .show();
+                }else{
+                    flag_validate=true;
                 }
 
                 if (flag_validate) {
@@ -353,7 +355,9 @@ public class RefereeLoginActivity extends AppCompatActivity {
                                         Referee temp_referee = new Referee(et_arl_nama.getText().toString());
                                         temp_referee.setNumber(Integer.parseInt(sp_ae_no_urut.getSelectedItem().toString()));
                                         refereeRef.set(temp_referee);
-
+                                        Intent i = new Intent(RefereeLoginActivity.this, RefereeActivity.class);
+                                        startActivity(i);
+                                        finish();
                                     }
 
 
@@ -374,6 +378,8 @@ public class RefereeLoginActivity extends AppCompatActivity {
                             }
                         }
                     });
+                }else{
+
                 }
 
             }
