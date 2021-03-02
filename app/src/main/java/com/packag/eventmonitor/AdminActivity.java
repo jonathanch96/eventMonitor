@@ -103,11 +103,7 @@ public class AdminActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_home) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_logout) {
+      if (id == R.id.nav_logout) {
             session.removeData("loginType");
             Intent i = new Intent(AdminActivity.this,MainActivity.class);
             fc.removeToken(fc.getToken());
