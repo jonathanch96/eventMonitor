@@ -10,7 +10,25 @@
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
     tools:context=".MainActivity">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:src="@drawable/logo_login"
+        android:layout_above="@id/tv_main_title"
+        />
+    <TextView
+        android:layout_marginTop="10dp"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"
+        android:id="@+id/tv_main_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/red"
+        android:text="Penjurian FOBI 1.0"
+        android:layout_above="@id/btn_referee_login"
 
+        />
     <Button
         style="@style/Widget.AppCompat.Button.Colored"
         android:id="@+id/btn_referee_login"
@@ -24,6 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
         android:layout_below="@id/btn_referee_login"
         android:text="@string/btn_admin_login" />
 

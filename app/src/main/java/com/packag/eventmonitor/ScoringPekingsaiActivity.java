@@ -685,102 +685,123 @@ public class ScoringPekingsaiActivity extends AppCompatActivity {
         btn_ap_pekingsai_as_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loadingDialog.show();
-                if(validateData()){
-                    penilaians = new Vector<Penilaian>();
-                    Penilaian data = new Penilaian(
-                            Double.parseDouble(et_amdp_pekingsai_n1.getText().toString()),
-                            "+", null, "et_amdp_pekingsai_n1");
-                    penilaians.add(data);
-
-                    data = new Penilaian(
-                            Double.parseDouble(et_amdp_pekingsai_n2.getText().toString()),
-                            "+", null, "et_amdp_pekingsai_n2");
-                    penilaians.add(data);
-
-                    data = new Penilaian(
-                            Double.parseDouble(et_amdp_pekingsai_n3.getText().toString()),
-                            "+", null, "et_amdp_pekingsai_n3");
-                    penilaians.add(data);
-
-                    data= new Penilaian(
-                            Double.parseDouble(et_amdp_pekingsai_n4.getText().toString()),
-                            "+", null, "et_amdp_pekingsai_n4");
-                    penilaians.add(data);
-
-                    data = new Penilaian(
-                            Double.parseDouble(et_amdp_pekingsai_n5.getText().toString()),
-                            "+", null, "et_amdp_pekingsai_n5");
-                    penilaians.add(data);
-
-                    data = new Penilaian(
-                            Double.parseDouble(et_amdp_pekingsai_n6.getText().toString()),
-                            "+", null, "et_amdp_pekingsai_n6");
-                    penilaians.add(data);
-
-                    data = new Penilaian(
-                            Double.parseDouble(et_amdp_pekingsai_n7.getText().toString()),
-                            "+", null, "et_amdp_pekingsai_n7");
-                    penilaians.add(data);
-
-                    data = new Penilaian(
-                            Double.parseDouble(et_amdp_pekingsai_n8.getText().toString()),
-                            "+", null, "et_amdp_pekingsai_n8");
-                    penilaians.add(data);
-
-                    data = new Penilaian(
-                            Double.parseDouble(et_amdp_pekingsai_n9.getText().toString()),
-                            "+", null, "et_amdp_pekingsai_n9");
-
-                    penilaians.add(data);
-
-
-
-                    data = new Penilaian(
-                            Double.parseDouble(et_ap_pekingsai_p1.getText().toString()),
-                            "-", null, "et_ap_pekingsai_p1");
-                    penilaians.add(data);
-                    data = new Penilaian(
-                            Double.parseDouble(et_ap_pekingsai_p2.getText().toString()),
-                            "-", null, "et_ap_pekingsai_p2");
-                    penilaians.add(data);
-                    data = new Penilaian(
-                            Double.parseDouble(et_ap_pekingsai_p3.getText().toString()),
-                            "-", null, "et_ap_pekingsai_p3");
-                    penilaians.add(data);
-                    data = new Penilaian(
-                            Double.parseDouble(et_ap_pekingsai_p4.getText().toString()),
-                            "-", null, "et_ap_pekingsai_p4");
-                    penilaians.add(data);
-
-
-                    if(!et_amdp_pekingsai_kesulitan.getText().toString().equals("")){
-                        data = new Penilaian(
-                                Double.parseDouble(et_amdp_pekingsai_kesulitan.getText().toString()),
-                                "=", null, "et_amdp_pekingsai_kesulitan");
-                        penilaians.add(data);
-                    }
-
-
-                    saveData();
-
-                    Intent return_i = new Intent();
-                    return_i.putExtra("msg","Berhasil Memberi Nilai!");
-                    setResult(Activity.RESULT_OK,return_i);
-                    loadingDialog.hide();
-
-                    finish();
-                }else{
-                    loadingDialog.hide();
-                    new KAlertDialog(ScoringPekingsaiActivity.this, KAlertDialog.ERROR_TYPE)
-                            .setTitleText("Oops...")
-                            .setContentText(errorMsg)
-                            .show();
-
-                }
+                new KAlertDialog(ScoringPekingsaiActivity.this, KAlertDialog.WARNING_TYPE)
+                        .setTitleText("Menyimpan penilaian ?")
+                        .setContentText("Apakah Anda yakin untuk menyimpan penilaian ini!")
+                        .setConfirmText("Ya")
+                        .setConfirmClickListener(new KAlertDialog.KAlertClickListener() {
+                            @Override
+                            public void onClick(KAlertDialog sDialog) {
+                                saveAction();
+                                sDialog.dismissWithAnimation();
+                            }
+                        })
+                        .setCancelText("Tidak")
+                        .setCancelClickListener(new KAlertDialog.KAlertClickListener() {
+                            @Override
+                            public void onClick(KAlertDialog sDialog) {
+                                sDialog.cancel();
+                            }
+                        })
+                        .show();
             }
         });
 
+    }
+    private void saveAction(){
+        loadingDialog.show();
+        if(validateData()){
+            penilaians = new Vector<Penilaian>();
+            Penilaian data = new Penilaian(
+                    Double.parseDouble(et_amdp_pekingsai_n1.getText().toString()),
+                    "+", null, "et_amdp_pekingsai_n1");
+            penilaians.add(data);
+
+            data = new Penilaian(
+                    Double.parseDouble(et_amdp_pekingsai_n2.getText().toString()),
+                    "+", null, "et_amdp_pekingsai_n2");
+            penilaians.add(data);
+
+            data = new Penilaian(
+                    Double.parseDouble(et_amdp_pekingsai_n3.getText().toString()),
+                    "+", null, "et_amdp_pekingsai_n3");
+            penilaians.add(data);
+
+            data= new Penilaian(
+                    Double.parseDouble(et_amdp_pekingsai_n4.getText().toString()),
+                    "+", null, "et_amdp_pekingsai_n4");
+            penilaians.add(data);
+
+            data = new Penilaian(
+                    Double.parseDouble(et_amdp_pekingsai_n5.getText().toString()),
+                    "+", null, "et_amdp_pekingsai_n5");
+            penilaians.add(data);
+
+            data = new Penilaian(
+                    Double.parseDouble(et_amdp_pekingsai_n6.getText().toString()),
+                    "+", null, "et_amdp_pekingsai_n6");
+            penilaians.add(data);
+
+            data = new Penilaian(
+                    Double.parseDouble(et_amdp_pekingsai_n7.getText().toString()),
+                    "+", null, "et_amdp_pekingsai_n7");
+            penilaians.add(data);
+
+            data = new Penilaian(
+                    Double.parseDouble(et_amdp_pekingsai_n8.getText().toString()),
+                    "+", null, "et_amdp_pekingsai_n8");
+            penilaians.add(data);
+
+            data = new Penilaian(
+                    Double.parseDouble(et_amdp_pekingsai_n9.getText().toString()),
+                    "+", null, "et_amdp_pekingsai_n9");
+
+            penilaians.add(data);
+
+
+
+            data = new Penilaian(
+                    Double.parseDouble(et_ap_pekingsai_p1.getText().toString()),
+                    "-", null, "et_ap_pekingsai_p1");
+            penilaians.add(data);
+            data = new Penilaian(
+                    Double.parseDouble(et_ap_pekingsai_p2.getText().toString()),
+                    "-", null, "et_ap_pekingsai_p2");
+            penilaians.add(data);
+            data = new Penilaian(
+                    Double.parseDouble(et_ap_pekingsai_p3.getText().toString()),
+                    "-", null, "et_ap_pekingsai_p3");
+            penilaians.add(data);
+            data = new Penilaian(
+                    Double.parseDouble(et_ap_pekingsai_p4.getText().toString()),
+                    "-", null, "et_ap_pekingsai_p4");
+            penilaians.add(data);
+
+
+            if(!et_amdp_pekingsai_kesulitan.getText().toString().equals("")){
+                data = new Penilaian(
+                        Double.parseDouble(et_amdp_pekingsai_kesulitan.getText().toString()),
+                        "=", null, "et_amdp_pekingsai_kesulitan");
+                penilaians.add(data);
+            }
+
+
+            saveData();
+
+            Intent return_i = new Intent();
+            return_i.putExtra("msg","Berhasil Memberi Nilai!");
+            setResult(Activity.RESULT_OK,return_i);
+            loadingDialog.hide();
+
+            finish();
+        }else{
+            loadingDialog.hide();
+            new KAlertDialog(ScoringPekingsaiActivity.this, KAlertDialog.ERROR_TYPE)
+                    .setTitleText("Oops...")
+                    .setContentText(errorMsg)
+                    .show();
+
+        }
     }
     private void saveData(){
         double total_nilai = 0;

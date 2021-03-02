@@ -59,11 +59,28 @@
         android:layout_marginBottom="20dp"
         android:inputType="textPersonName"
         android:hint="@string/input_name" />
+    <TextView
+        android:id="@+id/tv_arl_no_urut_title"
+        android:layout_below="@id/et_arl_nama"
 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/no_urut_anda" />
+    <Spinner
+        android:id="@+id/sp_ae_no_urut"
+        style="@style/Widget.AppCompat.Spinner.Underlined"
+        android:textAppearance="?android:attr/textAppearanceMediumInverse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_marginBottom="20dp"
+        android:layout_below="@id/tv_arl_no_urut_title"
+
+        />
     <Button
         style="@style/Widget.AppCompat.Button.Colored"
         android:id="@+id/btn_arl_login"
-        android:layout_below="@id/et_arl_nama"
+        android:layout_below="@id/sp_ae_no_urut"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btn_login" />

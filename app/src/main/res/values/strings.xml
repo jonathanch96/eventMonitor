@@ -32,6 +32,7 @@
 
     <string name="username">Username</string>
     <string name="name">Nama Anda</string>
+    <string name="no_urut_anda">Pilih No Urut Anda</string>
     <string name="input_name">Input Nama</string>
     <string name="input_code">Input Kode</string>
     <string name="code_event">Kode Event</string>

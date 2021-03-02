@@ -713,102 +713,124 @@ public class ScoringTraditionalActivity extends AppCompatActivity {
         btn_ap_traditional_as_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loadingDialog.show();
-                if(validateData()){
-                    penilaians = new Vector<Penilaian>();
-                    Penilaian data = new Penilaian(
-                            Double.parseDouble(et_as_n1.getText().toString()),
-                            "+", null, "et_as_n1");
-                    penilaians.add(data);
+                new KAlertDialog(ScoringTraditionalActivity.this, KAlertDialog.WARNING_TYPE)
+                        .setTitleText("Menyimpan penilaian ?")
+                        .setContentText("Apakah Anda yakin untuk menyimpan penilaian ini!")
+                        .setConfirmText("Ya")
+                        .setConfirmClickListener(new KAlertDialog.KAlertClickListener() {
+                            @Override
+                            public void onClick(KAlertDialog sDialog) {
+                                saveAction();
+                                sDialog.dismissWithAnimation();
+                            }
+                        })
+                        .setCancelText("Tidak")
+                        .setCancelClickListener(new KAlertDialog.KAlertClickListener() {
+                            @Override
+                            public void onClick(KAlertDialog sDialog) {
+                                sDialog.cancel();
+                            }
+                        })
+                        .show();
 
-                    data = new Penilaian(
-                            Double.parseDouble(et_as_n2.getText().toString()),
-                            "+", null, "et_as_n2");
-                    penilaians.add(data);
-
-                    data = new Penilaian(
-                            Double.parseDouble(et_as_n3.getText().toString()),
-                            "+", null, "et_as_n3");
-                    penilaians.add(data);
-
-                    data= new Penilaian(
-                            Double.parseDouble(et_as_n4.getText().toString()),
-                            "+", null, "et_as_n4");
-                    penilaians.add(data);
-
-                    data = new Penilaian(
-                            Double.parseDouble(et_as_n5.getText().toString()),
-                            "+", null, "et_as_n5");
-                    penilaians.add(data);
-                    data = new Penilaian(
-                            Double.parseDouble(et_as_n6.getText().toString()),
-                            "+", null, "et_as_n6");
-                    penilaians.add(data);
-
-                    data = new Penilaian(
-                            Double.parseDouble(et_as_n7.getText().toString()),
-                            "+", null, "et_as_n7");
-                    penilaians.add(data);
-
-                    data = new Penilaian(
-                            Double.parseDouble(et_as_n8.getText().toString()),
-                            "+", null, "et_as_n8");
-                    penilaians.add(data);
-
-                    data = new Penilaian(
-                            Double.parseDouble(et_as_n9.getText().toString()),
-                            "+", null, "et_as_n9");
-                    penilaians.add(data);
-
-                    data = new Penilaian(
-                            Double.parseDouble(et_as_n10.getText().toString()),
-                            "+", null, "et_as_n10");
-                    penilaians.add(data);
-
-
-                    data = new Penilaian(
-                            Double.parseDouble(et_as_ks1.getText().toString()),
-                            "-", null, "et_as_ks1");
-                    penilaians.add(data);
-
-                    data = new Penilaian(
-                            Double.parseDouble(et_as_ks2.getText().toString()),
-                            "-", null, "et_as_ks2");
-                    penilaians.add(data);
-
-                    data = new Penilaian(
-                            Double.parseDouble(et_as_ks3.getText().toString()),
-                            "-", null, "et_as_ks3");
-                    penilaians.add(data);
-
-                    data = new Penilaian(
-                            Double.parseDouble(et_as_ks4.getText().toString()),
-                            "-", null, "et_as_ks4");
-
-                    penilaians.add(data);
-
-
-
-
-                    saveData();
-
-                    Intent return_i = new Intent();
-                    return_i.putExtra("msg","Berhasil Memberi Nilai!");
-                    setResult(Activity.RESULT_OK,return_i);
-                    loadingDialog.hide();
-
-                    finish();
-                }else{
-                    loadingDialog.hide();
-                    new KAlertDialog(ScoringTraditionalActivity.this, KAlertDialog.ERROR_TYPE)
-                            .setTitleText("Oops...")
-                            .setContentText(errorMsg)
-                            .show();
-
-                }
             }
         });
 
+    }
+    private void saveAction() {
+        loadingDialog.show();
+        if(validateData()){
+            penilaians = new Vector<Penilaian>();
+            Penilaian data = new Penilaian(
+                    Double.parseDouble(et_as_n1.getText().toString()),
+                    "+", null, "et_as_n1");
+            penilaians.add(data);
+
+            data = new Penilaian(
+                    Double.parseDouble(et_as_n2.getText().toString()),
+                    "+", null, "et_as_n2");
+            penilaians.add(data);
+
+            data = new Penilaian(
+                    Double.parseDouble(et_as_n3.getText().toString()),
+                    "+", null, "et_as_n3");
+            penilaians.add(data);
+
+            data= new Penilaian(
+                    Double.parseDouble(et_as_n4.getText().toString()),
+                    "+", null, "et_as_n4");
+            penilaians.add(data);
+
+            data = new Penilaian(
+                    Double.parseDouble(et_as_n5.getText().toString()),
+                    "+", null, "et_as_n5");
+            penilaians.add(data);
+            data = new Penilaian(
+                    Double.parseDouble(et_as_n6.getText().toString()),
+                    "+", null, "et_as_n6");
+            penilaians.add(data);
+
+            data = new Penilaian(
+                    Double.parseDouble(et_as_n7.getText().toString()),
+                    "+", null, "et_as_n7");
+            penilaians.add(data);
+
+            data = new Penilaian(
+                    Double.parseDouble(et_as_n8.getText().toString()),
+                    "+", null, "et_as_n8");
+            penilaians.add(data);
+
+            data = new Penilaian(
+                    Double.parseDouble(et_as_n9.getText().toString()),
+                    "+", null, "et_as_n9");
+            penilaians.add(data);
+
+            data = new Penilaian(
+                    Double.parseDouble(et_as_n10.getText().toString()),
+                    "+", null, "et_as_n10");
+            penilaians.add(data);
+
+
+            data = new Penilaian(
+                    Double.parseDouble(et_as_ks1.getText().toString()),
+                    "-", null, "et_as_ks1");
+            penilaians.add(data);
+
+            data = new Penilaian(
+                    Double.parseDouble(et_as_ks2.getText().toString()),
+                    "-", null, "et_as_ks2");
+            penilaians.add(data);
+
+            data = new Penilaian(
+                    Double.parseDouble(et_as_ks3.getText().toString()),
+                    "-", null, "et_as_ks3");
+            penilaians.add(data);
+
+            data = new Penilaian(
+                    Double.parseDouble(et_as_ks4.getText().toString()),
+                    "-", null, "et_as_ks4");
+
+            penilaians.add(data);
+
+
+
+
+            saveData();
+
+            Intent return_i = new Intent();
+            return_i.putExtra("msg","Berhasil Memberi Nilai!");
+            setResult(Activity.RESULT_OK,return_i);
+            loadingDialog.hide();
+
+            finish();
+        }else{
+            loadingDialog.hide();
+            new KAlertDialog(ScoringTraditionalActivity.this, KAlertDialog.ERROR_TYPE)
+                    .setTitleText("Oops...")
+                    .setContentText(errorMsg)
+                    .show();
+
+        }
     }
     private void saveData(){
         double total_nilai = 0;
