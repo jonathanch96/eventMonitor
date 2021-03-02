@@ -61,7 +61,7 @@ public class AdapterListTeamAdmin extends RecyclerView.Adapter<AdapterListTeamAd
         Button btn_amtla_penilaian;
         Button btn_amtla_edit;
         Button btn_amtla_delete;
-        ImageView iv_amel_delete;
+
 
         public MyViewHolder(View v) {
             super(v);
@@ -71,7 +71,6 @@ public class AdapterListTeamAdmin extends RecyclerView.Adapter<AdapterListTeamAd
             tv_amtl_nilai_bersih = v.findViewById(R.id.tv_amtl_nilai_bersih);
             btn_amtla_edit = v.findViewById(R.id.btn_amtla_edit);
             btn_amtla_delete = v.findViewById(R.id.btn_amtla_delete);
-            iv_amel_delete = v.findViewById(R.id.iv_amel_delete);
         }
 
         public void bindItem(final Context ctx, final Team team) {
@@ -89,51 +88,7 @@ public class AdapterListTeamAdmin extends RecyclerView.Adapter<AdapterListTeamAd
                     ctx.startActivity(intent);
                 }
             });
-            iv_amel_delete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    new KAlertDialog(ctx, KAlertDialog.WARNING_TYPE)
-                            .setTitleText("Hapus event?")
-                            .setContentText("Apakah Anda yakin ingin menghapus event ini!")
-                            .setConfirmText("Ya")
-                            .setConfirmClickListener(new KAlertDialog.KAlertClickListener() {
-                                @Override
-                                public void onClick(final KAlertDialog sDialog) {
-                                    FirebaseFirestore db = FirebaseFirestore.getInstance();
-                                    db.collection("events").document(eventId)
-                                            .delete()
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void aVoid) {
-                                                    Log.d("debug", "DocumentSnapshot successfully deleted!");
-                                                    sDialog.dismissWithAnimation();
-                                                }
 
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    Log.w("debug", "Error deleting document", e);
-                                                    sDialog.dismissWithAnimation();
-                                                    new KAlertDialog(ctx, KAlertDialog.ERROR_TYPE)
-                                                            .setTitleText("Oops...")
-                                                            .setContentText("Something went wrong!")
-                                                            .show();
-                                                }
-                                            });
-
-                                }
-                            })
-                            .setCancelText("Tidak")
-                            .setCancelClickListener(new KAlertDialog.KAlertClickListener() {
-                                @Override
-                                public void onClick(KAlertDialog sDialog) {
-                                    sDialog.cancel();
-                                }
-                            })
-                            .show();
-                }
-            });
             btn_amtla_edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

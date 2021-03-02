@@ -118,7 +118,7 @@ public class RefereeLoginActivity extends AppCompatActivity {
                                                         }
 
                                                     }
-                                                    
+
 
                                                     if (!session.getData("refereeId").equals("")) {
                                                         db.collection("events")

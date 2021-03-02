@@ -21,6 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.developer.kalert.KAlertDialog;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -80,13 +82,58 @@ public class AdapterListEvent extends BaseAdapter {
         Button btn_amel_assign_team = v.findViewById(R.id.btn_amel_assign_team);
         Button btn_amel_lihat_team = v.findViewById(R.id.btn_amel_lihat_team);
         ImageView iv_amel_barcode = v.findViewById(R.id.iv_amel_barcode);
-
+        ImageView iv_amel_delete =  v.findViewById(R.id.iv_amel_delete);;
         iv_amel_barcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ctx, BarcodeActivity.class);
                 intent.putExtra("code",dataEvent.get(i).getCode());
                 ctx.startActivity(intent);
+            }
+        });
+        iv_amel_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new KAlertDialog(ctx, KAlertDialog.WARNING_TYPE)
+                        .setTitleText("Hapus event?")
+                        .setContentText("Apakah Anda yakin ingin menghapus event ini!")
+                        .setConfirmText("Ya")
+                        .setConfirmClickListener(new KAlertDialog.KAlertClickListener() {
+                            @Override
+                            public void onClick(final KAlertDialog sDialog) {
+                                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                db.collection("events").document(dataEvent.get(i).getKey())
+                                        .delete()
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d("debug", "DocumentSnapshot successfully deleted!");
+                                                sDialog.dismissWithAnimation();
+                                            }
+
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w("debug", "Error deleting document", e);
+                                                sDialog.dismissWithAnimation();
+                                                new KAlertDialog(ctx, KAlertDialog.ERROR_TYPE)
+                                                        .setTitleText("Oops...")
+                                                        .setContentText("Something went wrong!")
+                                                        .show();
+                                            }
+                                        });
+
+                            }
+                        })
+                        .setCancelText("Tidak")
+                        .setCancelClickListener(new KAlertDialog.KAlertClickListener() {
+                            @Override
+                            public void onClick(KAlertDialog sDialog) {
+                                sDialog.cancel();
+                            }
+                        })
+                        .show();
             }
         });
         //get unread message
