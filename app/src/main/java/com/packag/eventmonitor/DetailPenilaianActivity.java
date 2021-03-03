@@ -124,118 +124,122 @@ public class DetailPenilaianActivity extends AppCompatActivity {
 
     public int getOrder(String name) {
         int order = 999;
-        if (events.getThemes().equals("Naga")) {
-            if (name.equals("et_amdp_naga_n1")) {
-                order=1;
-            } else if (name.equals("et_amdp_naga_n2")) {
-                order=2;
-            } else if (name.equals("et_amdp_naga_n3")) {
-                order=3;
-            } else if (name.equals("et_amdp_naga_n4")) {
-                order=4;
-            } else if (name.equals("et_amdp_naga_n5")) {
-                order=5;
-            } else if (name.equals("et_amdp_naga_p1")) {
-                order=6;
-            } else if (name.equals("et_amdp_naga_p2")) {
-                order=7;
-            } else if (name.equals("et_amdp_naga_p3")) {
-                order=8;
-            } else if (name.equals("et_amdp_naga_p4")) {
-                order=9;
-            } else if (name.equals("et_amdp_naga_p5")) {
-                order=10;
-            }
+        if(getData1){
+            if (events.getThemes().equals("Naga")) {
+                if (name.equals("et_amdp_naga_n1")) {
+                    order=1;
+                } else if (name.equals("et_amdp_naga_n2")) {
+                    order=2;
+                } else if (name.equals("et_amdp_naga_n3")) {
+                    order=3;
+                } else if (name.equals("et_amdp_naga_n4")) {
+                    order=4;
+                } else if (name.equals("et_amdp_naga_n5")) {
+                    order=5;
+                } else if (name.equals("et_amdp_naga_p1")) {
+                    order=6;
+                } else if (name.equals("et_amdp_naga_p2")) {
+                    order=7;
+                } else if (name.equals("et_amdp_naga_p3")) {
+                    order=8;
+                } else if (name.equals("et_amdp_naga_p4")) {
+                    order=9;
+                } else if (name.equals("et_amdp_naga_p5")) {
+                    order=10;
+                }
 
-        } else if (events.getThemes().equals("Barongsai Taolu Bebas")) {
-            if (name.equals("et_amdp_taolu_n1")) {
-                order=1;
-            } else if (name.equals("et_amdp_taolu_n2")) {
-                order=2;
-            } else if (name.equals("et_amdp_taolu_n3")) {
-                order=3;
-            } else if (name.equals("et_amdp_taolu_n4")) {
-                order=4;
-            } else if (name.equals("et_amdp_taolu_n5")) {
-                order=5;
-            } else if (name.equals("et_amdp_taolu_n6")) {
-                order=6;
-            } else if (name.equals("et_amdp_taolu_n7")) {
-                order=7;
-            } else if (name.equals("et_amdp_taolu_n8")) {
-                order=8;
-            } else if (name.equals("et_amdp_taolu_n9")) {
-                order=9;
-            } else if (name.equals("et_ap_taolu_p1")) {
-                order=10;
-            } else if (name.equals("et_ap_taolu_p2")) {
-                order=11;
-            } else if (name.equals("et_ap_taolu_p3")) {
-                order=12;
-            } else if (name.equals("et_ap_taolu_p4")) {
-                order=13;
-            }
+            } else if (events.getThemes().equals("Barongsai Taolu Bebas")) {
+                if (name.equals("et_amdp_taolu_n1")) {
+                    order=1;
+                } else if (name.equals("et_amdp_taolu_n2")) {
+                    order=2;
+                } else if (name.equals("et_amdp_taolu_n3")) {
+                    order=3;
+                } else if (name.equals("et_amdp_taolu_n4")) {
+                    order=4;
+                } else if (name.equals("et_amdp_taolu_n5")) {
+                    order=5;
+                } else if (name.equals("et_amdp_taolu_n6")) {
+                    order=6;
+                } else if (name.equals("et_amdp_taolu_n7")) {
+                    order=7;
+                } else if (name.equals("et_amdp_taolu_n8")) {
+                    order=8;
+                } else if (name.equals("et_amdp_taolu_n9")) {
+                    order=9;
+                } else if (name.equals("et_ap_taolu_p1")) {
+                    order=10;
+                } else if (name.equals("et_ap_taolu_p2")) {
+                    order=11;
+                } else if (name.equals("et_ap_taolu_p3")) {
+                    order=12;
+                } else if (name.equals("et_ap_taolu_p4")) {
+                    order=13;
+                }
 
-        } else if (events.getThemes().equals("Pekingsai")) {
-            if (name.equals("et_amdp_pekingsai_n1")) {
-                order=1;
-            } else if (name.equals("et_amdp_pekingsai_n2")) {
-                order=2;
-            } else if (name.equals("et_amdp_pekingsai_n3")) {
-                order=3;
-            } else if (name.equals("et_amdp_pekingsai_n4")) {
-                order=4;
-            } else if (name.equals("et_amdp_pekingsai_n5")) {
-                order=5;
-            } else if (name.equals("et_amdp_pekingsai_n6")) {
-                order=6;
-            } else if (name.equals("et_amdp_pekingsai_n7")) {
-                order=7;
-            } else if (name.equals("et_amdp_pekingsai_n8")) {
-                order=8;
-            } else if (name.equals("et_amdp_pekingsai_n9")) {
-                order=9;
-            } else if (name.equals("et_ap_pekingsai_p1")) {
-                order=10;
-            } else if (name.equals("et_ap_pekingsai_p2")) {
-                order=11;
-            } else if (name.equals("et_ap_pekingsai_p3")) {
-                order=12;
-            } else if (name.equals("et_ap_pekingsai_p4")) {
-                order=13;
+            } else if (events.getThemes().equals("Pekingsai")) {
+                if (name.equals("et_amdp_pekingsai_n1")) {
+                    order=1;
+                } else if (name.equals("et_amdp_pekingsai_n2")) {
+                    order=2;
+                } else if (name.equals("et_amdp_pekingsai_n3")) {
+                    order=3;
+                } else if (name.equals("et_amdp_pekingsai_n4")) {
+                    order=4;
+                } else if (name.equals("et_amdp_pekingsai_n5")) {
+                    order=5;
+                } else if (name.equals("et_amdp_pekingsai_n6")) {
+                    order=6;
+                } else if (name.equals("et_amdp_pekingsai_n7")) {
+                    order=7;
+                } else if (name.equals("et_amdp_pekingsai_n8")) {
+                    order=8;
+                } else if (name.equals("et_amdp_pekingsai_n9")) {
+                    order=9;
+                } else if (name.equals("et_ap_pekingsai_p1")) {
+                    order=10;
+                } else if (name.equals("et_ap_pekingsai_p2")) {
+                    order=11;
+                } else if (name.equals("et_ap_pekingsai_p3")) {
+                    order=12;
+                } else if (name.equals("et_ap_pekingsai_p4")) {
+                    order=13;
+                }
+            } else {
+                if (name.equals("et_as_n1")) {
+                    order=1;
+                } else if (name.equals("et_as_n2")) {
+                    order=2;
+                } else if (name.equals("et_as_n3")) {
+                    order=3;
+                } else if (name.equals("et_as_n4")) {
+                    order=4;
+                } else if (name.equals("et_as_n5")) {
+                    order=5;
+                } else if (name.equals("et_as_n6")) {
+                    order=6;
+                } else if (name.equals("et_as_n7")) {
+                    order=7;
+                } else if (name.equals("et_as_n8")) {
+                    order=8;
+                } else if (name.equals("et_as_n9")) {
+                    order=9;
+                } else if (name.equals("et_as_n10")) {
+                    order=10;
+                } else if (name.equals("et_as_ks1")) {
+                    order=11;
+                } else if (name.equals("et_as_ks2")) {
+                    order=12;
+                } else if (name.equals("et_as_ks3")) {
+                    order=13;
+                } else if (name.equals("et_as_ks4")) {
+                    order=14;
+                }
             }
-        } else {
-            if (name.equals("et_as_n1")) {
-                order=1;
-            } else if (name.equals("et_as_n2")) {
-                order=2;
-            } else if (name.equals("et_as_n3")) {
-                order=3;
-            } else if (name.equals("et_as_n4")) {
-                order=4;
-            } else if (name.equals("et_as_n5")) {
-                order=5;
-            } else if (name.equals("et_as_n6")) {
-                order=6;
-            } else if (name.equals("et_as_n7")) {
-                order=7;
-            } else if (name.equals("et_as_n8")) {
-                order=8;
-            } else if (name.equals("et_as_n9")) {
-                order=9;
-            } else if (name.equals("et_as_n10")) {
-                order=10;
-            } else if (name.equals("et_as_ks1")) {
-                order=11;
-            } else if (name.equals("et_as_ks2")) {
-                order=12;
-            } else if (name.equals("et_as_ks3")) {
-                order=13;
-            } else if (name.equals("et_as_ks4")) {
-                order=14;
-            }
+            return order;
         }
-        return order;
+        return 0;
+
 
     }
 
@@ -289,7 +293,15 @@ public class DetailPenilaianActivity extends AppCompatActivity {
                                 for (QueryDocumentSnapshot ds : task.getResult()) {
                                     Penilaian tp = ds.toObject(Penilaian.class);
                                     tp.setKey(ds.getId());
-                                    tp.setOrder(getOrder(tp.getForm_id()));
+                                    while (getOrder(tp.getForm_id())==0){
+                                        try {
+                                            Thread.sleep(1000);
+                                        } catch (InterruptedException interruptedException) {
+                                            interruptedException.printStackTrace();
+                                        }
+                                        tp.setOrder(getOrder(tp.getForm_id()));
+                                    }
+
                                     temp_penilaians.add(tp);
                                 }
                                 Collections.sort(temp_penilaians);
