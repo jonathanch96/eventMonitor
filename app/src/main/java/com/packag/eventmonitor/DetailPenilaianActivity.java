@@ -501,10 +501,25 @@ public class DetailPenilaianActivity extends AppCompatActivity {
     private void exportPenilaianToExcel() {
         if (getData1 && getData2 && getData3) {
             Collections.sort(refereePenilaians);
+
             ArrayList<String> header = new ArrayList<String>();
             header.add("Keterangan");
             for (RefereePenilaian rp : refereePenilaians) {
                 header.add("Juri - " + rp.getOrder());
+
+                Vector<Penilaian> temp_penilaian_sorted = new Vector<Penilaian>();
+                temp_penilaian_sorted = rp.getPenilaians();
+                int index = 0;
+                for(Penilaian tp : temp_penilaian_sorted){
+
+                    if(tp.getType().equals("=")){
+                        tp.setOrder(999);
+                        temp_penilaian_sorted.set(index,tp);
+                    }
+                    index++;
+                }
+                Collections.sort(temp_penilaian_sorted);
+                rp.setPenilaians(temp_penilaian_sorted);
             }
 
             Workbook workbook = new XSSFWorkbook(); // new HSSFWorkbook() for generating `.xls` file
@@ -562,6 +577,7 @@ public class DetailPenilaianActivity extends AppCompatActivity {
                 }else{
                     row.createCell(0)
                             .setCellValue("Kesulitan");
+
                     multiplier = 1;
                     //flag_not_print = true;
                 }
