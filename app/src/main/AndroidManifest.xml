@@ -39,6 +39,11 @@
         <activity android:name=".ScoringTaoluActivity" />
         <activity android:name=".ScoringTraditionalActivity" />
         <activity android:name=".AddEventActivity" />
+        <activity
+            android:name=".ShowingScoreActivity"
+            android:screenOrientation="landscape"
+            android:configChanges="orientation|keyboardHidden"
+            />
         <activity android:name=".RefereeActivity" />
         <activity
             android:name=".RefereeLoginActivity"

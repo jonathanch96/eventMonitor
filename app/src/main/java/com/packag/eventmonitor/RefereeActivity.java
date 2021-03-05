@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -165,13 +166,13 @@ public class RefereeActivity extends AppCompatActivity {
                                         teamClass.setPenilaian(penilaian);
                                     }
 
-                                    lv_ar_listTeam.setAdapter(new AdapterListTeam(getApplicationContext(), dataTeam));
+                                    lv_ar_listTeam.setAdapter(new AdapterListTeam(RefereeActivity.this, dataTeam));
 
                                 }
                             });
 
                     dataTeam.add(teamClass);
-                    lv_ar_listTeam.setAdapter(new AdapterListTeam(getApplicationContext(), dataTeam));
+                    lv_ar_listTeam.setAdapter(new AdapterListTeam(RefereeActivity.this, dataTeam));
                 }
 
 
