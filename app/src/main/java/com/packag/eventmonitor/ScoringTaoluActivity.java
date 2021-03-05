@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -180,45 +181,107 @@ public class ScoringTaoluActivity extends AppCompatActivity {
         }
     }
     private boolean validateData() {
-        //TODO NELSON kerjain validasi untuk input nilai
+
 
         boolean flag = false;
         if (et_amdp_taolu_n1.getText().toString().equals("")) {
+            et_amdp_taolu_n1.requestFocus();
             errorMsg = "Nilai "+getResources().getString(R.string.ap_taolu_type_1_det_1)+" harus di isi";
+        } else if (Double.parseDouble(et_amdp_taolu_n1.getText().toString()) < 0.5) {
+            et_amdp_taolu_n1.requestFocus();
+            errorMsg = "Nilai "+getResources().getString(R.string.ap_taolu_type_1_det_1)+" tidak boleh kurang dari 0.5";
         } else if (Double.parseDouble(et_amdp_taolu_n1.getText().toString()) > 1) {
+            et_amdp_taolu_n1.requestFocus();
             errorMsg = "Nilai "+getResources().getString(R.string.ap_taolu_type_1_det_1)+" tidak boleh lebih dari 1.0";
+
         }else if (et_amdp_taolu_n2.getText().toString().equals("")) {
+            et_amdp_taolu_n2.requestFocus();
             errorMsg = "Nilai "+getResources().getString(R.string.ap_taolu_type_1_det_2)+" harus di isi";
+        } else if (Double.parseDouble(et_amdp_taolu_n2.getText().toString()) < 0.5) {
+            et_amdp_taolu_n2.requestFocus();
+            errorMsg = "Nilai "+getResources().getString(R.string.ap_taolu_type_1_det_2)+" tidak boleh kurang dari 0.5";
         } else if (Double.parseDouble(et_amdp_taolu_n2.getText().toString()) > 1) {
+            et_amdp_taolu_n2.requestFocus();
             errorMsg = "Nilai "+getResources().getString(R.string.ap_taolu_type_1_det_2)+" tidak boleh lebih dari 1.0";
+
+
+
         } else if (et_amdp_taolu_n3.getText().toString().equals("")) {
+            et_amdp_taolu_n3.requestFocus();
             errorMsg = "Nilai "+getResources().getString(R.string.ap_taolu_type_1_det_3)+" harus diisi";
+        } else if (Double.parseDouble(et_amdp_taolu_n3.getText().toString()) < 0.5) {
+            et_amdp_taolu_n3.requestFocus();
+            errorMsg = "Nilai "+getResources().getString(R.string.ap_taolu_type_1_det_3)+" tidak boleh kurang dari 0.5";
         } else if (Double.parseDouble(et_amdp_taolu_n3.getText().toString()) > 1) {
+            et_amdp_taolu_n3.requestFocus();
             errorMsg = "Nilai "+getResources().getString(R.string.ap_taolu_type_1_det_3)+" tidak boleh lebih dari 1.0";
+
         } else if (et_amdp_taolu_n4.getText().toString().equals("")) {
+            et_amdp_taolu_n4.requestFocus();
             errorMsg = "Nilai "+getResources().getString(R.string.ap_taolu_type_1_det_4)+" harus diisi";
+        } else if (Double.parseDouble(et_amdp_taolu_n4.getText().toString()) < 0.5) {
+            et_amdp_taolu_n4.requestFocus();
+            errorMsg = "Nilai "+getResources().getString(R.string.ap_taolu_type_1_det_4)+" tidak boleh kurang dari 0.5";
         } else if (Double.parseDouble(et_amdp_taolu_n4.getText().toString()) > 1) {
+            et_amdp_taolu_n4.requestFocus();
             errorMsg = "Nilai "+getResources().getString(R.string.ap_taolu_type_1_det_4)+" tidak boleh lebih dari 1.0";
+
+
         } else if (et_amdp_taolu_n5.getText().toString().equals("")) {
+            et_amdp_taolu_n5.requestFocus();
             errorMsg = "Nilai "+getResources().getString(R.string.ap_taolu_type_1_det_5)+" harus diisi";
+        } else if (Double.parseDouble(et_amdp_taolu_n5.getText().toString()) < 0.5) {
+            et_amdp_taolu_n5.requestFocus();
+            errorMsg = "Nilai "+getResources().getString(R.string.ap_taolu_type_1_det_5)+" tidak boleh kurang dari 0.5";
         } else if (Double.parseDouble(et_amdp_taolu_n5.getText().toString()) > 1) {
+            et_amdp_taolu_n5.requestFocus();
             errorMsg = "Nilai "+getResources().getString(R.string.ap_taolu_type_1_det_5)+" tidak boleh lebih dari 1.0";
+
         } else if (et_amdp_taolu_n6.getText().toString().equals("")) {
+            et_amdp_taolu_n6.requestFocus();
             errorMsg = "Nilai "+getResources().getString(R.string.ap_taolu_type_2_det_1)+" harus diisi";
+        } else if (Double.parseDouble(et_amdp_taolu_n6.getText().toString()) < 0.5) {
+            et_amdp_taolu_n6.requestFocus();
+            errorMsg = "Nilai "+getResources().getString(R.string.ap_taolu_type_2_det_1)+" tidak boleh kurang dari 0.5";
         } else if (Double.parseDouble(et_amdp_taolu_n6.getText().toString()) > 1) {
+            et_amdp_taolu_n6.requestFocus();
             errorMsg = "Nilai "+getResources().getString(R.string.ap_taolu_type_2_det_1)+" tidak boleh lebih dari 1.0";
+
+
         } else if (et_amdp_taolu_n7.getText().toString().equals("")) {
+            et_amdp_taolu_n7.requestFocus();
             errorMsg = "Nilai "+getResources().getString(R.string.ap_taolu_type_2_det_2)+" harus diisi";
+        } else if (Double.parseDouble(et_amdp_taolu_n7.getText().toString()) < 0.5) {
+            et_amdp_taolu_n7.requestFocus();
+            errorMsg = "Nilai "+getResources().getString(R.string.ap_taolu_type_2_det_2)+" tidak boleh kurang dari 0.5";
         } else if (Double.parseDouble(et_amdp_taolu_n7.getText().toString()) > 1) {
+            et_amdp_taolu_n7.requestFocus();
             errorMsg = "Nilai "+getResources().getString(R.string.ap_taolu_type_2_det_2)+" tidak boleh lebih dari 1.0";
+
+
         } else if (et_amdp_taolu_n8.getText().toString().equals("")) {
+            et_amdp_taolu_n8.requestFocus();
             errorMsg = "Nilai "+getResources().getString(R.string.ap_taolu_type_2_det_3)+" harus diisi";
+        } else if (Double.parseDouble(et_amdp_taolu_n8.getText().toString()) < 0.5) {
+            et_amdp_taolu_n8.requestFocus();
+            errorMsg = "Nilai "+getResources().getString(R.string.ap_taolu_type_2_det_3)+" tidak boleh kurang dari 0.5";
         } else if (Double.parseDouble(et_amdp_taolu_n8.getText().toString()) > 1) {
+            et_amdp_taolu_n8.requestFocus();
             errorMsg = "Nilai "+getResources().getString(R.string.ap_taolu_type_2_det_3)+" tidak boleh lebih dari 1.0";
+
+
         } else if (et_amdp_taolu_n9.getText().toString().equals("")) {
+            et_amdp_taolu_n9.requestFocus();
             errorMsg = "Nilai "+getResources().getString(R.string.ap_pekingsai_type_3)+" harus diisi";
+        } else if (Double.parseDouble(et_amdp_taolu_n9.getText().toString()) < 0.5) {
+            et_amdp_taolu_n9.requestFocus();
+            errorMsg = "Nilai "+getResources().getString(R.string.ap_pekingsai_type_3)+" tidak boleh kurang dari 0.5";
+
         } else if (Double.parseDouble(et_amdp_taolu_n9.getText().toString()) > 2) {
+            et_amdp_taolu_n9.requestFocus();
             errorMsg = "Nilai "+getResources().getString(R.string.ap_pekingsai_type_3)+" tidak boleh lebih dari 2.0";
+
+
         } else if (et_ap_taolu_p1.getText().toString().equals("")) {
             et_ap_taolu_p1.setText("0");
 //        } else if (Double.parseDouble(et_ap_taolu_p1.getText().toString()) > 1) {
@@ -797,10 +860,11 @@ public class ScoringTaoluActivity extends AppCompatActivity {
             finish();
         }else{
             loadingDialog.hide();
-            new KAlertDialog(ScoringTaoluActivity.this, KAlertDialog.ERROR_TYPE)
-                    .setTitleText("Oops...")
-                    .setContentText(errorMsg)
-                    .show();
+            Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show();
+//            new KAlertDialog(ScoringTaoluActivity.this, KAlertDialog.ERROR_TYPE)
+//                    .setTitleText("Oops...")
+//                    .setContentText(errorMsg)
+//                    .show();
 
         }
     }
@@ -822,6 +886,7 @@ public class ScoringTaoluActivity extends AppCompatActivity {
         }
         grand_total = total_nilai - total_pengurangan;
         RefereePenilaian rp = new RefereePenilaian();
+        rp.setIsEditable(0);
         rp.setTotal_nilai(total_nilai);
         rp.setTotal_potongan(total_pengurangan);
         rp.setGrand_total(grand_total);

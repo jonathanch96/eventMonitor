@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -179,51 +180,107 @@ public class ScoringTraditionalActivity extends AppCompatActivity {
 
         boolean flag = false;
         if (et_as_n1.getText().toString().equals("")) {
+            et_as_n1.requestFocus();
             errorMsg = getString(R.string.n1_sopan_santun)+" harus di isi";
+        } else if (Double.parseDouble(et_as_n1.getText().toString()) < 0.5) {
+            et_as_n1.requestFocus();
+            errorMsg = "Nilai "+getResources().getString(R.string.n1_sopan_santun)+" tidak boleh kurang dari 0.5";
         } else if (Double.parseDouble(et_as_n1.getText().toString()) > 1) {
+            et_as_n1.requestFocus();
             errorMsg = getString(R.string.n1_sopan_santun)+" tidak boleh lebih dari 1.0";
+
         }else if (et_as_n2.getText().toString().equals("")) {
+            et_as_n2.requestFocus();
             errorMsg =  getString(R.string.n2_judul_dan_alur_cerita)+" harus di isi";
+        } else if (Double.parseDouble(et_as_n2.getText().toString()) < 0.5) {
+            et_as_n2.requestFocus();
+            errorMsg = "Nilai "+getResources().getString(R.string.n2_judul_dan_alur_cerita)+" tidak boleh kurang dari 0.5";
         } else if (Double.parseDouble(et_as_n2.getText().toString()) > 1) {
+            et_as_n2.requestFocus();
             errorMsg = getString(R.string.n2_judul_dan_alur_cerita)+" tidak boleh lebih dari 1.0";
 
         } else if (et_as_n3.getText().toString().equals("")) {
+            et_as_n3.requestFocus();
             errorMsg =  getString(R.string.n3_bentuk_barongsai)+" harus diisi";
-        } else if (Double.parseDouble(et_as_n2.getText().toString()) > 1) {
+        } else if (Double.parseDouble(et_as_n3.getText().toString()) < 0.5) {
+            et_as_n3.requestFocus();
+            errorMsg = "Nilai "+getResources().getString(R.string.n3_bentuk_barongsai)+" tidak boleh kurang dari 0.5";
+        } else if (Double.parseDouble(et_as_n3.getText().toString()) > 1) {
+            et_as_n3.requestFocus();
             errorMsg =  getString(R.string.n3_bentuk_barongsai)+" tidak boleh lebih dari 1.0";
+
         } else if (et_as_n4.getText().toString().equals("")) {
+            et_as_n4.requestFocus();
             errorMsg = getString(R.string.n4_ekspresi)+" harus diisi";
+        } else if (Double.parseDouble(et_as_n4.getText().toString()) < 0.5) {
+            et_as_n4.requestFocus();
+            errorMsg = "Nilai "+getResources().getString(R.string.n4_ekspresi)+" tidak boleh kurang dari 0.5";
         } else if (Double.parseDouble(et_as_n4.getText().toString()) > 1) {
+            et_as_n4.requestFocus();
             errorMsg = getString(R.string.n4_ekspresi)+" tidak boleh lebih dari 1.0";
 
         } else if (et_as_n5.getText().toString().equals("")) {
+            et_as_n5.requestFocus();
             errorMsg = getString(R.string.n5_musik)+" harus diisi";
+        } else if (Double.parseDouble(et_as_n5.getText().toString()) < 0.5) {
+            et_as_n5.requestFocus();
+            errorMsg = "Nilai "+getResources().getString(R.string.n5_musik)+" tidak boleh kurang dari 0.5";
         } else if (Double.parseDouble(et_as_n5.getText().toString()) > 1) {
+            et_as_n5.requestFocus();
             errorMsg = getString(R.string.n5_musik)+" tidak boleh lebih dari 1.0";
+
         } else if (et_as_n6.getText().toString().equals("")) {
+            et_as_n6.requestFocus();
             errorMsg = getString(R.string.n6_cirikhas_traditional)+" harus diisi";
+        } else if (Double.parseDouble(et_as_n6.getText().toString()) < 0.5) {
+            et_as_n6.requestFocus();
+            errorMsg = "Nilai "+getResources().getString(R.string.n6_cirikhas_traditional)+" tidak boleh kurang dari 0.5";
         } else if (Double.parseDouble(et_as_n6.getText().toString()) > 1) {
+            et_as_n6.requestFocus();
             errorMsg = getString(R.string.n6_cirikhas_traditional)+" tidak boleh lebih dari 1.0";
 
 
         } else if (et_as_n7.getText().toString().equals("")) {
+            et_as_n7.requestFocus();
             errorMsg = getString(R.string.n7_komposisi_permainan)+" harus diisi";
+        } else if (Double.parseDouble(et_as_n7.getText().toString()) < 0.5) {
+            et_as_n7.requestFocus();
+            errorMsg = "Nilai "+getResources().getString(R.string.n7_komposisi_permainan)+" tidak boleh kurang dari 0.5";
         } else if (Double.parseDouble(et_as_n7.getText().toString()) > 1) {
+            et_as_n7.requestFocus();
             errorMsg = getString(R.string.n7_komposisi_permainan)+" tidak boleh lebih dari 1.0";
+
         } else if (et_as_n8.getText().toString().equals("")) {
+            et_as_n8.requestFocus();
             errorMsg = getString(R.string.n8_hasil_dan_permainan)+" harus diisi";
+        } else if (Double.parseDouble(et_as_n8.getText().toString()) < 0.5) {
+            et_as_n8.requestFocus();
+            errorMsg = "Nilai "+getResources().getString(R.string.n8_hasil_dan_permainan)+" tidak boleh kurang dari 0.5";
         } else if (Double.parseDouble(et_as_n8.getText().toString()) > 1) {
+            et_as_n8.requestFocus();
             errorMsg = getString(R.string.n8_hasil_dan_permainan)+" tidak boleh lebih dari 1.0";
 
         } else if (et_as_n9.getText().toString().equals("")) {
+            et_as_n9.requestFocus();
             errorMsg = getString(R.string.n9_keterampilan)+" harus diisi";
+        } else if (Double.parseDouble(et_as_n9.getText().toString()) < 0.5) {
+            et_as_n9.requestFocus();
+            errorMsg = "Nilai "+getResources().getString(R.string.n9_keterampilan)+" tidak boleh kurang dari 0.5";
         } else if (Double.parseDouble(et_as_n9.getText().toString()) > 1) {
+            et_as_n9.requestFocus();
             errorMsg = getString(R.string.n9_keterampilan)+" tidak boleh lebih dari 1.0";
 
         } else if (et_as_n10.getText().toString().equals("")) {
+            et_as_n10.requestFocus();
             errorMsg = getString(R.string.n10_seragam_dan_peralatan)+" harus diisi";
+        } else if (Double.parseDouble(et_as_n1.getText().toString()) < 0.5) {
+            et_as_n10.requestFocus();
+            errorMsg = "Nilai " + getResources().getString(R.string.n10_seragam_dan_peralatan) + " tidak boleh kurang dari 0.5";
         } else if (Double.parseDouble(et_as_n10.getText().toString()) > 1) {
+                et_as_n10.requestFocus();
             errorMsg = getString(R.string.n10_seragam_dan_peralatan)+" tidak boleh lebih dari 1.0";
+
+
         } else if (et_as_ks1.getText().toString().equals("")) {
             et_as_ks1.setText("0");
         } else if (et_as_ks2.getText().toString().equals("")) {
@@ -825,10 +882,11 @@ public class ScoringTraditionalActivity extends AppCompatActivity {
             finish();
         }else{
             loadingDialog.hide();
-            new KAlertDialog(ScoringTraditionalActivity.this, KAlertDialog.ERROR_TYPE)
-                    .setTitleText("Oops...")
-                    .setContentText(errorMsg)
-                    .show();
+            Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show();
+//            new KAlertDialog(ScoringTraditionalActivity.this, KAlertDialog.ERROR_TYPE)
+//                    .setTitleText("Oops...")
+//                    .setContentText(errorMsg)
+//                    .show();
 
         }
     }
@@ -850,6 +908,7 @@ public class ScoringTraditionalActivity extends AppCompatActivity {
         }
         grand_total = total_nilai - total_pengurangan;
         RefereePenilaian rp = new RefereePenilaian();
+        rp.setIsEditable(0);
         rp.setTotal_nilai(total_nilai);
         rp.setTotal_potongan(total_pengurangan);
         rp.setGrand_total(grand_total);

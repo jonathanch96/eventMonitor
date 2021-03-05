@@ -266,7 +266,7 @@ public class DetailPenilaianActivity extends AppCompatActivity {
                     tv_adp_no_urut.setText("No Urut : " + team.getNo_urut());
                     tv_adp_nilai_bersih.setText("Nilai Bersih : " + String.format("%.2f", team.getNilai_bersih()) + "");
                     tv_adp_potongan_admin.setText("Potongan Admin : " + String.format("%.2f", team.getPengurangan_nb()) + "");
-                    tv_adp_total_nilai.setText("Total : " + String.format("%.2f", team.getTotal_nilai()) + "");
+                    tv_adp_total_nilai.setText("Nilai Akhir : " + String.format("%.2f", team.getTotal_nilai()) + "");
                     getData2 = true;
                 }
             }
@@ -293,14 +293,14 @@ public class DetailPenilaianActivity extends AppCompatActivity {
                                 for (QueryDocumentSnapshot ds : task.getResult()) {
                                     Penilaian tp = ds.toObject(Penilaian.class);
                                     tp.setKey(ds.getId());
-                                    while (getOrder(tp.getForm_id())==0){
-                                        try {
-                                            Thread.sleep(1000);
-                                        } catch (InterruptedException interruptedException) {
-                                            interruptedException.printStackTrace();
-                                        }
-                                        tp.setOrder(getOrder(tp.getForm_id()));
-                                    }
+//                                    while (getOrder(tp.getForm_id())==0){
+//                                        try {
+//                                            Thread.sleep(1000);
+//                                        } catch (InterruptedException interruptedException) {
+//                                            interruptedException.printStackTrace();
+//                                        }
+                                       tp.setOrder(getOrder(tp.getForm_id()));
+//                                    }
 
                                     temp_penilaians.add(tp);
                                 }

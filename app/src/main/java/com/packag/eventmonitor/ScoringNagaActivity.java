@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -172,51 +173,81 @@ public class ScoringNagaActivity extends AppCompatActivity {
 
         boolean flag = false;
         if (et_amdp_naga_n1.getText().toString().equals("")) {
-            errorMsg = "Nilai Gerakan harus di isi";
+            et_amdp_naga_n1.requestFocus();
+            errorMsg = "Nilai "+getResources().getString(R.string.ap_naga_type_1)+" harus di isi";
+        } else if (Double.parseDouble(et_amdp_naga_n1.getText().toString()) < 0.5) {
+            et_amdp_naga_n1.requestFocus();
+            errorMsg = "Nilai "+getResources().getString(R.string.ap_naga_type_1)+" tidak boleh kurang dari 0.5";
         } else if (Double.parseDouble(et_amdp_naga_n1.getText().toString()) > 5) {
-            errorMsg = "Nilai Gerakan Tidak boleh lebih dari 5.0";
+            et_amdp_naga_n1.requestFocus();
+            errorMsg = "Nilai "+getResources().getString(R.string.ap_naga_type_1)+" Tidak boleh lebih dari 5.0";
         } else if (et_amdp_naga_p1.getText().toString().equals("")) {
             et_amdp_naga_p1.setText("0");
         } else if (Double.parseDouble(et_amdp_naga_p1.getText().toString()) > 5) {
-            errorMsg = "Pengurangan nilai Gerakan Tidak boleh lebih dari 5.0";
+            et_amdp_naga_p1.requestFocus();
+            errorMsg = "Pengurangan nilai "+getResources().getString(R.string.ap_naga_type_1)+" Tidak boleh lebih dari 5.0";
 
         } else if (et_amdp_naga_n2.getText().toString().equals("")) {
-            errorMsg = "Nilai Semangat, Variasi, Kompak, Tehnik Harus diisi";
+            et_amdp_naga_n2.requestFocus();
+            errorMsg = "Nilai "+getResources().getString(R.string.ap_naga_type_2_det_1_1)+" harus diisi";
+        } else if (Double.parseDouble(et_amdp_naga_n2.getText().toString()) < 0.5) {
+            et_amdp_naga_n2.requestFocus();
+            errorMsg = "Nilai "+getResources().getString(R.string.ap_naga_type_2_det_1_1)+" tidak boleh kurang dari 0.5";
         } else if (Double.parseDouble(et_amdp_naga_n2.getText().toString()) > 1) {
-            errorMsg = "Nilai Semangat, Variasi, Kompak, Tehnik Tidak boleh lebih dari 1.0";
+            et_amdp_naga_n2.requestFocus();
+            errorMsg = "Nilai "+getResources().getString(R.string.ap_naga_type_2_det_1_1)+" tidak boleh lebih dari 1.0";
         } else if (et_amdp_naga_p2.getText().toString().equals("")) {
             et_amdp_naga_p2.setText("0");
         } else if (Double.parseDouble(et_amdp_naga_p2.getText().toString()) > 1) {
-            errorMsg = "Pengurangan Semangat, Variasi, Kompak, Tehnik Tidak boleh lebih dari 1.0";
+            et_amdp_naga_p2.requestFocus();
+            errorMsg = "Pengurangan "+getResources().getString(R.string.ap_naga_type_2_det_1_1)+" tidak boleh lebih dari 1.0";
 
         } else if (et_amdp_naga_n3.getText().toString().equals("")) {
-            errorMsg = "Nilai Peralatan, Seragam, Bersih, dan Serasi Harus diisi";
+            et_amdp_naga_n3.requestFocus();
+            errorMsg = "Nilai "+getResources().getString(R.string.ap_naga_type_2_det_1_2)+" harus diisi";
+        } else if (Double.parseDouble(et_amdp_naga_n3.getText().toString()) < 0.5) {
+            et_amdp_naga_n3.requestFocus();
+            errorMsg = "Nilai "+getResources().getString(R.string.ap_naga_type_2_det_1_2)+" tidak boleh kurang dari 0.5";
         } else if (Double.parseDouble(et_amdp_naga_n3.getText().toString()) > 1) {
-            errorMsg = "Nilai Peralatan, Seragam, Bersih, dan Serasi Tidak boleh lebih dari 1.0";
+            et_amdp_naga_n3.requestFocus();
+            errorMsg = "Nilai "+getResources().getString(R.string.ap_naga_type_2_det_1_2)+" tidak boleh lebih dari 1.0";
         } else if (et_amdp_naga_p3.getText().toString().equals("")) {
             et_amdp_naga_p3.setText("0");
         } else if (Double.parseDouble(et_amdp_naga_p3.getText().toString()) > 1) {
-            errorMsg = "Pengurangan Nilai Peralatan, Seragam, Bersih, dan Serasi Tidak boleh lebih dari 1.0";
+            et_amdp_naga_p3.requestFocus();
+            errorMsg = "Pengurangan Nilai "+getResources().getString(R.string.ap_naga_type_2_det_1_2)+" tidak boleh lebih dari 1.0";
 
 
         } else if (et_amdp_naga_n4.getText().toString().equals("")) {
-            errorMsg = "Nilai Keserasian Musik Harus diisi";
+            et_amdp_naga_n4.requestFocus();
+            errorMsg = "Nilai "+getResources().getString(R.string.ap_naga_type_2_det_1_3)+" harus diisi";
+        } else if (Double.parseDouble(et_amdp_naga_n4.getText().toString()) < 0.5) {
+            et_amdp_naga_n4.requestFocus();
+            errorMsg = "Nilai "+getResources().getString(R.string.ap_naga_type_2_det_1_3)+" tidak boleh kurang dari 0.5";
         } else if (Double.parseDouble(et_amdp_naga_n4.getText().toString()) > 1) {
-            errorMsg = "Nilai Keserasian Musik Tidak boleh lebih dari 1.0";
+            et_amdp_naga_n4.requestFocus();
+            errorMsg = "Nilai "+getResources().getString(R.string.ap_naga_type_2_det_1_3)+" tidak boleh lebih dari 1.0";
         } else if (et_amdp_naga_p4.getText().toString().equals("")) {
             et_amdp_naga_p4.setText("0");
         } else if (Double.parseDouble(et_amdp_naga_p4.getText().toString()) > 1) {
-            errorMsg = "Pengurangan Nilai Keserasian Musik Tidak boleh lebih dari 1.0";
+            et_amdp_naga_p4.requestFocus();
+            errorMsg = "Pengurangan Nilai "+getResources().getString(R.string.ap_naga_type_2_det_1_3)+" tidak boleh lebih dari 1.0";
 
 
         } else if (et_amdp_naga_n5.getText().toString().equals("")) {
-            errorMsg = "Nilai Tingkat Kesulitan Harus diisi";
+            et_amdp_naga_n5.requestFocus();
+            errorMsg = "Nilai "+getResources().getString(R.string.ap_naga_type_3)+" harus diisi";
+        } else if (Double.parseDouble(et_amdp_naga_n5.getText().toString()) < 0.5) {
+            et_amdp_naga_n5.requestFocus();
+            errorMsg = "Nilai "+getResources().getString(R.string.ap_naga_type_3)+" tidak boleh kurang dari 0.5";
         } else if (Double.parseDouble(et_amdp_naga_n5.getText().toString()) > 2) {
-            errorMsg = "Nilai Tingkat Kesulitan Tidak boleh lebih dari 2.0";
+            et_amdp_naga_n5.requestFocus();
+            errorMsg = "Nilai "+getResources().getString(R.string.ap_naga_type_3)+" tidak boleh lebih dari 2.0";
         } else if (et_amdp_naga_p5.getText().toString().equals("")) {
             et_amdp_naga_p5.setText("0");
         } else if (Double.parseDouble(et_amdp_naga_p5.getText().toString()) > 2) {
-            errorMsg = "Pengurangan Nilai Tingkat Kesulitan Tidak boleh lebih dari 2.0";
+            et_amdp_naga_p5.requestFocus();
+            errorMsg = "Pengurangan "+getResources().getString(R.string.ap_naga_type_3)+" tidak boleh lebih dari 2.0";
 
         } else {
             flag = true;
@@ -676,10 +707,11 @@ public class ScoringNagaActivity extends AppCompatActivity {
             finish();
         } else {
             loadingDialog.hide();
-            new KAlertDialog(ScoringNagaActivity.this, KAlertDialog.ERROR_TYPE)
-                    .setTitleText("Oops...")
-                    .setContentText(errorMsg)
-                    .show();
+            Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show();
+//            new KAlertDialog(ScoringNagaActivity.this, KAlertDialog.ERROR_TYPE)
+//                    .setTitleText("Oops...")
+//                    .setContentText(errorMsg)
+//                    .show();
 
         }
     }
@@ -702,6 +734,7 @@ public class ScoringNagaActivity extends AppCompatActivity {
         }
         grand_total = total_nilai - total_pengurangan;
         RefereePenilaian rp = new RefereePenilaian();
+        rp.setIsEditable(0);
         rp.setTotal_nilai(total_nilai);
         rp.setTotal_potongan(total_pengurangan);
         rp.setGrand_total(grand_total);

@@ -17,7 +17,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="20dp">
+
         <Button
             style="@style/Widget.AppCompat.Button.Colored"
             android:id="@+id/btn_amrl_lihat_detail"
@@ -26,5 +28,24 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/btn_lihat_detail_penilaian" />
+        <Button
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:id="@+id/btn_amrl_edit"
+            android:backgroundTint="@color/red"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:text="@string/btn_edit" />
+        <Button
+            android:visibility="gone"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:id="@+id/btn_amrl_nonedit"
+            android:backgroundTint="@color/green"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:text="@string/btn_edit" />
     </LinearLayout>
 </LinearLayout>

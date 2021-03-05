@@ -106,6 +106,7 @@ public class RefereeActivity extends AppCompatActivity {
                 }
             }
         });
+
         final DocumentReference refereeRef = eventRef
                 .collection("referee")
                 .document(session.getData("refereeId"));
@@ -159,6 +160,9 @@ public class RefereeActivity extends AppCompatActivity {
                                         //PenilaianTraditional penilaian = documentSnapshot.toObject(PenilaianTraditional.class);
                                         penilaian.setKey(documentSnapshot.getId());
                                         teamClass.setPenilaian(penilaian);
+                                    }else{
+                                        RefereePenilaian penilaian = null;
+                                        teamClass.setPenilaian(penilaian);
                                     }
 
                                     lv_ar_listTeam.setAdapter(new AdapterListTeam(getApplicationContext(), dataTeam));
@@ -184,19 +188,27 @@ public class RefereeActivity extends AppCompatActivity {
 //                themes.add("Barongsai Tradisional");
 //                themes.add("Barongsai Taolu Bebas");
 //                themes.add("Pekingsai");
-                Intent intent = new Intent(RefereeActivity.this, Scoring.class);
-                if (events.getThemes().equals("Naga")) {
-                    intent = new Intent(RefereeActivity.this, ScoringNagaActivity.class);
-                } else if (events.getThemes().equals("Barongsai Taolu Bebas")) {
-                    intent = new Intent(RefereeActivity.this, ScoringTaoluActivity.class);
-                } else if (events.getThemes().equals("Pekingsai")) {
-                    intent = new Intent(RefereeActivity.this, ScoringPekingsaiActivity.class);
-                } else {
-                    intent = new Intent(RefereeActivity.this, ScoringTraditionalActivity.class);
-                }
-                intent.putExtra("teamId", dataTeam.get(i).getKey());
+                if(dataTeam.get(i).getPenilaian()==null||dataTeam.get(i).getPenilaian().getIsEditable()==1){
+                    Intent intent = new Intent(RefereeActivity.this, Scoring.class);
+                    if (events.getThemes().equals("Naga")) {
+                        intent = new Intent(RefereeActivity.this, ScoringNagaActivity.class);
+                    } else if (events.getThemes().equals("Barongsai Taolu Bebas")) {
+                        intent = new Intent(RefereeActivity.this, ScoringTaoluActivity.class);
+                    } else if (events.getThemes().equals("Pekingsai")) {
+                        intent = new Intent(RefereeActivity.this, ScoringPekingsaiActivity.class);
+                    } else {
+                        intent = new Intent(RefereeActivity.this, ScoringTraditionalActivity.class);
+                    }
+                    intent.putExtra("teamId", dataTeam.get(i).getKey());
 
-                startActivityForResult(intent, REQUEST);
+                    startActivityForResult(intent, REQUEST);
+                }else{
+                    new KAlertDialog(RefereeActivity.this, KAlertDialog.ERROR_TYPE)
+                            .setTitleText("Oops...")
+                            .setContentText(getString(R.string.error_msg_tidak_dapat_mengedit))
+                            .show();
+                }
+
 
             }
         });

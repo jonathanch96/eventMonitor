@@ -42,6 +42,15 @@ public class RefereePenilaian implements Comparable<RefereePenilaian>{
     double total_nilai;
     double total_potongan;
     double grand_total;
+    int isEditable =1;
+
+    public int getIsEditable() {
+        return isEditable;
+    }
+
+    public void setIsEditable(int isEditable) {
+        this.isEditable = isEditable;
+    }
 
     @Exclude public Vector<Penilaian> getPenilaians() {
         return penilaians;

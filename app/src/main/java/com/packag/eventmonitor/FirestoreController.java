@@ -209,11 +209,27 @@ public class FirestoreController {
                         total_nilai = 0;
                     }
                     nilai_bersih = total_nilai / (double) division;
+                    final double total_nilai_bersih =  nilai_bersih;
 
-                    Map<String, Double> dataToSave = new HashMap<>();
+                    final Map<String, Double> dataToSave = new HashMap<>();
                     dataToSave.put("nilai_bersih", nilai_bersih);
-                    db.collection("events").document(eventId).collection("team").document(teamId)
-                            .set(dataToSave, SetOptions.merge());
+                    db.collection("events").document(eventId)
+                            .collection("team").document(teamId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            DocumentSnapshot qds = task.getResult();
+                            if(qds.exists()){
+                                Team temp_team = qds.toObject(Team.class);
+                                temp_team.setKey(qds.getId());
+                                dataToSave.put("pengurangan_nb",temp_team.getPengurangan_nb());
+                                dataToSave.put("total_nilai",total_nilai_bersih-temp_team.getPengurangan_nb());
+                                db.collection("events").document(eventId).collection("team").document(teamId)
+                                        .set(dataToSave, SetOptions.merge());
+                            }
+
+                        }
+                    });
+
                 }
             }
         });

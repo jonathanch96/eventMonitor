@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Penjurian FOBI 1.0</string>
+    <string name="app_name">Penjurian FOBI 1.1</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">PB FOBI</string>
@@ -159,6 +159,8 @@
 
     <string name="input_pengurangan_nilai">Input Pengurangan Nilai</string>
     <string name="pengurangan_nilai">Pengurangan Nilai</string>
+    <string name="no_urut_tidak_tersedia">No urut tidak tersedia</string>
+    <string name="error_msg_tidak_dapat_mengedit">Anda tidak bisa mengedit penilaian silahkan hubungi Admin!</string>
 
 
 

@@ -126,7 +126,8 @@ public class ChatActivity extends AppCompatActivity {
                     .whereIn("userId", Arrays.asList("admin", destUserId)).whereEqualTo("eventId", eventId);
         } else {
             chatref = db.collection("chats").orderBy("created_at", Query.Direction.ASCENDING)
-                    .whereIn("userId", Arrays.asList("admin", userId)).whereEqualTo("eventId", eventId);
+                    .whereIn("userId", Arrays.asList("admin", userId))
+                    .whereEqualTo("eventId", eventId);
         }
 
 
@@ -146,8 +147,11 @@ public class ChatActivity extends AppCompatActivity {
 
                             }
                             Log.d("debug", "showing comparing : " + destUserId + "= " + chat.getDestUserId());
+
                             if ((userId.equals("admin") && (chat.getDestUserId().equals(destUserId))
-                                    || chat.getUserId().equals(destUserId)) || !userId.equals("admin")) {
+                                    || chat.getUserId().equals(destUserId)) ||
+                                    (!userId.equals("admin")&&(chat.getUserId().equals(userId))
+                                            ||chat.getDestUserId().equals(userId))) {
                                 ac.add(chat);
                             }
 

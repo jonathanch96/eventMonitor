@@ -32,7 +32,9 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.packag.eventmonitor.Adapter.AdapterListReferee;
+import com.packag.eventmonitor.Data.Chat;
 import com.packag.eventmonitor.Data.Events;
+import com.packag.eventmonitor.Data.FCMToken;
 import com.packag.eventmonitor.Data.Referee;
 import com.packag.eventmonitor.Data.Team;
 import com.packag.eventmonitor.Util.Session;
@@ -121,6 +123,9 @@ public class RefereeLoginActivity extends AppCompatActivity {
 
 
                                                     if (!session.getData("refereeId").equals("")) {
+
+
+
                                                         db.collection("events")
                                                                 .document(events.getKey())
                                                                 .collection("referee")
@@ -143,6 +148,9 @@ public class RefereeLoginActivity extends AppCompatActivity {
                                                                                 noUrutAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                                                                 sp_ae_no_urut.setAdapter(noUrutAdapter);
                                                                             }else{
+                                                                                if(no_urut.size()==0){
+                                                                                    no_urut.add(getString(R.string.no_urut_tidak_tersedia));
+                                                                                }
                                                                                 ArrayAdapter<String> noUrutAdapter =
                                                                                         new ArrayAdapter<String>(RefereeLoginActivity.this,
                                                                                                 android.R.layout.simple_spinner_item, no_urut);
@@ -154,6 +162,9 @@ public class RefereeLoginActivity extends AppCompatActivity {
                                                                     }
                                                                 });
                                                     }else{
+                                                        if(no_urut.size()==0){
+                                                            no_urut.add(getString(R.string.no_urut_tidak_tersedia));
+                                                        }
                                                         ArrayAdapter<String> noUrutAdapter =
                                                                 new ArrayAdapter<String>(RefereeLoginActivity.this,
                                                                         android.R.layout.simple_spinner_item, no_urut);
@@ -201,7 +212,7 @@ public class RefereeLoginActivity extends AppCompatActivity {
 
                 String code = data.getStringExtra("code");
                 et_arl_kode.setText(code);
-                et_arl_nama.requestFocus();
+                et_arl_kode.requestFocus();
             }
         } catch (Exception ex) {
             Toast.makeText(RefereeLoginActivity.this, ex.toString(),
@@ -252,7 +263,8 @@ public class RefereeLoginActivity extends AppCompatActivity {
                             .setTitleText("Oops...")
                             .setContentText("Nama harus diisi")
                             .show();
-                }else if (sp_ae_no_urut.getSelectedItem().toString().equals("")){
+                }else if (sp_ae_no_urut.getSelectedItem().toString().equals("")
+                        ||sp_ae_no_urut.getSelectedItem().toString().equals(getString(R.string.no_urut_tidak_tersedia))){
                     flag_validate = false;
                     new KAlertDialog(RefereeLoginActivity.this, KAlertDialog.ERROR_TYPE)
                             .setTitleText("Oops...")
@@ -327,6 +339,40 @@ public class RefereeLoginActivity extends AppCompatActivity {
                                                         session.setData("refereeId", refereeKey);
                                                         //end logic login
 
+
+                                                        //send chat new login
+                                                        String message = "Juri "+temp_referee.getNumber()+" - "+temp_referee.getName();
+                                                        String temp_destUserId = "admin";
+                                                        final Chat chat = new Chat("New Login "+message, message, refereeKey, temp_destUserId);
+                                                        chat.setEventId(events.getKey());
+                                                        db.collection("chats")
+                                                                .whereEqualTo("eventId",events.getKey())
+                                                                .whereEqualTo("userId",refereeKey)
+                                                                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                                if(task.getResult().size()==0){
+                                                                    db.collection("chats").add(chat);
+                                                                }
+                                                            }
+                                                        });
+
+                                                        db.collection("fcm_token").whereEqualTo("type", "admin")
+                                                                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                                                                if (task.isSuccessful()) {
+                                                                    for (QueryDocumentSnapshot ds : task.getResult()) {
+                                                                        FCMToken fcmToken = ds.toObject(FCMToken.class);
+                                                                        fc.sendMessage("New Message", "You have a new message from "+chat.getName(),
+                                                                                fcmToken.getToken(), RefereeLoginActivity.this);
+                                                                    }
+                                                                }
+                                                            }
+                                                        });
+
+                                                        //end
                                                         Intent i = new Intent(RefereeLoginActivity.this, RefereeActivity.class);
                                                         startActivity(i);
                                                         finish();
@@ -349,12 +395,32 @@ public class RefereeLoginActivity extends AppCompatActivity {
 
                                     } else {
                                         //kalo ada ga usah set session lg
+
                                         DocumentReference refereeRef = db.collection("events").document(events.getKey())
                                                 .collection("referee")
                                                 .document(session.getData("refereeId"));
                                         Referee temp_referee = new Referee(et_arl_nama.getText().toString());
                                         temp_referee.setNumber(Integer.parseInt(sp_ae_no_urut.getSelectedItem().toString()));
                                         refereeRef.set(temp_referee);
+
+                                        //send chat new login
+                                        String message = "Juri "+temp_referee.getNumber()+" - "+temp_referee.getName();
+                                        String temp_destUserId = "admin";
+                                        final Chat chat = new Chat("New Login "+message, message, session.getData("refereeId"), temp_destUserId);
+                                        chat.setEventId(events.getKey());
+                                        db.collection("chats")
+                                                .whereEqualTo("eventId",events.getKey())
+                                                .whereEqualTo("userId",session.getData("refereeId"))
+                                                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                if(task.getResult().size()==0){
+                                                    db.collection("chats").add(chat);
+                                                }
+
+                                            }
+                                        });
+
                                         Intent i = new Intent(RefereeLoginActivity.this, RefereeActivity.class);
                                         startActivity(i);
                                         finish();
