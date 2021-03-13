@@ -68,7 +68,6 @@ public class ScoringTaoluActivity extends AppCompatActivity {
     DocumentReference teamRef;
     ProgressDialog loadingDialog;
     Vector<Penilaian> penilaians = new Vector<Penilaian>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

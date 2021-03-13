@@ -613,7 +613,7 @@ public class DetailPenilaianActivity extends AppCompatActivity {
 
                                         new KAlertDialog(DetailPenilaianActivity.this, KAlertDialog.SUCCESS_TYPE)
                                                 .setTitleText("Success!")
-                                                .setContentText("Berhasil mengganti tingkat kesulitan!")
+                                                .setContentText("Berhasil mengganti Jumlah Gerakan Tingkat Kesulitan!")
                                                 .show();
 
                                     }
