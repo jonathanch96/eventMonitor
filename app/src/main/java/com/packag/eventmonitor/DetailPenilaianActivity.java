@@ -299,13 +299,13 @@ public class DetailPenilaianActivity extends AppCompatActivity {
                     tv_adp_nilai_bersih.setText("Nilai Bersih : " + String.format("%.2f", team.getNilai_bersih()) + "");
                     tv_adp_potongan_admin.setText("Potongan Admin : " + String.format("%.2f", team.getPengurangan_nb()) + "");
                     tv_adp_total_nilai.setText("Nilai Akhir : " + String.format("%.2f", team.getTotal_nilai()) + "");
-                    if(team.getNilai_bersih()==0){
+                    if (team.getNilai_bersih() == 0) {
                         btn_adp_ks1.setVisibility(View.GONE);
                         btn_adp_ks2.setVisibility(View.GONE);
                         btn_adp_ks3.setVisibility(View.GONE);
                         btn_adp_ks4.setVisibility(View.GONE);
                         ll_adp_tingkat_kesulitan_container.setVisibility(View.GONE);
-                    }else{
+                    } else {
                         btn_adp_ks1.setVisibility(View.VISIBLE);
                         btn_adp_ks2.setVisibility(View.VISIBLE);
                         btn_adp_ks3.setVisibility(View.VISIBLE);
@@ -342,21 +342,21 @@ public class DetailPenilaianActivity extends AppCompatActivity {
                                     tp.setOrder(getOrder(tp.getForm_id()));
                                     if (events.getThemes().equals("Barongsai Taolu Bebas")
                                     ) {
-                                        if(tp.getForm_id().equals("et_amdp_taolu_kesulitan")){
+                                        if (tp.getForm_id().equals("et_amdp_taolu_kesulitan")) {
                                             tv_adp_tingkat_kesulitan.setText
                                                     (String.format("%.0f", tp.getNilai()));
-                                        }else if(tp.getForm_id().equals("et_ap_taolu_p1")){
-                                            int value = (int)(tp.getNilai()/0.1);
-                                            btn_adp_ks1.setText(value+"");
-                                        }else if(tp.getForm_id().equals("et_ap_taolu_p2")){
-                                            int value = (int)(tp.getNilai()/0.3);
-                                            btn_adp_ks2.setText(value+"");
-                                        }else if(tp.getForm_id().equals("et_ap_taolu_p3")){
-                                            int value = (int)(tp.getNilai()/0.5);
-                                            btn_adp_ks3.setText(value+"");
-                                        }else if(tp.getForm_id().equals("et_ap_taolu_p4")){
-                                            int value = (int)(tp.getNilai()/1);
-                                            btn_adp_ks4.setText(value+"");
+                                        } else if (tp.getForm_id().equals("et_ap_taolu_p1")) {
+                                            int value = (int) (tp.getNilai() / 0.1);
+                                            btn_adp_ks1.setText(value + "");
+                                        } else if (tp.getForm_id().equals("et_ap_taolu_p2")) {
+                                            int value = (int) (tp.getNilai() / 0.3);
+                                            btn_adp_ks2.setText(value + "");
+                                        } else if (tp.getForm_id().equals("et_ap_taolu_p3")) {
+                                            int value = (int) (tp.getNilai() / 0.5);
+                                            btn_adp_ks3.setText(value + "");
+                                        } else if (tp.getForm_id().equals("et_ap_taolu_p4")) {
+                                            int value = (int) (tp.getNilai() / 1);
+                                            btn_adp_ks4.setText(value + "");
                                         }
 
                                     }
@@ -391,9 +391,18 @@ public class DetailPenilaianActivity extends AppCompatActivity {
                             if (documentSnapshot.exists()) {
                                 final Referee refereeClass = documentSnapshot.toObject(Referee.class);
                                 refereeClass.setKey(documentSnapshot.getId());
-                                dataReferee.add(refereeClass);
-                                Collections.sort(dataReferee);
-                                rv_adp_list_referee.setAdapter(new AdapterListReferee(DetailPenilaianActivity.this, dataReferee, eventId, teamId));
+                                boolean flag_exists = false;
+                                for (Referee r : dataReferee) {
+                                    if (r.getKey() == refereeClass.getKey()) {
+                                        flag_exists = true;
+                                    }
+                                }
+                                if (!flag_exists) {
+                                    dataReferee.add(refereeClass);
+                                    Collections.sort(dataReferee);
+                                    rv_adp_list_referee.setAdapter(new AdapterListReferee(DetailPenilaianActivity.this, dataReferee, eventId, teamId));
+
+                                }
 
                             }
                         }
@@ -418,7 +427,6 @@ public class DetailPenilaianActivity extends AppCompatActivity {
         eventId = intent.getStringExtra("eventId");
         teamId = intent.getStringExtra("teamId");
     }
-
 
 
     public void showDialog(final Button btn, final String type) {
@@ -494,8 +502,8 @@ public class DetailPenilaianActivity extends AppCompatActivity {
 
                                             }
 
-                                            et_amd_pengurangan_taolu_value.setText(value + "");
-                                            et_amd_pengurangan_taolu_value.setSelection(et_amd_pengurangan_taolu_value.getText().length());
+                                            //et_amd_pengurangan_taolu_value.setText(value + "");
+                                            //et_amd_pengurangan_taolu_value.setSelection(et_amd_pengurangan_taolu_value.getText().length());
                                         }
                                     }
                                 });
@@ -517,13 +525,13 @@ public class DetailPenilaianActivity extends AppCompatActivity {
                         double value = passed_multiplier * Double.parseDouble(et_amd_pengurangan_taolu_value.getText().toString());
                         FirestoreController fc = new FirestoreController();
                         if (type.equals("ks1")) {
-                            fc.updateSingleNilai(eventId, teamId, "et_ap_taolu_p1", value,"-");
+                            fc.updateSingleNilai(eventId, teamId, "et_ap_taolu_p1", value, "-");
                         } else if (type.equals("ks2")) {
-                            fc.updateSingleNilai(eventId, teamId, "et_ap_taolu_p2", value,"-");
+                            fc.updateSingleNilai(eventId, teamId, "et_ap_taolu_p2", value, "-");
                         } else if (type.equals("ks3")) {
-                            fc.updateSingleNilai(eventId, teamId, "et_ap_taolu_p3", value,"-");
+                            fc.updateSingleNilai(eventId, teamId, "et_ap_taolu_p3", value, "-");
                         } else if (type.equals("ks4")) {
-                            fc.updateSingleNilai(eventId, teamId, "et_ap_taolu_p4", value,"-");
+                            fc.updateSingleNilai(eventId, teamId, "et_ap_taolu_p4", value, "-");
                         }
                         btn.setText(et_amd_pengurangan_taolu_value.getText().toString());
                         new KAlertDialog(DetailPenilaianActivity.this, KAlertDialog.SUCCESS_TYPE)
@@ -597,8 +605,8 @@ public class DetailPenilaianActivity extends AppCompatActivity {
                                         }
                                         FirestoreController fc = new FirestoreController();
                                         tv_adp_tingkat_kesulitan.setText(et_amltp_tingkat_kesulitan.getText().toString());
-                                        fc.updateSingleNilai(eventId,teamId,"et_amdp_taolu_kesulitan"
-                                                ,Double.parseDouble(et_amltp_tingkat_kesulitan.getText().toString()),"=");
+                                        fc.updateSingleNilai(eventId, teamId, "et_amdp_taolu_kesulitan"
+                                                , Double.parseDouble(et_amltp_tingkat_kesulitan.getText().toString()), "=");
 
                                         new KAlertDialog(DetailPenilaianActivity.this, KAlertDialog.SUCCESS_TYPE)
                                                 .setTitleText("Success!")
