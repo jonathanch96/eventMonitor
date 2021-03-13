@@ -522,6 +522,9 @@ public class DetailPenilaianActivity extends AppCompatActivity {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        if(et_amd_pengurangan_taolu_value.getText().toString().equals("")){
+                            et_amd_pengurangan_taolu_value.setText("0");
+                        }
                         double value = passed_multiplier * Double.parseDouble(et_amd_pengurangan_taolu_value.getText().toString());
                         FirestoreController fc = new FirestoreController();
                         if (type.equals("ks1")) {
