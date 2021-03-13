@@ -339,19 +339,27 @@ public class DetailPenilaianActivity extends AppCompatActivity {
                                 for (QueryDocumentSnapshot ds : task.getResult()) {
                                     Penilaian tp = ds.toObject(Penilaian.class);
                                     tp.setKey(ds.getId());
-//                                    while (getOrder(tp.getForm_id())==0){
-//                                        try {
-//                                            Thread.sleep(1000);
-//                                        } catch (InterruptedException interruptedException) {
-//                                            interruptedException.printStackTrace();
-//                                        }
                                     tp.setOrder(getOrder(tp.getForm_id()));
                                     if (events.getThemes().equals("Barongsai Taolu Bebas")
-                                            && tp.getForm_id().equals("et_amdp_taolu_kesulitan")) {
-                                        tv_adp_tingkat_kesulitan.setText
-                                                (String.format("%.0f", tp.getNilai()));
+                                    ) {
+                                        if(tp.getForm_id().equals("et_amdp_taolu_kesulitan")){
+                                            tv_adp_tingkat_kesulitan.setText
+                                                    (String.format("%.0f", tp.getNilai()));
+                                        }else if(tp.getForm_id().equals("et_ap_taolu_p1")){
+                                            int value = (int)(tp.getNilai()/0.1);
+                                            btn_adp_ks1.setText(value+"");
+                                        }else if(tp.getForm_id().equals("et_ap_taolu_p2")){
+                                            int value = (int)(tp.getNilai()/0.3);
+                                            btn_adp_ks2.setText(value+"");
+                                        }else if(tp.getForm_id().equals("et_ap_taolu_p3")){
+                                            int value = (int)(tp.getNilai()/0.5);
+                                            btn_adp_ks3.setText(value+"");
+                                        }else if(tp.getForm_id().equals("et_ap_taolu_p4")){
+                                            int value = (int)(tp.getNilai()/1);
+                                            btn_adp_ks4.setText(value+"");
+                                        }
+
                                     }
-//                                    }
 
                                     temp_penilaians.add(tp);
                                 }
@@ -413,7 +421,7 @@ public class DetailPenilaianActivity extends AppCompatActivity {
 
 
 
-    public void showDialog(Button btn, final String type) {
+    public void showDialog(final Button btn, final String type) {
         LayoutInflater li = LayoutInflater.from(DetailPenilaianActivity.this);
         View promptsView = li.inflate(R.layout.adapter_model_dialog_pengurangan_taolu, null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
@@ -428,17 +436,17 @@ public class DetailPenilaianActivity extends AppCompatActivity {
         double multiplier = 1;
 
         if (type.equals("ks1")) {
-            title = "Pengurangan nilai " + getString(R.string.ks1_kesalahan_lain);
+            title = "Pengurangan nilai ";
             multiplier = 0.1;
 
         } else if (type.equals("ks2")) {
-            title = "Pengurangan nilai " + getString(R.string.ks2_kesalahan_kecil);
+            title = "Pengurangan nilai ";
             multiplier = 0.3;
         } else if (type.equals("ks3")) {
-            title = "Pengurangan nilai " + getString(R.string.ks3_kesalahan_sedang);
+            title = "Pengurangan nilai";
             multiplier = 0.5;
         } else if (type.equals("ks4")) {
-            title = "Pengurangan nilai " + getString(R.string.ks4_kesalahan_besar);
+            title = "Pengurangan nilai ";
             multiplier = 1;
         }
 
@@ -517,6 +525,7 @@ public class DetailPenilaianActivity extends AppCompatActivity {
                         } else if (type.equals("ks4")) {
                             fc.updateSingleNilai(eventId, teamId, "et_ap_taolu_p4", value,"-");
                         }
+                        btn.setText(et_amd_pengurangan_taolu_value.getText().toString());
                         new KAlertDialog(DetailPenilaianActivity.this, KAlertDialog.SUCCESS_TYPE)
                                 .setTitleText("Success!")
                                 .setContentText("Berhasil menambah pengurangan nilai juri!")
