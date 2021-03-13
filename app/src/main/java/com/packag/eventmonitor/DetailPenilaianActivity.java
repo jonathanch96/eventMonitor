@@ -17,17 +17,18 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.developer.kalert.KAlertDialog;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -39,7 +40,6 @@ import com.google.firebase.firestore.SetOptions;
 import com.packag.eventmonitor.Adapter.AdapterListReferee;
 import com.packag.eventmonitor.Data.Events;
 import com.packag.eventmonitor.Data.Penilaian;
-import com.packag.eventmonitor.Data.PenilaianTraditional;
 import com.packag.eventmonitor.Data.Referee;
 import com.packag.eventmonitor.Data.RefereePenilaian;
 import com.packag.eventmonitor.Data.Team;
@@ -77,11 +77,19 @@ public class DetailPenilaianActivity extends AppCompatActivity {
     TextView tv_adp_potongan_admin;
     TextView tv_adp_total_nilai;
     TextView tv_adp_edit_button;
+    TextView tv_adp_tingkat_kesulitan;
+    TextView tv_adp_edit_kesulitan_button;
+    Button btn_adp_ks1;
+    Button btn_adp_ks2;
+    Button btn_adp_ks3;
+    Button btn_adp_ks4;
     Team team;
     Events events;
     Vector<Referee> dataReferee;
     Vector<RefereePenilaian> refereePenilaians;
     FirebaseFirestore db;
+    Vector<Penilaian> vPenilaians = new Vector<Penilaian>();
+    LinearLayout ll_adp_tingkat_kesulitan_container;
 
     boolean getData1 = false;
     boolean getData2 = false;
@@ -106,6 +114,7 @@ public class DetailPenilaianActivity extends AppCompatActivity {
     }
 
     public void initData() {
+
         rv_adp_list_referee = findViewById(R.id.rv_adp_list_referee);
         tv_adp_team_name = findViewById(R.id.tv_adp_team_name);
         tv_adp_no_urut = findViewById(R.id.tv_adp_no_urut);
@@ -117,123 +126,135 @@ public class DetailPenilaianActivity extends AppCompatActivity {
         tv_adp_edit_button = findViewById(R.id.tv_adp_edit_button);
         dataReferee = new Vector<Referee>();
         refereePenilaians = new Vector<RefereePenilaian>();
+        btn_adp_ks1 = findViewById(R.id.btn_adp_ks1);
+        btn_adp_ks2 = findViewById(R.id.btn_adp_ks2);
+        btn_adp_ks3 = findViewById(R.id.btn_adp_ks3);
+        btn_adp_ks4 = findViewById(R.id.btn_adp_ks4);
         db = FirebaseFirestore.getInstance();
         team = new Team();
+        btn_adp_ks1.setVisibility(View.GONE);
+        btn_adp_ks2.setVisibility(View.GONE);
+        btn_adp_ks3.setVisibility(View.GONE);
+        btn_adp_ks4.setVisibility(View.GONE);
+
+        tv_adp_tingkat_kesulitan = findViewById(R.id.tv_adp_tingkat_kesulitan);
+        tv_adp_edit_kesulitan_button = findViewById(R.id.tv_adp_edit_kesulitan_button);
+        ll_adp_tingkat_kesulitan_container = findViewById(R.id.ll_adp_tingkat_kesulitan_container);
 
     }
 
     public int getOrder(String name) {
         int order = 999;
-        if(getData1){
+        if (getData1) {
             if (events.getThemes().equals("Naga")) {
                 if (name.equals("et_amdp_naga_n1")) {
-                    order=1;
+                    order = 1;
                 } else if (name.equals("et_amdp_naga_n2")) {
-                    order=2;
+                    order = 2;
                 } else if (name.equals("et_amdp_naga_n3")) {
-                    order=3;
+                    order = 3;
                 } else if (name.equals("et_amdp_naga_n4")) {
-                    order=4;
+                    order = 4;
                 } else if (name.equals("et_amdp_naga_n5")) {
-                    order=5;
+                    order = 5;
                 } else if (name.equals("et_amdp_naga_p1")) {
-                    order=6;
+                    order = 6;
                 } else if (name.equals("et_amdp_naga_p2")) {
-                    order=7;
+                    order = 7;
                 } else if (name.equals("et_amdp_naga_p3")) {
-                    order=8;
+                    order = 8;
                 } else if (name.equals("et_amdp_naga_p4")) {
-                    order=9;
+                    order = 9;
                 } else if (name.equals("et_amdp_naga_p5")) {
-                    order=10;
+                    order = 10;
                 }
 
             } else if (events.getThemes().equals("Barongsai Taolu Bebas")) {
                 if (name.equals("et_amdp_taolu_n1")) {
-                    order=1;
+                    order = 1;
                 } else if (name.equals("et_amdp_taolu_n2")) {
-                    order=2;
+                    order = 2;
                 } else if (name.equals("et_amdp_taolu_n3")) {
-                    order=3;
+                    order = 3;
                 } else if (name.equals("et_amdp_taolu_n4")) {
-                    order=4;
+                    order = 4;
                 } else if (name.equals("et_amdp_taolu_n5")) {
-                    order=5;
+                    order = 5;
                 } else if (name.equals("et_amdp_taolu_n6")) {
-                    order=6;
+                    order = 6;
                 } else if (name.equals("et_amdp_taolu_n7")) {
-                    order=7;
+                    order = 7;
                 } else if (name.equals("et_amdp_taolu_n8")) {
-                    order=8;
+                    order = 8;
                 } else if (name.equals("et_amdp_taolu_n9")) {
-                    order=9;
+                    order = 9;
                 } else if (name.equals("et_ap_taolu_p1")) {
-                    order=10;
+                    order = 10;
                 } else if (name.equals("et_ap_taolu_p2")) {
-                    order=11;
+                    order = 11;
                 } else if (name.equals("et_ap_taolu_p3")) {
-                    order=12;
+                    order = 12;
                 } else if (name.equals("et_ap_taolu_p4")) {
-                    order=13;
+                    order = 13;
                 }
 
             } else if (events.getThemes().equals("Pekingsai")) {
                 if (name.equals("et_amdp_pekingsai_n1")) {
-                    order=1;
+                    order = 1;
                 } else if (name.equals("et_amdp_pekingsai_n2")) {
-                    order=2;
+                    order = 2;
                 } else if (name.equals("et_amdp_pekingsai_n3")) {
-                    order=3;
+                    order = 3;
                 } else if (name.equals("et_amdp_pekingsai_n4")) {
-                    order=4;
+                    order = 4;
                 } else if (name.equals("et_amdp_pekingsai_n5")) {
-                    order=5;
+                    order = 5;
                 } else if (name.equals("et_amdp_pekingsai_n6")) {
-                    order=6;
+                    order = 6;
                 } else if (name.equals("et_amdp_pekingsai_n7")) {
-                    order=7;
+                    order = 7;
                 } else if (name.equals("et_amdp_pekingsai_n8")) {
-                    order=8;
+                    order = 8;
                 } else if (name.equals("et_amdp_pekingsai_n9")) {
-                    order=9;
+                    order = 9;
                 } else if (name.equals("et_ap_pekingsai_p1")) {
-                    order=10;
+                    order = 10;
                 } else if (name.equals("et_ap_pekingsai_p2")) {
-                    order=11;
+                    order = 11;
                 } else if (name.equals("et_ap_pekingsai_p3")) {
-                    order=12;
+                    order = 12;
                 } else if (name.equals("et_ap_pekingsai_p4")) {
-                    order=13;
+                    order = 13;
                 }
             } else {
                 if (name.equals("et_as_n1")) {
-                    order=1;
+                    order = 1;
                 } else if (name.equals("et_as_n2")) {
-                    order=2;
+                    order = 2;
                 } else if (name.equals("et_as_n3")) {
-                    order=3;
+                    order = 3;
                 } else if (name.equals("et_as_n4")) {
-                    order=4;
+                    order = 4;
                 } else if (name.equals("et_as_n5")) {
-                    order=5;
+                    order = 5;
                 } else if (name.equals("et_as_n6")) {
-                    order=6;
+                    order = 6;
                 } else if (name.equals("et_as_n7")) {
-                    order=7;
+                    order = 7;
                 } else if (name.equals("et_as_n8")) {
-                    order=8;
+                    order = 8;
                 } else if (name.equals("et_as_n9")) {
-                    order=9;
+                    order = 9;
                 } else if (name.equals("et_as_n10")) {
-                    order=10;
+                    order = 10;
                 } else if (name.equals("et_as_ks1")) {
-                    order=11;
+                    order = 11;
                 } else if (name.equals("et_as_ks2")) {
-                    order=12;
+                    order = 12;
                 } else if (name.equals("et_as_ks3")) {
-                    order=13;
+                    order = 13;
                 } else if (name.equals("et_as_ks4")) {
-                    order=14;
+                    order = 14;
                 }
             }
             return order;
@@ -253,6 +274,17 @@ public class DetailPenilaianActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     events = task.getResult().toObject(Events.class);
                     events.setKey(task.getResult().getId());
+                    if (events.getThemes().equals("Barongsai Taolu Bebas")) {
+                        btn_adp_ks1.setVisibility(View.VISIBLE);
+                        btn_adp_ks2.setVisibility(View.VISIBLE);
+                        btn_adp_ks3.setVisibility(View.VISIBLE);
+                        btn_adp_ks4.setVisibility(View.VISIBLE);
+                    } else {
+                        btn_adp_ks1.setVisibility(View.GONE);
+                        btn_adp_ks2.setVisibility(View.GONE);
+                        btn_adp_ks3.setVisibility(View.GONE);
+                        btn_adp_ks4.setVisibility(View.GONE);
+                    }
                     getData1 = true;
                 }
             }
@@ -267,6 +299,20 @@ public class DetailPenilaianActivity extends AppCompatActivity {
                     tv_adp_nilai_bersih.setText("Nilai Bersih : " + String.format("%.2f", team.getNilai_bersih()) + "");
                     tv_adp_potongan_admin.setText("Potongan Admin : " + String.format("%.2f", team.getPengurangan_nb()) + "");
                     tv_adp_total_nilai.setText("Nilai Akhir : " + String.format("%.2f", team.getTotal_nilai()) + "");
+                    if(team.getNilai_bersih()==0){
+                        btn_adp_ks1.setVisibility(View.GONE);
+                        btn_adp_ks2.setVisibility(View.GONE);
+                        btn_adp_ks3.setVisibility(View.GONE);
+                        btn_adp_ks4.setVisibility(View.GONE);
+                        ll_adp_tingkat_kesulitan_container.setVisibility(View.GONE);
+                    }else{
+                        btn_adp_ks1.setVisibility(View.VISIBLE);
+                        btn_adp_ks2.setVisibility(View.VISIBLE);
+                        btn_adp_ks3.setVisibility(View.VISIBLE);
+                        btn_adp_ks4.setVisibility(View.VISIBLE);
+                        ll_adp_tingkat_kesulitan_container.setVisibility(View.VISIBLE);
+
+                    }
                     getData2 = true;
                 }
             }
@@ -299,7 +345,12 @@ public class DetailPenilaianActivity extends AppCompatActivity {
 //                                        } catch (InterruptedException interruptedException) {
 //                                            interruptedException.printStackTrace();
 //                                        }
-                                       tp.setOrder(getOrder(tp.getForm_id()));
+                                    tp.setOrder(getOrder(tp.getForm_id()));
+                                    if (events.getThemes().equals("Barongsai Taolu Bebas")
+                                            && tp.getForm_id().equals("et_amdp_taolu_kesulitan")) {
+                                        tv_adp_tingkat_kesulitan.setText
+                                                (String.format("%.0f", tp.getNilai()));
+                                    }
 //                                    }
 
                                     temp_penilaians.add(tp);
@@ -317,6 +368,7 @@ public class DetailPenilaianActivity extends AppCompatActivity {
                                                     rp.setOrder(refereeClass.getNumber());
                                                     refereePenilaians.add(rp);
                                                     getData3 = true;
+
                                                 }
                                             }
                                         });
@@ -340,7 +392,6 @@ public class DetailPenilaianActivity extends AppCompatActivity {
                     });
 
 
-
                 }
                 // use this setting to improve performance if you know that changes
                 // in content do not change the layout size of the RecyclerView
@@ -360,7 +411,207 @@ public class DetailPenilaianActivity extends AppCompatActivity {
         teamId = intent.getStringExtra("teamId");
     }
 
+
+
+    public void showDialog(Button btn, final String type) {
+        LayoutInflater li = LayoutInflater.from(DetailPenilaianActivity.this);
+        View promptsView = li.inflate(R.layout.adapter_model_dialog_pengurangan_taolu, null);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                DetailPenilaianActivity.this);
+        alertDialogBuilder.setView(promptsView);
+        final FirebaseFirestore db = FirebaseFirestore.getInstance();
+        final EditText et_amd_pengurangan_taolu_value = (EditText) promptsView
+                .findViewById(R.id.et_amd_pengurangan_taolu_value);
+        final TextView tv_amd_pengurangan_taolu_title = (TextView) promptsView
+                .findViewById(R.id.tv_amd_pengurangan_taolu_title);
+        String title = "";
+        double multiplier = 1;
+
+        if (type.equals("ks1")) {
+            title = "Pengurangan nilai " + getString(R.string.ks1_kesalahan_lain);
+            multiplier = 0.1;
+
+        } else if (type.equals("ks2")) {
+            title = "Pengurangan nilai " + getString(R.string.ks2_kesalahan_kecil);
+            multiplier = 0.3;
+        } else if (type.equals("ks3")) {
+            title = "Pengurangan nilai " + getString(R.string.ks3_kesalahan_sedang);
+            multiplier = 0.5;
+        } else if (type.equals("ks4")) {
+            title = "Pengurangan nilai " + getString(R.string.ks4_kesalahan_besar);
+            multiplier = 1;
+        }
+
+        final double passed_multiplier = multiplier;
+        final CollectionReference teamRef = db.collection("events").document(eventId)
+                .collection("team").document(teamId).collection("penilaian");
+
+        teamRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    RefereePenilaian rp = new RefereePenilaian();
+                    boolean flagfirst = true;
+                    for (QueryDocumentSnapshot qds : task.getResult()) {
+                        if (flagfirst) {
+                            flagfirst = false;
+                            rp = qds.toObject(RefereePenilaian.class);
+                            rp.setKey(qds.getId());
+                        }
+                        if (rp.getTotal_potongan() != 0) {
+                            rp = qds.toObject(RefereePenilaian.class);
+                            rp.setKey(qds.getId());
+                        }
+                    }
+                    if (rp.getKey() != null) {
+                        teamRef.document(rp.getKey()).collection("field").get()
+                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task2) {
+                                        if (task2.isSuccessful()) {
+                                            int value = 0;
+                                            for (QueryDocumentSnapshot qds : task2.getResult()) {
+                                                Penilaian tp = qds.toObject(Penilaian.class);
+                                                tp.setKey(qds.getId());
+                                                vPenilaians.add(tp);
+                                                if (tp.getForm_id().equals("et_ap_taolu_p1") && type.equals("ks1")) {
+                                                    value = (int) (tp.getNilai() / passed_multiplier);
+                                                } else if (tp.getForm_id().equals("et_ap_taolu_p2") && type.equals("ks2")) {
+                                                    value = (int) (tp.getNilai() / passed_multiplier);
+                                                } else if (tp.getForm_id().equals("et_ap_taolu_p3") && type.equals("ks3")) {
+                                                    value = (int) (tp.getNilai() / passed_multiplier);
+                                                } else if (tp.getForm_id().equals("et_ap_taolu_p4") && type.equals("ks4")) {
+                                                    value = (int) (tp.getNilai() / passed_multiplier);
+                                                }
+
+                                            }
+
+                                            et_amd_pengurangan_taolu_value.setText(value + "");
+                                            et_amd_pengurangan_taolu_value.setSelection(et_amd_pengurangan_taolu_value.getText().length());
+                                        }
+                                    }
+                                });
+                    }
+
+
+                }
+            }
+        });
+
+
+        tv_amd_pengurangan_taolu_title.setText(title);
+
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        double value = passed_multiplier * Double.parseDouble(et_amd_pengurangan_taolu_value.getText().toString());
+                        FirestoreController fc = new FirestoreController();
+                        if (type.equals("ks1")) {
+                            fc.updateSingleNilai(eventId, teamId, "et_ap_taolu_p1", value,"-");
+                        } else if (type.equals("ks2")) {
+                            fc.updateSingleNilai(eventId, teamId, "et_ap_taolu_p2", value,"-");
+                        } else if (type.equals("ks3")) {
+                            fc.updateSingleNilai(eventId, teamId, "et_ap_taolu_p3", value,"-");
+                        } else if (type.equals("ks4")) {
+                            fc.updateSingleNilai(eventId, teamId, "et_ap_taolu_p4", value,"-");
+                        }
+                        new KAlertDialog(DetailPenilaianActivity.this, KAlertDialog.SUCCESS_TYPE)
+                                .setTitleText("Success!")
+                                .setContentText("Berhasil menambah pengurangan nilai juri!")
+                                .show();
+                    }
+                })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        }
+                );
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+    }
+
     public void setListener() {
+        btn_adp_ks1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(btn_adp_ks1, "ks1");
+            }
+        });
+        btn_adp_ks2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(btn_adp_ks2, "ks2");
+            }
+        });
+        btn_adp_ks3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(btn_adp_ks3, "ks3");
+            }
+        });
+        btn_adp_ks4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(btn_adp_ks4, "ks4");
+            }
+        });
+        tv_adp_edit_kesulitan_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LayoutInflater li = LayoutInflater.from(DetailPenilaianActivity.this);
+                View promptsView = li.inflate(R.layout.adapter_model_dialog_tingkat_kesulitan, null);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        DetailPenilaianActivity.this);
+                alertDialogBuilder.setView(promptsView);
+                final EditText et_amltp_tingkat_kesulitan = (EditText) promptsView
+                        .findViewById(R.id.et_amltp_tingkat_kesulitan);
+                et_amltp_tingkat_kesulitan.setText(tv_adp_tingkat_kesulitan.getText().toString());
+                et_amltp_tingkat_kesulitan.setSelection(et_amltp_tingkat_kesulitan.getText().toString().length());
+
+                alertDialogBuilder
+                        .setCancelable(false)
+                        .setPositiveButton("OK",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+
+
+                                        if (et_amltp_tingkat_kesulitan.getText().toString().equals("")
+                                                || et_amltp_tingkat_kesulitan.getText().toString().equals(".")) {
+                                            et_amltp_tingkat_kesulitan.setText("0");
+                                        }
+                                        FirestoreController fc = new FirestoreController();
+                                        tv_adp_tingkat_kesulitan.setText(et_amltp_tingkat_kesulitan.getText().toString());
+                                        fc.updateSingleNilai(eventId,teamId,"et_amdp_taolu_kesulitan"
+                                                ,Double.parseDouble(et_amltp_tingkat_kesulitan.getText().toString()),"=");
+
+                                        new KAlertDialog(DetailPenilaianActivity.this, KAlertDialog.SUCCESS_TYPE)
+                                                .setTitleText("Success!")
+                                                .setContentText("Berhasil mengganti tingkat kesulitan!")
+                                                .show();
+
+                                    }
+                                })
+                        .setNegativeButton("Cancel",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // show it
+                alertDialog.show();
+            }
+        });
         tv_adp_edit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -510,11 +761,11 @@ public class DetailPenilaianActivity extends AppCompatActivity {
                 Vector<Penilaian> temp_penilaian_sorted = new Vector<Penilaian>();
                 temp_penilaian_sorted = rp.getPenilaians();
                 int index = 0;
-                for(Penilaian tp : temp_penilaian_sorted){
+                for (Penilaian tp : temp_penilaian_sorted) {
 
-                    if(tp.getType().equals("=")){
+                    if (tp.getType().equals("=")) {
                         tp.setOrder(999);
-                        temp_penilaian_sorted.set(index,tp);
+                        temp_penilaian_sorted.set(index, tp);
                     }
                     index++;
                 }
@@ -557,24 +808,24 @@ public class DetailPenilaianActivity extends AppCompatActivity {
 
             // Create Other rows and cells with employees data
             int rowNum = 0;
-            int saveRowNum=0;
+            int saveRowNum = 0;
             double multiplier = 1.0;
 
             for (Penilaian p : refereePenilaians.get(0).getPenilaians()) {
                 Row row = sheet.createRow(rowNum + 1);
                 //no
                 boolean flag_not_print = false;
-                if(p.getType().equals("+")){
+                if (p.getType().equals("+")) {
                     row.createCell(0)
-                            .setCellValue("Nilai "+(rowNum + 1));
+                            .setCellValue("Nilai " + (rowNum + 1));
                     saveRowNum++;
                     multiplier = 1.0;
-                }else if(p.getType().equals("-")){
+                } else if (p.getType().equals("-")) {
                     row.createCell(0)
-                            .setCellValue("Pengurangan "+(rowNum-saveRowNum + 1));
+                            .setCellValue("Pengurangan " + (rowNum - saveRowNum + 1));
                     multiplier = -1.0;
 
-                }else{
+                } else {
                     row.createCell(0)
                             .setCellValue("Kesulitan");
 
@@ -582,13 +833,13 @@ public class DetailPenilaianActivity extends AppCompatActivity {
                     //flag_not_print = true;
                 }
 
-                if(!flag_not_print){
+                if (!flag_not_print) {
 
                     int cellNum = 1;
                     for (RefereePenilaian rp : refereePenilaians) {
                         //nilai juri
                         row.createCell(cellNum)
-                                .setCellValue(rp.getPenilaians().get(rowNum).getNilai()*multiplier);
+                                .setCellValue(rp.getPenilaians().get(rowNum).getNilai() * multiplier);
                         cellNum++;
                     }
                     rowNum++;

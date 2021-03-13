@@ -28,6 +28,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.packag.eventmonitor.Adapter.AdapterListReferee;
+import com.packag.eventmonitor.Data.Events;
 import com.packag.eventmonitor.Data.FCMToken;
 import com.packag.eventmonitor.Data.Penilaian;
 import com.packag.eventmonitor.Data.Referee;
@@ -56,7 +57,159 @@ public class FirestoreController {
                 .collection("team")
                 .document(teamId).delete();
     }
+    public void setDefaultPenilaian(String eventId, String teamId, final String refereeId){
+        final DocumentReference eventRef= db.collection("events").document(eventId);
+        final DocumentReference teamRef = eventRef.collection("team").document(teamId);
+        eventRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    DocumentSnapshot ds = task.getResult();
+                    final Events events = ds.toObject(Events.class);
+                    events.setKey(ds.getId());
+                    teamRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if(task.isSuccessful()){
+                                Vector<Penilaian> taolu_field = new Vector<Penilaian>();
+                                taolu_field.add(new Penilaian(0,"=",
+                                        null,"et_amdp_taolu_kesulitan"
+                                        ,"et_amdp_taolu_kesulitan"));
+                                taolu_field.add(new Penilaian(0,"+",
+                                        null,"et_amdp_taolu_n1"
+                                        ,"et_amdp_taolu_n1"));
+                                taolu_field.add(new Penilaian(0,"+",
+                                        null,"et_amdp_taolu_n2"
+                                        ,"et_amdp_taolu_n2"));
+                                taolu_field.add(new Penilaian(0,"+",
+                                        null,"et_amdp_taolu_n3"
+                                        ,"et_amdp_taolu_n3"));
+                                taolu_field.add(new Penilaian(0,"+",
+                                        null,"et_amdp_taolu_n4"
+                                        ,"et_amdp_taolu_n4"));
+                                taolu_field.add(new Penilaian(0,"+",
+                                        null,"et_amdp_taolu_n5"
+                                        ,"et_amdp_taolu_n5"));
+                                taolu_field.add(new Penilaian(0,"+",
+                                        null,"et_amdp_taolu_n6"
+                                        ,"et_amdp_taolu_n6"));
+                                taolu_field.add(new Penilaian(0,"+",
+                                        null,"et_amdp_taolu_n7"
+                                        ,"et_amdp_taolu_n7"));
+                                taolu_field.add(new Penilaian(0,"+",
+                                        null,"et_amdp_taolu_n8"
+                                        ,"et_amdp_taolu_n8"));
+                                taolu_field.add(new Penilaian(0,"+",
+                                        null,"et_amdp_taolu_n9"
+                                        ,"et_amdp_taolu_n9"));
+                                taolu_field.add(new Penilaian(0,"-",
+                                        null,"et_ap_taolu_p1"
+                                        ,"et_ap_taolu_p1"));
+                                taolu_field.add(new Penilaian(0,"-",
+                                        null,"et_ap_taolu_p2"
+                                        ,"et_ap_taolu_p1"));
+                                taolu_field.add(new Penilaian(0,"-",
+                                        null,"et_ap_taolu_p3"
+                                        ,"et_ap_taolu_p1"));
+                                taolu_field.add(new Penilaian(0,"-",
+                                        null,"et_ap_taolu_p4"
+                                        ,"et_ap_taolu_p1"));
 
+
+                                DocumentSnapshot ds = task.getResult();
+                                Team team = ds.toObject(Team.class);
+                                team.setKey(ds.getId());
+
+                                Vector<Penilaian> looping_field = new Vector<Penilaian>();
+                                if(events.getThemes().equals("Barongsai Taolu Bebas")){
+                                    looping_field = taolu_field;
+                                }
+                                for (final Penilaian p:looping_field) {
+                                    teamRef.collection("penilaian")
+                                            .document(refereeId).collection("field")
+                                            .document(p.getKey()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                            if(task.isSuccessful()){
+                                                DocumentSnapshot ds = task.getResult();
+                                                if(!ds.exists()){
+                                                    teamRef.collection("penilaian")
+                                                            .document(refereeId).collection("field")
+                                                            .document(p.getKey()).set(p,SetOptions.merge());
+                                                }
+                                            }
+                                        }
+                                    });
+                                }
+
+
+                            }
+                        }
+                    });
+
+                }
+            }
+        });
+    }
+    public void updateRefereePenilaianSummary(final String eventId, final String teamId, final String refereeId){
+        final CollectionReference referee = db.collection("events").document(eventId)
+                .collection("team").document(teamId).collection("penilaian")
+                ;
+        final CollectionReference field = referee.document(refereeId).collection("field");
+        field.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                final Map<String, Double> dataToSave = new HashMap<>();
+                Vector<Penilaian> penilaians = new Vector<Penilaian>();
+                double grand_total = 0 ;
+                double total_nilai = 0;
+                double total_potongan = 0;
+                for(QueryDocumentSnapshot qds:task.getResult()) {
+                    if (qds.exists()) {
+                        Penilaian p = qds.toObject(Penilaian.class);
+                        p.setKey(qds.getId());
+                        penilaians.add(p);
+                        if(p.getType().equals("-")){
+                            total_potongan+=p.getNilai();
+                        }else if(p.getType().equals("+")){
+                            total_nilai+=p.getNilai();
+                        }
+                    }
+                }
+                grand_total = total_nilai-total_potongan;
+                dataToSave.put("total_nilai",total_nilai);
+                dataToSave.put("total_potongan",total_potongan);
+                dataToSave.put("grand_total",grand_total);
+                referee.document(refereeId).set(dataToSave,SetOptions.merge());
+                recalculateNilaiBersih(eventId,teamId);
+            }
+        });
+    }
+    public void updateSingleNilai(final String eventId, final String teamId, final String formId,
+                                  final Double nilai,final String type){
+
+        final CollectionReference referee = db.collection("events").document(eventId)
+                .collection("team").document(teamId).collection("penilaian");
+        referee.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                final Map<String, Object> dataToSave = new HashMap<>();
+                dataToSave.put("form_id",formId);
+                dataToSave.put("keterangan",null);
+                dataToSave.put("nilai",nilai);
+                dataToSave.put("type",type);
+                for(QueryDocumentSnapshot qds:task.getResult()){
+                    if(qds.exists()){
+                        RefereePenilaian rp = qds.toObject(RefereePenilaian.class);
+                        rp.setKey(qds.getId());
+                        referee.document(qds.getId()).collection("field")
+                                .document(formId).set(dataToSave,SetOptions.merge());
+                        updateRefereePenilaianSummary(eventId,teamId,qds.getId());
+                    }
+                }
+            }
+        });
+    }
     public void sendMessage(String message, String title, String token, Context ctx) {
         final String appToken = "AAAAV01RqJE:APA91bHL1AHBltjXAYjRYDzHPAuJj4h8Hhaifaw_9-K8VMBoWgMokIEQhDUQTRG7Xj5cCtR_yz63WPI0cPALaw-52i6rX36pXZPZB1WzuylgsW22UIMkg3XhQMVV2JQmhAINpU4GKSx2";
         String postUrl = "https://fcm.googleapis.com/fcm/send";

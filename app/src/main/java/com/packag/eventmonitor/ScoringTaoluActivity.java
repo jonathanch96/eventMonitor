@@ -30,6 +30,8 @@ import com.packag.eventmonitor.Data.RefereePenilaian;
 import com.packag.eventmonitor.Data.Team;
 import com.packag.eventmonitor.Util.Session;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 public class ScoringTaoluActivity extends AppCompatActivity {
@@ -878,23 +880,26 @@ public class ScoringTaoluActivity extends AppCompatActivity {
                     .collection("field")
                     .document(p.getForm_id())
                     .set(p);
-            if(p.getType().equals("+")){
-                total_nilai+=p.getNilai();
-            }else if(p.getType().equals("-")){
-                total_pengurangan+=p.getNilai();
-            }
+//            if(p.getType().equals("+")){
+//                total_nilai+=p.getNilai();
+//            }else if(p.getType().equals("-")){
+//                total_pengurangan+=p.getNilai();
+//            }
         }
-        grand_total = total_nilai - total_pengurangan;
-        RefereePenilaian rp = new RefereePenilaian();
-        rp.setIsEditable(0);
-        rp.setTotal_nilai(total_nilai);
-        rp.setTotal_potongan(total_pengurangan);
-        rp.setGrand_total(grand_total);
+        //grand_total = total_nilai - total_pengurangan;
+        final Map<String, Integer> dataToSave = new HashMap<>();
+        dataToSave.put("isEditable",0);
+//        RefereePenilaian rp = new RefereePenilaian();
+//        rp.setIsEditable(0);
+//        rp.setTotal_nilai(total_nilai);
+//        rp.setTotal_potongan(total_pengurangan);
+//        rp.setGrand_total(grand_total);
         teamRef.collection("penilaian")
                 .document(session.getData("refereeId"))
-                .set(rp, SetOptions.merge());
+                .set(dataToSave, SetOptions.merge());
         FirestoreController fc = new FirestoreController();
-        fc.recalculateNilaiBersih(session.getData("eventId"),teamId);
+        fc.updateRefereePenilaianSummary
+                (session.getData("eventId"),teamId,session.getData("refereeId"));
 
 
     }

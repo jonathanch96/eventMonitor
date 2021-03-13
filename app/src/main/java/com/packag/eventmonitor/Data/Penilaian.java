@@ -69,6 +69,16 @@ public class Penilaian implements Comparable<Penilaian>{
         this.keterangan = keterangan;
         this.form_id = form_id;
     }
+
+    public Penilaian(double nilai, String type, String keterangan, String form_id, String key) {
+        this.nilai = nilai;
+        this.type = type;
+        this.keterangan = keterangan;
+        this.form_id = form_id;
+        this.key = key;
+        this.order = order;
+    }
+
     @Override
     public int compareTo(Penilaian penilaian) {
         Integer number1 = (Integer)getOrder();
