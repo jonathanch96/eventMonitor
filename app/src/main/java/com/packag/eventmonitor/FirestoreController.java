@@ -40,6 +40,7 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.Collection;
@@ -207,6 +208,8 @@ public class FirestoreController {
                         }
                     }
                 }
+                total_nilai = total_nilai.setScale(2, RoundingMode.HALF_EVEN);
+                total_potongan = total_potongan.setScale(2, RoundingMode.HALF_EVEN);
                 grand_total = total_nilai.subtract(total_potongan);
                 dataToSave.put("total_nilai",total_nilai.doubleValue());
                 dataToSave.put("total_potongan",total_potongan.doubleValue());
@@ -403,7 +406,7 @@ public class FirestoreController {
                     } else {
                         total_nilai = new BigDecimal(0);
                     }
-                    nilai_bersih = total_nilai.divide(new BigDecimal(division));
+                    nilai_bersih = total_nilai.divide(new BigDecimal((double)division), MathContext.DECIMAL32);
                     final BigDecimal total_nilai_bersih =  nilai_bersih.setScale(2, RoundingMode.HALF_EVEN);
 
                     final Map<String, Double> dataToSave = new HashMap<>();
