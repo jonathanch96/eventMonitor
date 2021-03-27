@@ -25,12 +25,14 @@ public class MainActivity extends AppCompatActivity {
     Session session ;
     Events events;
     ProgressDialog loadingDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initializeComponent();
         setListener();
+
         int flag = validateLogin();
         if(flag==1){
            //referee

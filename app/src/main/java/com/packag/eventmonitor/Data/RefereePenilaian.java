@@ -2,6 +2,8 @@ package com.packag.eventmonitor.Data;
 
 import com.google.firebase.firestore.Exclude;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Vector;
 
 public class RefereePenilaian implements Comparable<RefereePenilaian>{
@@ -16,32 +18,40 @@ public class RefereePenilaian implements Comparable<RefereePenilaian>{
     }
     Vector<Penilaian> penilaians  = new Vector<Penilaian>();
     public double getTotal_nilai() {
-        return total_nilai;
+        return total_nilai.doubleValue();
     }
 
     public void setTotal_nilai(double total_nilai) {
-        this.total_nilai = total_nilai;
+        this.total_nilai = new BigDecimal(total_nilai);
     }
 
     public double getTotal_potongan() {
-        return total_potongan;
+        return total_potongan.doubleValue();
     }
 
     public void setTotal_potongan(double total_potongan) {
-        this.total_potongan = total_potongan;
+        this.total_potongan = new BigDecimal(total_potongan);
     }
 
     public double getGrand_total() {
-        return grand_total;
+        return grand_total.doubleValue();
     }
 
     public void setGrand_total(double grand_total) {
-        this.grand_total = grand_total;
+        this.grand_total = new BigDecimal(grand_total);
     }
+    public BigDecimal getGrand_total_bd(){
+        grand_total = grand_total.setScale(2, RoundingMode.HALF_EVEN);
+        return grand_total;
+    }
+    public BigDecimal getTotal_nilai_bd(){
+        return total_nilai;
+    }
+    public BigDecimal getTotal_potongan_bd(){return total_potongan;}
 
-    double total_nilai;
-    double total_potongan;
-    double grand_total;
+    BigDecimal total_nilai;
+    BigDecimal total_potongan;
+    BigDecimal grand_total;
     int isEditable =1;
 
     public int getIsEditable() {

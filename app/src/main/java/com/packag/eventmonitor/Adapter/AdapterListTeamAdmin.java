@@ -81,7 +81,7 @@ public class AdapterListTeamAdmin extends RecyclerView.Adapter<AdapterListTeamAd
             if(team.getNilai_bersih() == 0){
                 fc.recalculateNilaiBersih(eventId, team.getKey());
             }
-            tv_amtl_nilai_bersih.setText("Nilai Bersih : " + String.format("%.2f", team.getNilai_bersih()) + "");
+            tv_amtl_nilai_bersih.setText("Nilai Akhir : " + String.format("%.2f", team.getTotal_nilai()) + "");
             btn_amtla_penilaian.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

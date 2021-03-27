@@ -522,7 +522,7 @@ public class DetailPenilaianActivity extends AppCompatActivity {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if(et_amd_pengurangan_taolu_value.getText().toString().equals("")){
+                        if (et_amd_pengurangan_taolu_value.getText().toString().equals("")) {
                             et_amd_pengurangan_taolu_value.setText("0");
                         }
                         double value = passed_multiplier * Double.parseDouble(et_amd_pengurangan_taolu_value.getText().toString());
@@ -770,151 +770,162 @@ public class DetailPenilaianActivity extends AppCompatActivity {
 
 
     private void exportPenilaianToExcel() {
-        if (getData1 && getData2 && getData3) {
-            Collections.sort(refereePenilaians);
+        boolean locked = false;
+        if (!locked) {
+            locked = true;
 
-            ArrayList<String> header = new ArrayList<String>();
-            header.add("Keterangan");
-            for (RefereePenilaian rp : refereePenilaians) {
-                header.add("Juri - " + rp.getOrder());
+            if (getData1 && getData2 && getData3) {
+                Collections.sort(refereePenilaians);
 
-                Vector<Penilaian> temp_penilaian_sorted = new Vector<Penilaian>();
-                temp_penilaian_sorted = rp.getPenilaians();
-                int index = 0;
-                for (Penilaian tp : temp_penilaian_sorted) {
+                ArrayList<String> header = new ArrayList<String>();
+                header.add("Keterangan");
+                for (RefereePenilaian rp : refereePenilaians) {
+                    header.add("Juri - " + rp.getOrder());
 
-                    if (tp.getType().equals("=")) {
-                        tp.setOrder(999);
-                        temp_penilaian_sorted.set(index, tp);
+                    Vector<Penilaian> temp_penilaian_sorted = new Vector<Penilaian>();
+                    temp_penilaian_sorted = rp.getPenilaians();
+                    int index = 0;
+                    for (Penilaian tp : temp_penilaian_sorted) {
+
+                        if (tp.getType().equals("=")) {
+                            tp.setOrder(999);
+                            temp_penilaian_sorted.set(index, tp);
+                        }
+                        index++;
                     }
-                    index++;
+                    Collections.sort(temp_penilaian_sorted);
+                    rp.setPenilaians(temp_penilaian_sorted);
                 }
-                Collections.sort(temp_penilaian_sorted);
-                rp.setPenilaians(temp_penilaian_sorted);
-            }
 
-            Workbook workbook = new XSSFWorkbook(); // new HSSFWorkbook() for generating `.xls` file
+                Workbook workbook = new XSSFWorkbook(); // new HSSFWorkbook() for generating `.xls` file
 
         /* CreationHelper helps us create instances of various things like DataFormat,
            Hyperlink, RichTextString etc, in a format (HSSF, XSSF) independent way */
-            CreationHelper createHelper = workbook.getCreationHelper();
+                CreationHelper createHelper = workbook.getCreationHelper();
 
-            // Create a Sheet
-            Sheet sheet = workbook.createSheet("Penilaian");
+                // Create a Sheet
+                Sheet sheet = workbook.createSheet("Penilaian");
 
-            // Create a Font for styling header cells
-            Font headerFont = workbook.createFont();
-            headerFont.setBold(true);
-            headerFont.setFontHeightInPoints((short) 14);
-            headerFont.setColor(IndexedColors.RED.getIndex());
+                // Create a Font for styling header cells
+                Font headerFont = workbook.createFont();
+                headerFont.setBold(true);
+                headerFont.setFontHeightInPoints((short) 14);
+                headerFont.setColor(IndexedColors.RED.getIndex());
 
-            // Create a CellStyle with the font
-            CellStyle headerCellStyle = workbook.createCellStyle();
-            headerCellStyle.setFont(headerFont);
+                // Create a CellStyle with the font
+                CellStyle headerCellStyle = workbook.createCellStyle();
+                headerCellStyle.setFont(headerFont);
 
-            // Create a Row
-            Row headerRow = sheet.createRow(0);
+                // Create a Row
+                Row headerRow = sheet.createRow(0);
 
-            // Create cells
-            for (int i = 0; i < header.size(); i++) {
-                Cell cell = headerRow.createCell(i);
-                cell.setCellValue(header.get(i));
-                cell.setCellStyle(headerCellStyle);
-            }
-
-            // Create Cell Style for formatting Date
-            CellStyle dateCellStyle = workbook.createCellStyle();
-            dateCellStyle.setDataFormat(createHelper.createDataFormat().getFormat("dd-MM-yyyy"));
-
-            // Create Other rows and cells with employees data
-            int rowNum = 0;
-            int saveRowNum = 0;
-            double multiplier = 1.0;
-
-            for (Penilaian p : refereePenilaians.get(0).getPenilaians()) {
-                Row row = sheet.createRow(rowNum + 1);
-                //no
-                boolean flag_not_print = false;
-                if (p.getType().equals("+")) {
-                    row.createCell(0)
-                            .setCellValue("Nilai " + (rowNum + 1));
-                    saveRowNum++;
-                    multiplier = 1.0;
-                } else if (p.getType().equals("-")) {
-                    row.createCell(0)
-                            .setCellValue("Pengurangan " + (rowNum - saveRowNum + 1));
-                    multiplier = -1.0;
-
-                } else {
-                    row.createCell(0)
-                            .setCellValue("Kesulitan");
-
-                    multiplier = 1;
-                    //flag_not_print = true;
+                // Create cells
+                for (int i = 0; i < header.size(); i++) {
+                    Cell cell = headerRow.createCell(i);
+                    cell.setCellValue(header.get(i));
+                    cell.setCellStyle(headerCellStyle);
                 }
 
-                if (!flag_not_print) {
+                // Create Cell Style for formatting Date
+                CellStyle dateCellStyle = workbook.createCellStyle();
+                dateCellStyle.setDataFormat(createHelper.createDataFormat().getFormat("dd-MM-yyyy"));
 
-                    int cellNum = 1;
-                    for (RefereePenilaian rp : refereePenilaians) {
-                        //nilai juri
-                        row.createCell(cellNum)
-                                .setCellValue(rp.getPenilaians().get(rowNum).getNilai() * multiplier);
-                        cellNum++;
+                // Create Other rows and cells with employees data
+                int rowNum = 0;
+                int saveRowNum = 0;
+                double multiplier = 1.0;
+
+                for (Penilaian p : refereePenilaians.get(0).getPenilaians()) {
+                    Row row = sheet.createRow(rowNum + 1);
+                    //no
+                    boolean flag_not_print = false;
+                    if (p.getType().equals("+")) {
+                        row.createCell(0)
+                                .setCellValue("Nilai " + (rowNum + 1));
+                        saveRowNum++;
+                        multiplier = 1.0;
+                    } else if (p.getType().equals("-")) {
+                        row.createCell(0)
+                                .setCellValue("Pengurangan " + (rowNum - saveRowNum + 1));
+                        multiplier = -1.0;
+
+                    } else {
+                        row.createCell(0)
+                                .setCellValue("Kesulitan");
+
+                        multiplier = 1;
+                        //flag_not_print = true;
                     }
-                    rowNum++;
+
+                    if (!flag_not_print) {
+
+                        int cellNum = 1;
+                        for (RefereePenilaian rp : refereePenilaians) {
+                            //nilai juri
+                            row.createCell(cellNum)
+                                    .setCellValue(rp.getPenilaians().get(rowNum).getNilai() * multiplier);
+                            cellNum++;
+                        }
+                        rowNum++;
+                    }
+
                 }
 
-            }
 
-
-            // Resize all columns to fit the content size
+                // Resize all columns to fit the content size
        /* for(int i = 0; i < columns.length; i++) {
             sheet.setColumnWidth(2, 250);
         }*/
-            String path_folder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/Event Monitor/";
-            File directory = new File(path_folder);
-            /*check Dir*/
-            if (!directory.exists()) {
-                directory.mkdir();
-                // If you require it to make the entire directory path including parents,
-                // use directory.mkdirs(); here instead.
+                String path_folder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/Event Monitor/";
+                File directory = new File(path_folder);
+                /*check Dir*/
+                if (!directory.exists()) {
+                    directory.mkdir();
+                    // If you require it to make the entire directory path including parents,
+                    // use directory.mkdirs(); here instead.
+                }
+                // Write the output to a file
+                FileOutputStream fileOut = null;
+                try {
+                    fileOut = new FileOutputStream
+                            (Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                                    + "/Event Monitor/Exported Data.xlsx");
+                    workbook.write(fileOut);
+                    fileOut.close();
+
+
+                    // Closing the workbook
+                    workbook.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                        + "/Event Monitor/Exported Data.xlsx");
+                Uri path = Uri.fromFile(file);
+                Intent pdfOpenintent = new Intent(Intent.ACTION_VIEW);
+                pdfOpenintent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                pdfOpenintent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                pdfOpenintent.setDataAndType(path, "application/vnd.ms-excel");
+                try {
+                    startActivity(pdfOpenintent);
+                } catch (ActivityNotFoundException e) {
+
+                }
+                locked=false;
+
+            } else {
+                new KAlertDialog(DetailPenilaianActivity.this, KAlertDialog.ERROR_TYPE)
+                        .setTitleText("Oops...")
+                        .setContentText("Data not loaded, Please try again in a minutes")
+                        .show();
             }
-            // Write the output to a file
-            FileOutputStream fileOut = null;
-            try {
-                fileOut = new FileOutputStream
-                        (Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-                                + "/Event Monitor/Exported Data.xlsx");
-                workbook.write(fileOut);
-                fileOut.close();
-
-
-                // Closing the workbook
-                workbook.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-                    + "/Event Monitor/Exported Data.xlsx");
-            Uri path = Uri.fromFile(file);
-            Intent pdfOpenintent = new Intent(Intent.ACTION_VIEW);
-            pdfOpenintent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            pdfOpenintent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            pdfOpenintent.setDataAndType(path, "application/vnd.ms-excel");
-            try {
-                startActivity(pdfOpenintent);
-            } catch (ActivityNotFoundException e) {
-
-            }
-
         } else {
             new KAlertDialog(DetailPenilaianActivity.this, KAlertDialog.ERROR_TYPE)
                     .setTitleText("Oops...")
-                    .setContentText("Data not loaded, Please try again in a minutes")
+                    .setContentText("Data locked , Please try again in a minutes")
                     .show();
         }
 

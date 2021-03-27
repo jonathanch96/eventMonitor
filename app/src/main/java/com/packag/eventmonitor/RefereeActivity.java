@@ -227,11 +227,11 @@ public class RefereeActivity extends AppCompatActivity {
                                 .setContentText(getString(R.string.error_msg_tidak_dapat_mengedit))
                                 .show();
                     } else {
-                        //getTraditionalView(ctx, referee);
-                        new KAlertDialog(RefereeActivity.this, KAlertDialog.ERROR_TYPE)
-                                .setTitleText("Oops...")
-                                .setContentText(getString(R.string.error_msg_tidak_dapat_mengedit))
-                                .show();
+                        getTraditionalView(RefereeActivity.this, referee,dataTeam.get(i));
+//                        new KAlertDialog(RefereeActivity.this, KAlertDialog.ERROR_TYPE)
+//                                .setTitleText("Oops...")
+//                                .setContentText(getString(R.string.error_msg_tidak_dapat_mengedit))
+//                                .show();
                     }
                 }
 
@@ -466,6 +466,428 @@ public class RefereeActivity extends AppCompatActivity {
 
         // show it
         alertDialog.show();
+    }
+    public void getTraditionalView(final Context ctx, final Referee referee, final Team team) {
+        LayoutInflater li = LayoutInflater.from(ctx);
+        View promptsView = li.inflate(R.layout.adapter_model_dialog_penilaian_traditional, null);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                ctx);
+        alertDialogBuilder.setView(promptsView);
+        //initiate data
+        final TextView tv_amdp_team_name = promptsView.findViewById(R.id.tv_amdp_team_name_naga);
+        final TextView tv_amdp_no_urut = promptsView.findViewById(R.id.tv_amdp_no_urut_naga);
+        final TextView tv_amdp_referee = promptsView.findViewById(R.id.tv_amdp_referee_naga);
+        final TextView tv_amdp_n1 = promptsView.findViewById(R.id.tv_amdp_n1);
+        final TextView tv_amdp_n2 = promptsView.findViewById(R.id.tv_amdp_n2);
+        final TextView tv_amdp_n3 = promptsView.findViewById(R.id.tv_amdp_n3);
+        final TextView tv_amdp_n4 = promptsView.findViewById(R.id.tv_amdp_n4);
+        final TextView tv_amdp_n5 = promptsView.findViewById(R.id.tv_amdp_n5);
+        final TextView tv_amdp_n6 = promptsView.findViewById(R.id.tv_amdp_n6);
+        final TextView tv_amdp_n7 = promptsView.findViewById(R.id.tv_amdp_n7);
+        final TextView tv_amdp_n8 = promptsView.findViewById(R.id.tv_amdp_n8);
+        final TextView tv_amdp_n9 = promptsView.findViewById(R.id.tv_amdp_n9);
+        final TextView tv_amdp_n10 = promptsView.findViewById(R.id.tv_amdp_n10);
+        final TextView tv_amdp_ks1 = promptsView.findViewById(R.id.tv_amdp_ks1);
+        final TextView tv_amdp_ks2 = promptsView.findViewById(R.id.tv_amdp_ks2);
+        final TextView tv_amdp_ks3 = promptsView.findViewById(R.id.tv_amdp_ks3);
+        final TextView tv_amdp_ks4 = promptsView.findViewById(R.id.tv_amdp_ks4);
+        final TextView tv_amdp_total_nilai = promptsView.findViewById(R.id.tv_amdp_total_nilai);
+        final TextView tv_amdp_total_pengurangan = promptsView.findViewById(R.id.tv_amdp_total_pengurangan);
+        final TextView tv_amdp_grand_total = promptsView.findViewById(R.id.tv_amdp_grand_total);
+
+
+        //set data
+        tv_amdp_n1.setText("0");
+        tv_amdp_n2.setText("0");
+        tv_amdp_n3.setText("0");
+        tv_amdp_n4.setText("0");
+        tv_amdp_n5.setText("0");
+        tv_amdp_n6.setText("0");
+        tv_amdp_n7.setText("0");
+        tv_amdp_n8.setText("0");
+        tv_amdp_n9.setText("0");
+        tv_amdp_n10.setText("0");
+        tv_amdp_ks1.setText("0");
+        tv_amdp_ks2.setText("0");
+        tv_amdp_ks3.setText("0");
+        tv_amdp_ks4.setText("0");
+        tv_amdp_total_nilai.setText("0");
+        tv_amdp_total_pengurangan.setText("0");
+        tv_amdp_grand_total.setText("0");
+        DocumentReference teamref = db.collection("events").document(events.getKey())
+                .collection("team").document(team.getKey());
+        teamref.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                if (documentSnapshot.exists()) {
+//                    team = documentSnapshot.toObject(Team.class);
+//                    team.setKey(documentSnapshot.getId());
+                    tv_amdp_team_name.setText(
+                            ctx.getApplicationContext().getString(R.string.team_name) + " "
+                                    + team.getTeam_name());
+                    tv_amdp_no_urut.setText(
+                            ctx.getApplicationContext().getString(R.string.no_urut) + " "
+                                    + team.getNo_urut() + "");
+                    tv_amdp_referee.setText(
+                            ctx.getApplicationContext().getString(R.string.referee) + " Juri " + referee.getNumber() + " - "
+                                    + referee.getName());
+
+                }
+            }
+        });
+        teamref.collection("penilaian").document(referee.getKey())
+                .collection("field").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                for (QueryDocumentSnapshot d2 : task.getResult()) {
+                    if (d2.exists()) {
+                        Penilaian penilaian = d2.toObject(Penilaian.class);
+                        penilaian.setKey(d2.getId());
+                        if (d2.getId().equals("et_as_n1")) {
+                            tv_amdp_n1.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_as_n2")) {
+                            tv_amdp_n2.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_as_n3")) {
+                            tv_amdp_n3.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_as_n4")) {
+                            tv_amdp_n4.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_as_n5")) {
+                            tv_amdp_n5.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_as_n6")) {
+                            tv_amdp_n6.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_as_n7")) {
+                            tv_amdp_n7.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_as_n8")) {
+                            tv_amdp_n8.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_as_n9")) {
+                            tv_amdp_n9.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_as_n10")) {
+                            tv_amdp_n10.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_as_ks1")) {
+                            tv_amdp_ks1.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_as_ks2")) {
+                            tv_amdp_ks2.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_as_ks3")) {
+                            tv_amdp_ks3.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_as_ks4")) {
+                            tv_amdp_ks4.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        }
+                    }
+                }
+            }
+        });
+
+        teamref.collection("penilaian").document(referee.getKey())
+                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@androidx.annotation.Nullable DocumentSnapshot value, @androidx.annotation.Nullable FirebaseFirestoreException error) {
+                        if (value.exists()) {
+                            RefereePenilaian rp = value.toObject(RefereePenilaian.class);
+                            rp.setKey(value.getId());
+
+                            tv_amdp_total_nilai.setText(
+                                    String.format("%.2f", rp.getTotal_nilai()) + "");
+                            tv_amdp_total_pengurangan.setText(
+                                    String.format("%.2f", rp.getTotal_potongan()) + "");
+
+                            tv_amdp_grand_total.setText(
+                                    String.format("%.2f", rp.getGrand_total()) + "");
+
+                        }
+                    }
+                });
+
+
+        alertDialogBuilder.setCancelable(true).setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        ;
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+    }
+
+    public void getNagaView(final Context ctx, final Referee referee, final Team team) {
+        LayoutInflater li = LayoutInflater.from(ctx);
+        View promptsView = li.inflate(R.layout.adapter_model_dialog_penilaian_naga, null);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                ctx);
+        alertDialogBuilder.setView(promptsView);
+        //initiate data
+        final TextView tv_amdp_team_name = promptsView.findViewById(R.id.tv_amdp_team_name_naga);
+        final TextView tv_amdp_no_urut = promptsView.findViewById(R.id.tv_amdp_no_urut_naga);
+        final TextView tv_amdp_referee = promptsView.findViewById(R.id.tv_amdp_referee_naga);
+        final TextView tv_amdp_naga_n1 = promptsView.findViewById(R.id.tv_amdp_naga_n1);
+        final TextView tv_amdp_naga_n2 = promptsView.findViewById(R.id.tv_amdp_naga_n2);
+        final TextView tv_amdp_naga_n3 = promptsView.findViewById(R.id.tv_amdp_naga_n3);
+        final TextView tv_amdp_naga_n4 = promptsView.findViewById(R.id.tv_amdp_naga_n4);
+        final TextView tv_amdp_naga_n5 = promptsView.findViewById(R.id.tv_amdp_naga_n5);
+        final TextView tv_amdp_naga_p1 = promptsView.findViewById(R.id.tv_amdp_naga_p1);
+        final TextView tv_amdp_naga_p2 = promptsView.findViewById(R.id.tv_amdp_naga_p2);
+        final TextView tv_amdp_naga_p3 = promptsView.findViewById(R.id.tv_amdp_naga_p3);
+        final TextView tv_amdp_naga_p4 = promptsView.findViewById(R.id.tv_amdp_naga_p4);
+        final TextView tv_amdp_naga_p5 = promptsView.findViewById(R.id.tv_amdp_naga_p5);
+        final TextView tv_amdp_naga_kesulitan = promptsView.findViewById(R.id.tv_amdp_naga_kesulitan);
+
+        final TextView tv_amdp_total_nilai_naga = promptsView.findViewById(R.id.tv_amdp_total_nilai_naga);
+        final TextView tv_amdp_total_pengurangan_naga = promptsView.findViewById(R.id.tv_amdp_total_pengurangan_naga);
+        final TextView tv_amdp_grand_total_naga = promptsView.findViewById(R.id.tv_amdp_grand_total_naga);
+
+
+        //set data
+        tv_amdp_naga_n1.setText("0");
+        tv_amdp_naga_n2.setText("0");
+        tv_amdp_naga_n3.setText("0");
+        tv_amdp_naga_n4.setText("0");
+        tv_amdp_naga_n5.setText("0");
+        tv_amdp_naga_p1.setText("0");
+        tv_amdp_naga_p2.setText("0");
+        tv_amdp_naga_p3.setText("0");
+        tv_amdp_naga_p4.setText("0");
+        tv_amdp_naga_p5.setText("0");
+        tv_amdp_naga_kesulitan.setText("");
+
+        tv_amdp_total_nilai_naga.setText("0");
+        tv_amdp_total_pengurangan_naga.setText("0");
+        tv_amdp_grand_total_naga.setText("0");
+        DocumentReference teamref = db.collection("events").document(events.getKey())
+                .collection("team").document(team.getKey());
+        teamref.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                if (documentSnapshot.exists()) {
+//                    team = documentSnapshot.toObject(Team.class);
+//                    team.setKey(documentSnapshot.getId());
+                    tv_amdp_team_name.setText(
+                            ctx.getApplicationContext().getString(R.string.team_name) + " "
+                                    + team.getTeam_name());
+                    tv_amdp_no_urut.setText(
+                            ctx.getApplicationContext().getString(R.string.no_urut) + " "
+                                    + team.getNo_urut() + "");
+                    tv_amdp_referee.setText(
+                            ctx.getApplicationContext().getString(R.string.referee) + " Juri " + referee.getNumber() + " - "
+                                    + referee.getName());
+
+                }
+            }
+        });
+
+        teamref.collection("penilaian").document(referee.getKey())
+                .collection("field").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                for (QueryDocumentSnapshot d2 : task.getResult()) {
+                    if (d2.exists()) {
+                        Penilaian penilaian = d2.toObject(Penilaian.class);
+                        penilaian.setKey(d2.getId());
+                        if (d2.getId().equals("et_amdp_naga_n1")) {
+                            tv_amdp_naga_n1.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_amdp_naga_n2")) {
+                            tv_amdp_naga_n2.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_amdp_naga_n3")) {
+                            tv_amdp_naga_n3.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_amdp_naga_n4")) {
+                            tv_amdp_naga_n4.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_amdp_naga_n5")) {
+                            tv_amdp_naga_n5.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_amdp_naga_p1")) {
+                            tv_amdp_naga_p1.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_amdp_naga_p2")) {
+                            tv_amdp_naga_p2.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_amdp_naga_p3")) {
+                            tv_amdp_naga_p3.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_amdp_naga_p4")) {
+                            tv_amdp_naga_p4.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_amdp_naga_p5")) {
+                            tv_amdp_naga_p5.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_amdp_naga_kesulitan")) {
+                            tv_amdp_naga_kesulitan.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        }
+                    }
+                }
+            }
+        });
+
+        teamref.collection("penilaian").document(referee.getKey())
+                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@androidx.annotation.Nullable DocumentSnapshot value, @androidx.annotation.Nullable FirebaseFirestoreException error) {
+                        if (value.exists()) {
+                            RefereePenilaian rp = value.toObject(RefereePenilaian.class);
+                            rp.setKey(value.getId());
+
+                            tv_amdp_total_nilai_naga.setText(
+                                    String.format("%.2f", rp.getTotal_nilai()) + "");
+                            tv_amdp_total_pengurangan_naga.setText(
+                                    String.format("%.2f", rp.getTotal_potongan()) + "");
+                            tv_amdp_grand_total_naga.setText(
+                                    String.format("%.2f", rp.getGrand_total()) + "");
+
+                        }
+                    }
+                });
+
+        alertDialogBuilder.setCancelable(true).setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        ;
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+    }
+
+    public void getPekingsaiView(final Context ctx, final Referee referee, final Team team) {
+        LayoutInflater li = LayoutInflater.from(ctx);
+        View promptsView = li.inflate(R.layout.adapter_model_dialog_penilaian_pekingsai, null);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                ctx);
+        alertDialogBuilder.setView(promptsView);
+        //initiate data
+        final TextView tv_ap_pekingsai_team_name = promptsView.findViewById(R.id.tv_ap_pekingsai_team_name);
+        final TextView tv_ap_pekingsai_no_urut = promptsView.findViewById(R.id.tv_ap_pekingsai_no_urut);
+        final TextView tv_amdp_referee_pekingsai = promptsView.findViewById(R.id.tv_amdp_referee_pekingsai);
+        final TextView tv_amdp_pekingsai_n1 = promptsView.findViewById(R.id.tv_amdp_pekingsai_n1);
+        final TextView tv_amdp_pekingsai_n2 = promptsView.findViewById(R.id.tv_amdp_pekingsai_n2);
+        final TextView tv_amdp_pekingsai_n3 = promptsView.findViewById(R.id.tv_amdp_pekingsai_n3);
+        final TextView tv_amdp_pekingsai_n4 = promptsView.findViewById(R.id.tv_amdp_pekingsai_n4);
+        final TextView tv_amdp_pekingsai_n5 = promptsView.findViewById(R.id.tv_amdp_pekingsai_n5);
+        final TextView tv_amdp_pekingsai_n6 = promptsView.findViewById(R.id.tv_amdp_pekingsai_n6);
+        final TextView tv_amdp_pekingsai_n7 = promptsView.findViewById(R.id.tv_amdp_pekingsai_n7);
+        final TextView tv_amdp_pekingsai_n8 = promptsView.findViewById(R.id.tv_amdp_pekingsai_n8);
+        final TextView tv_amdp_pekingsai_n9 = promptsView.findViewById(R.id.tv_amdp_pekingsai_n9);
+        final TextView tv_amdp_pekingsai_p1 = promptsView.findViewById(R.id.tv_amdp_pekingsai_p1);
+        final TextView tv_amdp_pekingsai_p2 = promptsView.findViewById(R.id.tv_amdp_pekingsai_p2);
+        final TextView tv_amdp_pekingsai_p3 = promptsView.findViewById(R.id.tv_amdp_pekingsai_p3);
+        final TextView tv_amdp_pekingsai_p4 = promptsView.findViewById(R.id.tv_amdp_pekingsai_p4);
+        final TextView tv_amdp_pekingsai_kesulitan = promptsView.findViewById(R.id.tv_amdp_pekingsai_kesulitan);
+        final TextView tv_ap_pekingsai_total_penilaian = promptsView.findViewById(R.id.tv_ap_pekingsai_total_penilaian);
+        final TextView tv_ap_pekingsai_nilai_total_pengurangan = promptsView.findViewById(R.id.tv_ap_pekingsai_nilai_total_pengurangan);
+        final TextView tv_ap_pekingsai_grand_total = promptsView.findViewById(R.id.tv_ap_pekingsai_grand_total);
+
+
+        //set data
+        tv_amdp_pekingsai_n1.setText("0");
+        tv_amdp_pekingsai_n2.setText("0");
+        tv_amdp_pekingsai_n3.setText("0");
+        tv_amdp_pekingsai_n4.setText("0");
+        tv_amdp_pekingsai_n5.setText("0");
+        tv_amdp_pekingsai_n6.setText("0");
+        tv_amdp_pekingsai_n7.setText("0");
+        tv_amdp_pekingsai_n8.setText("0");
+        tv_amdp_pekingsai_n9.setText("0");
+        tv_amdp_pekingsai_p1.setText("0");
+        tv_amdp_pekingsai_p2.setText("0");
+        tv_amdp_pekingsai_p3.setText("0");
+        tv_amdp_pekingsai_p4.setText("0");
+        tv_amdp_pekingsai_kesulitan.setText("");
+        tv_ap_pekingsai_total_penilaian.setText("0");
+        tv_ap_pekingsai_nilai_total_pengurangan.setText("0");
+        tv_ap_pekingsai_grand_total.setText("0");
+        DocumentReference teamref = db.collection("events").document(events.getKey())
+                .collection("team").document(team.getKey());
+        teamref.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                if (documentSnapshot.exists()) {
+//                    team = documentSnapshot.toObject(Team.class);
+//                    team.setKey(documentSnapshot.getId());
+                    tv_ap_pekingsai_team_name.setText(
+                            ctx.getApplicationContext().getString(R.string.team_name) + " "
+                                    + team.getTeam_name());
+                    tv_ap_pekingsai_no_urut.setText(
+                            ctx.getApplicationContext().getString(R.string.no_urut) + " "
+                                    + team.getNo_urut() + "");
+                    tv_amdp_referee_pekingsai.setText(
+                            ctx.getApplicationContext().getString(R.string.referee) + " Juri " + referee.getNumber() + " - "
+                                    + referee.getName());
+
+                }
+            }
+        });
+
+        teamref.collection("penilaian").document(referee.getKey())
+                .collection("field").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                for (QueryDocumentSnapshot d2 : task.getResult()) {
+                    if (d2.exists()) {
+                        Penilaian penilaian = d2.toObject(Penilaian.class);
+                        penilaian.setKey(d2.getId());
+                        if (d2.getId().equals("et_amdp_pekingsai_n1")) {
+                            tv_amdp_pekingsai_n1.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_amdp_pekingsai_n2")) {
+                            tv_amdp_pekingsai_n2.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_amdp_pekingsai_n3")) {
+                            tv_amdp_pekingsai_n3.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_amdp_pekingsai_n4")) {
+                            tv_amdp_pekingsai_n4.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_amdp_pekingsai_n5")) {
+                            tv_amdp_pekingsai_n5.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_amdp_pekingsai_n6")) {
+                            tv_amdp_pekingsai_n6.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_amdp_pekingsai_n7")) {
+                            tv_amdp_pekingsai_n7.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_amdp_pekingsai_n8")) {
+                            tv_amdp_pekingsai_n8.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_amdp_pekingsai_n9")) {
+                            tv_amdp_pekingsai_n9.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_ap_pekingsai_p1")) {
+                            tv_amdp_pekingsai_p1.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_ap_pekingsai_p2")) {
+                            tv_amdp_pekingsai_p2.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_ap_pekingsai_p3")) {
+                            tv_amdp_pekingsai_p3.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_ap_pekingsai_p4")) {
+                            tv_amdp_pekingsai_p4.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        } else if (d2.getId().equals("et_amdp_pekingsai_kesulitan")) {
+                            tv_amdp_pekingsai_kesulitan.setText(String.format("%.2f", penilaian.getNilai()) + "");
+                        }
+                    }
+                }
+            }
+        });
+
+        teamref.collection("penilaian").document(referee.getKey())
+                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@androidx.annotation.Nullable DocumentSnapshot value, @androidx.annotation.Nullable FirebaseFirestoreException error) {
+                        if (value.exists()) {
+                            RefereePenilaian rp = value.toObject(RefereePenilaian.class);
+                            rp.setKey(value.getId());
+
+                            tv_ap_pekingsai_total_penilaian.setText(
+                                    String.format("%.2f", rp.getTotal_nilai()) + "");
+                            tv_ap_pekingsai_nilai_total_pengurangan.setText(
+                                    String.format("%.2f", rp.getTotal_potongan()) + "");
+                            tv_ap_pekingsai_grand_total.setText(
+                                    String.format("%.2f", rp.getGrand_total()) + "");
+
+                        }
+                    }
+                });
+        alertDialogBuilder.setCancelable(true).setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        ;
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+
     }
 
 }

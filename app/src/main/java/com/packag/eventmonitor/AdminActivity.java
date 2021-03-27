@@ -23,6 +23,12 @@ public class AdminActivity extends AppCompatActivity
     Session session;
     FragmentManager fm;
     FirestoreController fc;
+    protected void runFunctionDebug(){
+
+        fc.recalculateAllData("sZ9NH2UlBVlduGHxdM42");
+
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +57,8 @@ public class AdminActivity extends AppCompatActivity
         fm = getSupportFragmentManager();
         Setting.checkAppVersion(AdminActivity.this);
 
+
+        //runFunctionDebug(); //comment later
     }
     private void setComponent(){
         fm.beginTransaction()

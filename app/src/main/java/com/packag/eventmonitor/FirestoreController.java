@@ -39,7 +39,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Array;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
@@ -56,6 +60,33 @@ public class FirestoreController {
         db.collection("events").document(eventId)
                 .collection("team")
                 .document(teamId).delete();
+    }
+    public void recalculateAllData(final String eventId){
+
+        final DocumentReference eventRef= db.collection("events").document(eventId);
+        final CollectionReference teamRef =  eventRef.collection("team");
+        teamRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                for(QueryDocumentSnapshot qds :task.getResult()){
+                    final Team team = qds.toObject(Team.class);
+                    team.setKey(qds.getId());
+                    CollectionReference refereeRef = teamRef.document(qds.getId())
+                            .collection("penilaian");
+                    refereeRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task2) {
+                            for(QueryDocumentSnapshot qds2 :task2.getResult()){
+                                final RefereePenilaian rp = qds2.toObject(RefereePenilaian.class);
+                                rp.setKey(qds2.getId());
+                                updateRefereePenilaianSummary(eventId,team.getKey(),rp.getKey());
+                            }
+                        }
+                    });
+
+                }
+            }
+        });
     }
     public void setDefaultPenilaian(String eventId, String teamId, final String refereeId){
         final DocumentReference eventRef= db.collection("events").document(eventId);
@@ -161,25 +192,25 @@ public class FirestoreController {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 final Map<String, Double> dataToSave = new HashMap<>();
                 Vector<Penilaian> penilaians = new Vector<Penilaian>();
-                double grand_total = 0 ;
-                double total_nilai = 0;
-                double total_potongan = 0;
+                BigDecimal grand_total = new BigDecimal(0);
+                BigDecimal total_nilai = new BigDecimal(0);
+                BigDecimal total_potongan = new BigDecimal(0);
                 for(QueryDocumentSnapshot qds:task.getResult()) {
                     if (qds.exists()) {
                         Penilaian p = qds.toObject(Penilaian.class);
                         p.setKey(qds.getId());
                         penilaians.add(p);
                         if(p.getType().equals("-")){
-                            total_potongan+=p.getNilai();
+                            total_potongan = total_potongan.add(new BigDecimal(p.getNilai()));
                         }else if(p.getType().equals("+")){
-                            total_nilai+=p.getNilai();
+                            total_nilai = total_nilai.add(new BigDecimal(p.getNilai()));
                         }
                     }
                 }
-                grand_total = total_nilai-total_potongan;
-                dataToSave.put("total_nilai",total_nilai);
-                dataToSave.put("total_potongan",total_potongan);
-                dataToSave.put("grand_total",grand_total);
+                grand_total = total_nilai.subtract(total_potongan);
+                dataToSave.put("total_nilai",total_nilai.doubleValue());
+                dataToSave.put("total_potongan",total_potongan.doubleValue());
+                dataToSave.put("grand_total",grand_total.doubleValue());
                 referee.document(refereeId).set(dataToSave,SetOptions.merge());
                 recalculateNilaiBersih(eventId,teamId);
             }
@@ -336,36 +367,47 @@ public class FirestoreController {
                             dataReferee.add(rp);
                         }
                     }
-                    double nilai_bersih = 0;
+                    BigDecimal nilai_bersih = new BigDecimal(0);
                     int jumlah_juri = 0;
-                    double total_nilai = 0;
+                    BigDecimal total_nilai =  new BigDecimal(0);
                     int division = 1;
                     int total_data = dataReferee.size();
-                    double[] nilai_perjuri = new double[total_data];
+                    //double[] nilai_perjuri = new double[total_data];
+                    Vector<BigDecimal> nilai_perjuri = new Vector<BigDecimal>();
                     for (RefereePenilaian trp : dataReferee) {
-                        total_nilai += trp.getGrand_total();
-                        nilai_perjuri[jumlah_juri] = trp.getGrand_total();
+                        total_nilai = total_nilai.add(trp.getGrand_total_bd());
+                        nilai_perjuri.add(trp.getGrand_total_bd());
+                        //nilai_perjuri[jumlah_juri] = trp.getGrand_total();
                         jumlah_juri++;
+
                     }
-                    Arrays.sort(nilai_perjuri);
+                    Collections.sort(nilai_perjuri);
+                    //Arrays.sort(nilai_perjuri);
                     if (total_data == 9) {
                         division = total_data - 4;
-                        total_nilai -= nilai_perjuri[0];
-                        total_nilai -= nilai_perjuri[1];
-                        total_nilai -= nilai_perjuri[total_data - 1];
-                        total_nilai -= nilai_perjuri[total_data - 2];
+                        total_nilai = total_nilai.subtract(nilai_perjuri.get(0));
+
+                        total_nilai = total_nilai.subtract(nilai_perjuri.get(1));
+
+                        total_nilai = total_nilai.subtract(nilai_perjuri.get(total_data - 1));
+
+                        total_nilai = total_nilai.subtract(nilai_perjuri.get(total_data - 2));
+
+
                     } else if (total_data == 7 || total_data == 5) {
                         division = total_data - 2;
-                        total_nilai -= nilai_perjuri[0];
-                        total_nilai -= nilai_perjuri[total_data - 1];
+                        total_nilai = total_nilai.subtract(nilai_perjuri.get(0));
+
+                        total_nilai = total_nilai.subtract(nilai_perjuri.get(total_data - 1));
+
                     } else {
-                        total_nilai = 0;
+                        total_nilai = new BigDecimal(0);
                     }
-                    nilai_bersih = total_nilai / (double) division;
-                    final double total_nilai_bersih =  nilai_bersih;
+                    nilai_bersih = total_nilai.divide(new BigDecimal(division));
+                    final BigDecimal total_nilai_bersih =  nilai_bersih.setScale(2, RoundingMode.HALF_EVEN);
 
                     final Map<String, Double> dataToSave = new HashMap<>();
-                    dataToSave.put("nilai_bersih", nilai_bersih);
+                    dataToSave.put("nilai_bersih", total_nilai_bersih.doubleValue());
                     db.collection("events").document(eventId)
                             .collection("team").document(teamId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
@@ -375,7 +417,7 @@ public class FirestoreController {
                                 Team temp_team = qds.toObject(Team.class);
                                 temp_team.setKey(qds.getId());
                                 dataToSave.put("pengurangan_nb",temp_team.getPengurangan_nb());
-                                dataToSave.put("total_nilai",total_nilai_bersih-temp_team.getPengurangan_nb());
+                                dataToSave.put("total_nilai",total_nilai_bersih.subtract(new BigDecimal(temp_team.getPengurangan_nb())).doubleValue());
                                 db.collection("events").document(eventId).collection("team").document(teamId)
                                         .set(dataToSave, SetOptions.merge());
                             }
