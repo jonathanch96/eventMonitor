@@ -104,53 +104,66 @@
             android:text="Edit"
             android:textSize="15dp" />
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/lv_adp"
         android:layout_below="@id/ll_adp_tingkat_kesulitan_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/btn_adp_ks1"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:textColor="@color/blue"
-            android:layout_marginRight="15dp"
-            android:background="@drawable/rectangle_green"
-            android:layout_weight="0.25"/>
-        <Button
-            android:id="@+id/btn_adp_ks2"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:textColor="@color/blue"
-            android:layout_marginRight="15dp"
-            android:background="@drawable/rectangle_yellow"
-            android:layout_weight="0.25"/>
-        <Button
-            android:id="@+id/btn_adp_ks3"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:textColor="@color/blue"
-            android:layout_marginRight="15dp"
-            android:background="@drawable/rectangle_black"
-            android:layout_weight="0.25"/>
-        <Button
-            android:id="@+id/btn_adp_ks4"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:textColor="@color/blue"
-            android:layout_marginRight="15dp"
-            android:background="@drawable/rectangle_red"
-            android:layout_weight="0.25"/>
-
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tv_adp_title_kesalahan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:textStyle="bold"
+            android:text="@string/pengurangan"
+            android:textSize="15dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btn_adp_ks1"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:textColor="@color/blue"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/rectangle_green"
+                android:layout_weight="0.25"/>
+            <Button
+                android:id="@+id/btn_adp_ks2"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:textColor="@color/blue"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/rectangle_yellow"
+                android:layout_weight="0.25"/>
+            <Button
+                android:id="@+id/btn_adp_ks3"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:textColor="@color/blue"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/rectangle_black"
+                android:layout_weight="0.25"/>
+            <Button
+                android:id="@+id/btn_adp_ks4"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:textColor="@color/blue"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/rectangle_red"
+                android:layout_weight="0.25"/>
+        </LinearLayout>
     </LinearLayout>
 
 

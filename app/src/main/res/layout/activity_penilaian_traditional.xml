@@ -259,8 +259,63 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/pengurangan"
                 android:textStyle="bold" />
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:id="@+id/lv_adp"
+                android:layout_below="@id/ll_adp_tingkat_kesulitan_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <Button
+                        android:id="@+id/btn_adp_ks1"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:textColor="@color/blue"
+                        android:layout_marginRight="15dp"
+                        android:background="@drawable/rectangle_green"
+                        android:layout_weight="0.25"/>
+                    <Button
+                        android:id="@+id/btn_adp_ks2"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:textColor="@color/blue"
+                        android:layout_marginRight="15dp"
+                        android:background="@drawable/rectangle_yellow"
+                        android:layout_weight="0.25"/>
+                    <Button
+                        android:id="@+id/btn_adp_ks3"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:textColor="@color/blue"
+                        android:layout_marginRight="15dp"
+                        android:background="@drawable/rectangle_black"
+                        android:layout_weight="0.25"/>
+                    <Button
+                        android:id="@+id/btn_adp_ks4"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:textColor="@color/blue"
+                        android:layout_marginRight="15dp"
+                        android:background="@drawable/rectangle_red"
+                        android:layout_weight="0.25"/>
+                </LinearLayout>
+            </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -288,6 +343,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -315,6 +371,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -342,6 +399,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
