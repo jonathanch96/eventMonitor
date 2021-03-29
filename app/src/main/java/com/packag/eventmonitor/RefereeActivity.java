@@ -184,7 +184,7 @@ public class    RefereeActivity extends AppCompatActivity {
         });
 
     }
-
+    boolean flagPenilaianOpen=false;
     private void setListener() {
         lv_ar_listTeam.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -205,8 +205,11 @@ public class    RefereeActivity extends AppCompatActivity {
                         intent = new Intent(RefereeActivity.this, ScoringTraditionalActivity.class);
                     }
                     intent.putExtra("teamId", dataTeam.get(i).getKey());
+                    if(!flagPenilaianOpen){
+                        flagPenilaianOpen=true;
+                        startActivityForResult(intent, REQUEST);
+                    }
 
-                    startActivityForResult(intent, REQUEST);
                 } else {
 //                    new KAlertDialog(RefereeActivity.this, KAlertDialog.ERROR_TYPE)
 //                            .setTitleText("Oops...")
@@ -283,7 +286,7 @@ public class    RefereeActivity extends AppCompatActivity {
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+        flagPenilaianOpen=false;
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST) {
             new KAlertDialog(RefereeActivity.this, KAlertDialog.SUCCESS_TYPE)
                     .setTitleText("Good job!")
