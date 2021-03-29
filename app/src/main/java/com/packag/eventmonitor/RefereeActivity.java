@@ -45,7 +45,7 @@ import java.util.Vector;
 
 import javax.annotation.Nullable;
 
-public class RefereeActivity extends AppCompatActivity {
+public class    RefereeActivity extends AppCompatActivity {
     private Toolbar mTopToolbar;
     Session session;
     ListView lv_ar_listTeam;

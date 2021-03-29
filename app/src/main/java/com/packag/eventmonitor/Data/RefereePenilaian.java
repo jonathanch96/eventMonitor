@@ -49,9 +49,9 @@ public class RefereePenilaian implements Comparable<RefereePenilaian>{
     }
     public BigDecimal getTotal_potongan_bd(){return total_potongan;}
 
-    BigDecimal total_nilai;
-    BigDecimal total_potongan;
-    BigDecimal grand_total;
+    BigDecimal total_nilai = new BigDecimal(0);
+    BigDecimal total_potongan  = new BigDecimal(0);
+    BigDecimal grand_total  = new BigDecimal(0);
     int isEditable =1;
 
     public int getIsEditable() {
