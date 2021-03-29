@@ -271,51 +271,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-                    <Button
-                        android:id="@+id/btn_adp_ks1"
-                        android:gravity="center"
-                        android:layout_gravity="center"
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:textColor="@color/blue"
-                        android:layout_marginRight="15dp"
-                        android:background="@drawable/rectangle_green"
-                        android:layout_weight="0.25"/>
-                    <Button
-                        android:id="@+id/btn_adp_ks2"
-                        android:gravity="center"
-                        android:layout_gravity="center"
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:textColor="@color/blue"
-                        android:layout_marginRight="15dp"
-                        android:background="@drawable/rectangle_yellow"
-                        android:layout_weight="0.25"/>
-                    <Button
-                        android:id="@+id/btn_adp_ks3"
-                        android:gravity="center"
-                        android:layout_gravity="center"
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:textColor="@color/blue"
-                        android:layout_marginRight="15dp"
-                        android:background="@drawable/rectangle_black"
-                        android:layout_weight="0.25"/>
-                    <Button
-                        android:id="@+id/btn_adp_ks4"
-                        android:gravity="center"
-                        android:layout_gravity="center"
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:textColor="@color/blue"
-                        android:layout_marginRight="15dp"
-                        android:background="@drawable/rectangle_red"
-                        android:layout_weight="0.25"/>
+
+
+
+
                 </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
-                android:visibility="gone"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -326,13 +290,18 @@
                     android:layout_weight="0.5"
                     android:text="@string/ks1_kesalahan_lain" />
 
-                <View
+                <Button
+                    android:id="@+id/btn_adp_ks1"
+                    android:gravity="center"
+                    android:layout_gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
-                    android:layout_weight="0.2"
-                    android:background="@drawable/rectangle_green" />
+                    android:textColor="@color/blue"
+                    android:background="@drawable/rectangle_green"
+                    android:layout_weight="0.2"/>
 
                 <EditText
+                    android:visibility="gone"
                     android:id="@+id/et_as_ks1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -343,7 +312,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -354,13 +322,17 @@
                     android:layout_weight="0.5"
                     android:text="@string/ks2_kesalahan_kecil" />
 
-                <View
+                <Button
+                    android:id="@+id/btn_adp_ks2"
+                    android:gravity="center"
+                    android:layout_gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
-                    android:layout_weight="0.2"
-                    android:background="@drawable/rectangle_yellow" />
-
+                    android:textColor="@color/blue"
+                    android:background="@drawable/rectangle_yellow"
+                    android:layout_weight="0.2"/>
                 <EditText
+                    android:visibility="gone"
                     android:id="@+id/et_as_ks2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -371,7 +343,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -382,13 +353,18 @@
                     android:layout_weight="0.5"
                     android:text="@string/ks3_kesalahan_sedang" />
 
-                <View
+                <Button
+                    android:id="@+id/btn_adp_ks3"
+                    android:gravity="center"
+                    android:layout_gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
-                    android:layout_weight="0.2"
-                    android:background="@drawable/rectangle_black" />
-
+                    android:textColor="@color/blue"
+                    android:background="@drawable/rectangle_black"
+                    android:layout_weight="0.2"/>
                 <EditText
+                    android:visibility="gone"
+
                     android:id="@+id/et_as_ks3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -399,7 +375,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -410,13 +385,19 @@
                     android:layout_weight="0.5"
                     android:text="@string/ks4_kesalahan_besar" />
 
-                <View
+                <Button
+                    android:id="@+id/btn_adp_ks4"
+                    android:gravity="center"
+                    android:layout_gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
-                    android:layout_weight="0.2"
-                    android:background="@drawable/rectangle_red" />
+                    android:textColor="@color/blue"
+                    android:background="@drawable/rectangle_red"
+                    android:layout_weight="0.2"/>
 
                 <EditText
+                    android:visibility="gone"
+
                     android:id="@+id/et_as_ks4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
