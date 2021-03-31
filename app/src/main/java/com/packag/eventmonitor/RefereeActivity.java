@@ -303,7 +303,7 @@ public class    RefereeActivity extends AppCompatActivity {
         Log.d("debug", "setupBadge eventId : " + events.getKey());
         Log.d("debug", "setupBadge destUserId  : " + referee.getKey());
         db.collection("chats")
-                .whereEqualTo("eventId", events.getKey())
+                .whereEqualTo("eventId", session.getData("eventId"))
                 .whereEqualTo("destUserId", referee.getKey())
                 .whereEqualTo("userId", "admin")
                 .whereEqualTo("is_read", false).addSnapshotListener(new EventListener<QuerySnapshot>() {
