@@ -286,140 +286,148 @@ public class DetailPenilaianActivity extends AppCompatActivity {
                         btn_adp_ks4.setVisibility(View.GONE);
                     }
                     getData1 = true;
-                }
-            }
-        });
-        eventRef.collection("team").document(teamId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@androidx.annotation.Nullable DocumentSnapshot value, @androidx.annotation.Nullable FirebaseFirestoreException error) {
-                if (value.exists()) {
-                    team = value.toObject(Team.class);
-                    tv_adp_team_name.setText("Team : " + team.getTeam_name());
-                    tv_adp_no_urut.setText("No Urut : " + team.getNo_urut());
-                    tv_adp_nilai_bersih.setText("Nilai Bersih : " + String.format("%.2f", team.getNilai_bersih()) + "");
-                    tv_adp_potongan_admin.setText("Potongan Admin : " + String.format("%.2f", team.getPengurangan_nb()) + "");
-                    tv_adp_total_nilai.setText("Nilai Akhir : " + String.format("%.2f", team.getTotal_nilai()) + "");
-                    if (team.getNilai_bersih() == 0) {
-                        btn_adp_ks1.setVisibility(View.GONE);
-                        btn_adp_ks2.setVisibility(View.GONE);
-                        btn_adp_ks3.setVisibility(View.GONE);
-                        btn_adp_ks4.setVisibility(View.GONE);
-                        ll_adp_tingkat_kesulitan_container.setVisibility(View.GONE);
-                    } else {
-                        btn_adp_ks1.setVisibility(View.VISIBLE);
-                        btn_adp_ks2.setVisibility(View.VISIBLE);
-                        btn_adp_ks3.setVisibility(View.VISIBLE);
-                        btn_adp_ks4.setVisibility(View.VISIBLE);
-                        ll_adp_tingkat_kesulitan_container.setVisibility(View.VISIBLE);
+                    eventRef.collection("team").document(teamId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                        @Override
+                        public void onEvent(@androidx.annotation.Nullable DocumentSnapshot value, @androidx.annotation.Nullable FirebaseFirestoreException error) {
+                            if (value.exists()) {
+                                team = value.toObject(Team.class);
+                                tv_adp_team_name.setText("Team : " + team.getTeam_name());
+                                tv_adp_no_urut.setText("No Urut : " + team.getNo_urut());
+                                tv_adp_nilai_bersih.setText("Nilai Bersih : " + String.format("%.2f", team.getNilai_bersih()) + "");
+                                tv_adp_potongan_admin.setText("Potongan Admin : " + String.format("%.2f", team.getPengurangan_nb()) + "");
+                                tv_adp_total_nilai.setText("Nilai Akhir : " + String.format("%.2f", team.getTotal_nilai()) + "");
+                                if(events.getThemes().equals("Barongsai Taolu Bebas")){
+                                    if (team.getNilai_bersih() == 0) {
+                                        btn_adp_ks1.setVisibility(View.GONE);
+                                        btn_adp_ks2.setVisibility(View.GONE);
+                                        btn_adp_ks3.setVisibility(View.GONE);
+                                        btn_adp_ks4.setVisibility(View.GONE);
+                                        ll_adp_tingkat_kesulitan_container.setVisibility(View.GONE);
+                                    } else {
 
-                    }
-                    getData2 = true;
-                }
-            }
-        });
-        eventRef.collection("team").document(teamId)
-                .collection("penilaian").addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                dataReferee = new Vector<Referee>();
-                refereePenilaians = new Vector<RefereePenilaian>();
-                for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                                        btn_adp_ks1.setVisibility(View.VISIBLE);
+                                        btn_adp_ks2.setVisibility(View.VISIBLE);
+                                        btn_adp_ks3.setVisibility(View.VISIBLE);
+                                        btn_adp_ks4.setVisibility(View.VISIBLE);
+                                        ll_adp_tingkat_kesulitan_container.setVisibility(View.VISIBLE);
+
+                                    }
+                                }
+
+                                getData2 = true;
+                                eventRef.collection("team").document(teamId)
+                                        .collection("penilaian").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                                        dataReferee = new Vector<Referee>();
+                                        refereePenilaians = new Vector<RefereePenilaian>();
+                                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
 //                    final PenilaianTraditional penilaian = document.toObject(PenilaianTraditional.class);
 //                    penilaian.setKey(document.getId());
 //                    dataPenilaian.add(penilaian);
-                    final RefereePenilaian rp = document.toObject(RefereePenilaian.class);
-                    rp.setKey(document.getId());
-                    eventRef.collection("team")
-                            .document(teamId).collection("penilaian")
-                            .document(rp.getKey()).collection("field").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                Vector<Penilaian> temp_penilaians = new Vector<Penilaian>();
-                                for (QueryDocumentSnapshot ds : task.getResult()) {
-                                    Penilaian tp = ds.toObject(Penilaian.class);
-                                    tp.setKey(ds.getId());
-                                    tp.setOrder(getOrder(tp.getForm_id()));
-                                    if (events.getThemes().equals("Barongsai Taolu Bebas")
-                                    ) {
-                                        if (tp.getForm_id().equals("et_amdp_taolu_kesulitan")) {
-                                            tv_adp_tingkat_kesulitan.setText
-                                                    (String.format("%.0f", tp.getNilai()));
-                                        } else if (tp.getForm_id().equals("et_ap_taolu_p1")) {
-                                            int value = (int) (tp.getNilai() / 0.1);
-                                            btn_adp_ks1.setText(value + "");
-                                        } else if (tp.getForm_id().equals("et_ap_taolu_p2")) {
-                                            int value = (int) (tp.getNilai() / 0.3);
-                                            btn_adp_ks2.setText(value + "");
-                                        } else if (tp.getForm_id().equals("et_ap_taolu_p3")) {
-                                            int value = (int) (tp.getNilai() / 0.5);
-                                            btn_adp_ks3.setText(value + "");
-                                        } else if (tp.getForm_id().equals("et_ap_taolu_p4")) {
-                                            int value = (int) (tp.getNilai() / 1);
-                                            btn_adp_ks4.setText(value + "");
-                                        }
+                                            final RefereePenilaian rp = document.toObject(RefereePenilaian.class);
+                                            rp.setKey(document.getId());
+                                            eventRef.collection("team")
+                                                    .document(teamId).collection("penilaian")
+                                                    .document(rp.getKey()).collection("field").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                    if (task.isSuccessful()) {
+                                                        Vector<Penilaian> temp_penilaians = new Vector<Penilaian>();
+                                                        for (QueryDocumentSnapshot ds : task.getResult()) {
+                                                            Penilaian tp = ds.toObject(Penilaian.class);
+                                                            tp.setKey(ds.getId());
+                                                            tp.setOrder(getOrder(tp.getForm_id()));
+                                                            if (events.getThemes().equals("Barongsai Taolu Bebas")
+                                                            ) {
+                                                                if (tp.getForm_id().equals("et_amdp_taolu_kesulitan")) {
+                                                                    tv_adp_tingkat_kesulitan.setText
+                                                                            (String.format("%.0f", tp.getNilai()));
+                                                                } else if (tp.getForm_id().equals("et_ap_taolu_p1")) {
+                                                                    int value = (int) (tp.getNilai() / 0.1);
+                                                                    btn_adp_ks1.setText(value + "");
+                                                                } else if (tp.getForm_id().equals("et_ap_taolu_p2")) {
+                                                                    int value = (int) (tp.getNilai() / 0.3);
+                                                                    btn_adp_ks2.setText(value + "");
+                                                                } else if (tp.getForm_id().equals("et_ap_taolu_p3")) {
+                                                                    int value = (int) (tp.getNilai() / 0.5);
+                                                                    btn_adp_ks3.setText(value + "");
+                                                                } else if (tp.getForm_id().equals("et_ap_taolu_p4")) {
+                                                                    int value = (int) (tp.getNilai() / 1);
+                                                                    btn_adp_ks4.setText(value + "");
+                                                                }
 
-                                    }
+                                                            }
 
-                                    temp_penilaians.add(tp);
-                                }
-                                Collections.sort(temp_penilaians);
+                                                            temp_penilaians.add(tp);
+                                                        }
+                                                        Collections.sort(temp_penilaians);
 
-                                rp.setPenilaians(temp_penilaians);
-                                eventRef.collection("referee").document(rp.getKey()).get()
-                                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                                if (task.isSuccessful()) {
-                                                    final Referee refereeClass = task.getResult().toObject(Referee.class);
-                                                    refereeClass.setKey(task.getResult().getId());
-                                                    rp.setOrder(refereeClass.getNumber());
-                                                    refereePenilaians.add(rp);
-                                                    getData3 = true;
+                                                        rp.setPenilaians(temp_penilaians);
+                                                        eventRef.collection("referee").document(rp.getKey()).get()
+                                                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                                    @Override
+                                                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                                        if (task.isSuccessful()) {
+                                                                            final Referee refereeClass = task.getResult().toObject(Referee.class);
+                                                                            refereeClass.setKey(task.getResult().getId());
+                                                                            rp.setOrder(refereeClass.getNumber());
+                                                                            refereePenilaians.add(rp);
+                                                                            getData3 = true;
 
+                                                                        }
+                                                                    }
+                                                                });
+
+                                                    }
                                                 }
-                                            }
-                                        });
+                                            });
 
-                            }
-                        }
-                    });
+                                            eventRef.collection("referee").document(document.getId()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                                                    if (documentSnapshot.exists()) {
+                                                        final Referee refereeClass = documentSnapshot.toObject(Referee.class);
+                                                        refereeClass.setKey(documentSnapshot.getId());
+                                                        boolean flag_exists = false;
+                                                        for (Referee r : dataReferee) {
+                                                            if (r.getKey() == refereeClass.getKey()) {
+                                                                flag_exists = true;
+                                                            }
+                                                        }
+                                                        if (!flag_exists) {
+                                                            dataReferee.add(refereeClass);
+                                                            Collections.sort(dataReferee);
+                                                            rv_adp_list_referee.setAdapter(new AdapterListReferee(DetailPenilaianActivity.this, dataReferee, eventId, teamId));
 
-                    eventRef.collection("referee").document(document.getId()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                        @Override
-                        public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                            if (documentSnapshot.exists()) {
-                                final Referee refereeClass = documentSnapshot.toObject(Referee.class);
-                                refereeClass.setKey(documentSnapshot.getId());
-                                boolean flag_exists = false;
-                                for (Referee r : dataReferee) {
-                                    if (r.getKey() == refereeClass.getKey()) {
-                                        flag_exists = true;
+                                                        }
+
+                                                    }
+                                                }
+                                            });
+
+
+                                        }
+                                        // use this setting to improve performance if you know that changes
+                                        // in content do not change the layout size of the RecyclerView
+                                        rv_adp_list_referee.setHasFixedSize(true);
+
+                                        // use a linear layout manager
+                                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(DetailPenilaianActivity.this);
+                                        rv_adp_list_referee.setLayoutManager(layoutManager);
+                                        rv_adp_list_referee.setAdapter(new AdapterListReferee(DetailPenilaianActivity.this, dataReferee, eventId, teamId));
                                     }
-                                }
-                                if (!flag_exists) {
-                                    dataReferee.add(refereeClass);
-                                    Collections.sort(dataReferee);
-                                    rv_adp_list_referee.setAdapter(new AdapterListReferee(DetailPenilaianActivity.this, dataReferee, eventId, teamId));
-
-                                }
-
+                                });
                             }
                         }
                     });
 
 
                 }
-                // use this setting to improve performance if you know that changes
-                // in content do not change the layout size of the RecyclerView
-                rv_adp_list_referee.setHasFixedSize(true);
-
-                // use a linear layout manager
-                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(DetailPenilaianActivity.this);
-                rv_adp_list_referee.setLayoutManager(layoutManager);
-                rv_adp_list_referee.setAdapter(new AdapterListReferee(DetailPenilaianActivity.this, dataReferee, eventId, teamId));
             }
         });
+
+
     }
 
     public void getIntentData() {
@@ -914,7 +922,7 @@ public class DetailPenilaianActivity extends AppCompatActivity {
                 } catch (ActivityNotFoundException e) {
 
                 }
-                locked=false;
+                locked = false;
 
             } else {
                 new KAlertDialog(DetailPenilaianActivity.this, KAlertDialog.ERROR_TYPE)
