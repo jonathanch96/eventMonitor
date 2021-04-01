@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Penjurian FOBI 1.2</string>
+    <string name="app_name">Penjurian FOBI 1.3</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">PB FOBI</string>
@@ -12,6 +12,7 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_tools">Tools</string>
+
     <string name="menu_share">Share</string>
 
     <string name="menu_logout">Log out</string>
