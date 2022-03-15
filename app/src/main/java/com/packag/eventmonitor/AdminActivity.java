@@ -25,7 +25,7 @@ public class AdminActivity extends AppCompatActivity
     FirestoreController fc;
     protected void runFunctionDebug(){
 
-        //fc.recalculateAllData("E16M7P2TMaCcj8k596ft");//comment later
+        fc.recalculateAllData("dfUkCwrDUUO3L5EsQUCo");//comment later
 
 
     }

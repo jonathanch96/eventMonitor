@@ -378,8 +378,15 @@ public class FirestoreController {
                     //double[] nilai_perjuri = new double[total_data];
                     Vector<BigDecimal> nilai_perjuri = new Vector<BigDecimal>();
                     for (RefereePenilaian trp : dataReferee) {
+
                         total_nilai = total_nilai.add(trp.getGrand_total_bd());
+
                         nilai_perjuri.add(trp.getGrand_total_bd());
+
+                        if(teamId.equals("NUtMIA5SPUsMmSDVVwsi")){
+                            Log.d("debug",total_nilai.doubleValue()+" total");
+                            Log.d("debug",trp.getGrand_total_bd()+" nilai juri");
+                        }
                         //nilai_perjuri[jumlah_juri] = trp.getGrand_total();
                         jumlah_juri++;
 
@@ -407,6 +414,10 @@ public class FirestoreController {
                         total_nilai = new BigDecimal(0);
                     }
                     nilai_bersih = total_nilai.divide(new BigDecimal((double)division), MathContext.DECIMAL32);
+                    if(teamId.equals("NUtMIA5SPUsMmSDVVwsi")){
+                        Log.d("debug",nilai_bersih.doubleValue()+"");
+                    }
+
                     final BigDecimal total_nilai_bersih =  nilai_bersih.setScale(2, RoundingMode.DOWN);
 
                     final Map<String, Double> dataToSave = new HashMap<>();
