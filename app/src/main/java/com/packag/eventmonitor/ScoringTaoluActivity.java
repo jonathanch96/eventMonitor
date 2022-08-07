@@ -30,6 +30,8 @@ import com.packag.eventmonitor.Data.RefereePenilaian;
 import com.packag.eventmonitor.Data.Team;
 import com.packag.eventmonitor.Util.Session;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
@@ -308,9 +310,6 @@ public class ScoringTaoluActivity extends AppCompatActivity {
         return flag;
     }
     private double roundTo2Decs(double value) {
-        /*BigDecimal bd = new BigDecimal(value);
-        bd = bd.setScale(2, RoundingMode.HALF_UP);
-        return bd.floatValue();*/
         double roundOff = Math.round(value * 100.0) / 100.0;
         return roundOff;
     }
@@ -330,19 +329,34 @@ public class ScoringTaoluActivity extends AppCompatActivity {
         double p3 = et_ap_taolu_p3.getText().toString().equals("")||et_ap_taolu_p3.getText().toString().equals(".")?0:Double.parseDouble(et_ap_taolu_p3.getText().toString());
         double p4 = et_ap_taolu_p4.getText().toString().equals("")||et_ap_taolu_p4.getText().toString().equals(".")?0:Double.parseDouble(et_ap_taolu_p4.getText().toString());
 
-        double tb=0,tk=0,p=0;
-        tk = n1+n2+n3+n4+n5+n6+n7+n8+n9;
-        p = p1+p2+p3+p4;
-        tb=tk-p;
+        BigDecimal tb = BigDecimal.valueOf(0);
+        BigDecimal tk = BigDecimal.valueOf(0);
+        BigDecimal p = BigDecimal.valueOf(0);
 
-        tk = roundTo2Decs(tk);
-        p = roundTo2Decs(p);
-        tb = roundTo2Decs(tb);
+        tk = tk.add(BigDecimal.valueOf(n1));
+        tk = tk.add(BigDecimal.valueOf(n2));
+        tk = tk.add(BigDecimal.valueOf(n3));
+        tk = tk.add(BigDecimal.valueOf(n4));
+        tk = tk.add(BigDecimal.valueOf(n5));
+        tk = tk.add(BigDecimal.valueOf(n6));
+        tk = tk.add(BigDecimal.valueOf(n7));
+        tk = tk.add(BigDecimal.valueOf(n8));
+        tk = tk.add(BigDecimal.valueOf(n9));
 
-        Log.d("debug","tk = "+tk+" tb = "+tb+" p = "+p);
-        tv_ap_taolu_grand_total.setText(Double.toString(tb));
-        tv_ap_taolu_total_penilaian.setText(Double.toString(tk));
-        tv_ap_taolu_nilai_total_pengurangan.setText(Double.toString(p));
+        p = p.add(BigDecimal.valueOf(p1));
+        p = p.add(BigDecimal.valueOf(p2));
+        p = p.add(BigDecimal.valueOf(p3));
+        p = p.add(BigDecimal.valueOf(p4));
+
+        tb = tk.subtract(p);
+
+        tk = tk.setScale(2, RoundingMode.HALF_EVEN);
+        p = p.setScale(2, RoundingMode.HALF_EVEN);
+        tb = tb.setScale(2, RoundingMode.HALF_EVEN);
+
+        tv_ap_taolu_grand_total.setText(Double.toString(tb.doubleValue()));
+        tv_ap_taolu_total_penilaian.setText(Double.toString(tk.doubleValue()));
+        tv_ap_taolu_nilai_total_pengurangan.setText(Double.toString(p.doubleValue()));
     }
     private void setListener() {
         et_amdp_taolu_n1.setOnFocusChangeListener(new View.OnFocusChangeListener() {

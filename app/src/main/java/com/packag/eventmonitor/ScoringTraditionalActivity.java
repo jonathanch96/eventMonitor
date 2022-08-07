@@ -187,32 +187,32 @@ public class ScoringTraditionalActivity extends AppCompatActivity {
                 et_as_n10.setText(p.getNilai() + "");
             } else if (p.getForm_id().equals("et_as_ks1")) {
                 et_as_ks1.setText(p.getNilai() + "");
-                BigDecimal tbd = new BigDecimal(p.getNilai());
-                BigDecimal multiplier = new BigDecimal(0.1);
+                BigDecimal tbd = BigDecimal.valueOf(p.getNilai());
+                BigDecimal multiplier = BigDecimal.valueOf(0.1);
                 tbd = tbd.divide(multiplier, MathContext.DECIMAL32);
                 tbd = tbd.setScale(0, RoundingMode.HALF_EVEN);
-                btn_adp_ks1.setText((int)(tbd.doubleValue())+"");
+                btn_adp_ks1.setText((int) (tbd.doubleValue()) + "");
             } else if (p.getForm_id().equals("et_as_ks2")) {
                 et_as_ks2.setText(p.getNilai() + "");
-                BigDecimal tbd = new BigDecimal(p.getNilai());
-                BigDecimal multiplier = new BigDecimal(0.3);
+                BigDecimal tbd = BigDecimal.valueOf(p.getNilai());
+                BigDecimal multiplier = BigDecimal.valueOf(0.3);
                 tbd = tbd.divide(multiplier, MathContext.DECIMAL32);
                 tbd = tbd.setScale(0, RoundingMode.HALF_EVEN);
-                btn_adp_ks2.setText((int)(tbd.doubleValue())+"");
+                btn_adp_ks2.setText((int) (tbd.doubleValue()) + "");
             } else if (p.getForm_id().equals("et_as_ks3")) {
                 et_as_ks3.setText(p.getNilai() + "");
-                BigDecimal tbd = new BigDecimal(p.getNilai());
-                BigDecimal multiplier = new BigDecimal(0.5);
+                BigDecimal tbd = BigDecimal.valueOf(p.getNilai());
+                BigDecimal multiplier = BigDecimal.valueOf(0.5);
                 tbd = tbd.divide(multiplier, MathContext.DECIMAL32);
                 tbd = tbd.setScale(0, RoundingMode.HALF_EVEN);
-                btn_adp_ks3.setText((int)(tbd.doubleValue())+"");
+                btn_adp_ks3.setText((int) (tbd.doubleValue()) + "");
             } else if (p.getForm_id().equals("et_as_ks4")) {
                 et_as_ks4.setText(p.getNilai() + "");
-                BigDecimal tbd = new BigDecimal(p.getNilai());
-                BigDecimal multiplier = new BigDecimal(1.0);
+                BigDecimal tbd = BigDecimal.valueOf(p.getNilai());
+                BigDecimal multiplier = BigDecimal.valueOf(1.0);
                 tbd = tbd.divide(multiplier, MathContext.DECIMAL32);
                 tbd = tbd.setScale(0, RoundingMode.HALF_EVEN);
-                btn_adp_ks4.setText((int)(tbd.doubleValue())+"");
+                btn_adp_ks4.setText((int) (tbd.doubleValue()) + "");
             }
 
         }
@@ -346,15 +346,11 @@ public class ScoringTraditionalActivity extends AppCompatActivity {
     }
 
     private double roundTo2Decs(double value) {
-        /*BigDecimal bd = new BigDecimal(value);
-        bd = bd.setScale(2, RoundingMode.HALF_UP);
-        return bd.floatValue();*/
         double roundOff = Math.round(value * 100.0) / 100.0;
         return roundOff;
     }
 
     private void recalculateTotal() {
-
         double n1 = et_as_n1.getText().toString().equals("") || et_as_n1.getText().toString().equals(".") ? 0 : Double.parseDouble(et_as_n1.getText().toString());
         double n2 = et_as_n2.getText().toString().equals("") || et_as_n2.getText().toString().equals(".") ? 0 : Double.parseDouble(et_as_n2.getText().toString());
         double n3 = et_as_n3.getText().toString().equals("") || et_as_n3.getText().toString().equals(".") ? 0 : Double.parseDouble(et_as_n3.getText().toString());
@@ -370,41 +366,31 @@ public class ScoringTraditionalActivity extends AppCompatActivity {
         double p3 = et_as_ks3.getText().toString().equals("") || et_as_ks3.getText().toString().equals(".") ? 0 : Double.parseDouble(et_as_ks3.getText().toString());
         double p4 = et_as_ks4.getText().toString().equals("") || et_as_ks4.getText().toString().equals(".") ? 0 : Double.parseDouble(et_as_ks4.getText().toString());
 
-        BigDecimal tb = new BigDecimal(0);
-        BigDecimal tk = new BigDecimal(0);
-        BigDecimal p = new BigDecimal(0);
-        //double tb = 0, tk = 0, p = 0;
+        BigDecimal tb = BigDecimal.valueOf(0);
+        BigDecimal tk = BigDecimal.valueOf(0);
+        BigDecimal p = BigDecimal.valueOf(0);
 
-        tk = tk.add(new BigDecimal(n1));
-        tk = tk.add(new BigDecimal(n2));
-        tk = tk.add(new BigDecimal(n3));
-        tk = tk.add(new BigDecimal(n4));
-        tk = tk.add(new BigDecimal(n5));
-        tk = tk.add(new BigDecimal(n6));
-        tk = tk.add(new BigDecimal(n7));
-        tk = tk.add(new BigDecimal(n8));
-        tk = tk.add(new BigDecimal(n9));
-        tk = tk.add(new BigDecimal(n10));
+        tk = tk.add(BigDecimal.valueOf(n1));
+        tk = tk.add(BigDecimal.valueOf(n2));
+        tk = tk.add(BigDecimal.valueOf(n3));
+        tk = tk.add(BigDecimal.valueOf(n4));
+        tk = tk.add(BigDecimal.valueOf(n5));
+        tk = tk.add(BigDecimal.valueOf(n6));
+        tk = tk.add(BigDecimal.valueOf(n7));
+        tk = tk.add(BigDecimal.valueOf(n8));
+        tk = tk.add(BigDecimal.valueOf(n9));
+        tk = tk.add(BigDecimal.valueOf(n10));
 
-        p = p.add(new BigDecimal(p1));
-        p = p.add(new BigDecimal(p2));
-        p = p.add(new BigDecimal(p3));
-        p = p.add(new BigDecimal(p4));
+        p = p.add(BigDecimal.valueOf(p1));
+        p = p.add(BigDecimal.valueOf(p2));
+        p = p.add(BigDecimal.valueOf(p3));
+        p = p.add(BigDecimal.valueOf(p4));
 
         tb = tk.subtract(p);
 
-        //tk = n1 + n2 + n3 + n4 + n5 + n6 + n7 + n8 + n9 + n10;
-        //p = p1 + p2 + p3 + p4;
-        //tb = tk - p;
-
-//        tk = roundTo2Decs(tk);
-//        p = roundTo2Decs(p);
-//        tb = roundTo2Decs(tb);
-
-
         tk = tk.setScale(2, RoundingMode.HALF_EVEN);
         p = p.setScale(2, RoundingMode.HALF_EVEN);
-        tb=tb.setScale(2, RoundingMode.HALF_EVEN);
+        tb = tb.setScale(2, RoundingMode.HALF_EVEN);
 
         Log.d("debug", "tk = " + tk + " tb = " + tb + " p = " + p);
         tv_ap_traditional_grand_total.setText(Double.toString(tb.doubleValue()));
@@ -1066,8 +1052,8 @@ public class ScoringTraditionalActivity extends AppCompatActivity {
                         if (et_amd_pengurangan_taolu_value.getText().toString().equals("")) {
                             et_amd_pengurangan_taolu_value.setText("0");
                         }
-                        BigDecimal val = new BigDecimal(passed_multiplier);
-                        val = val.multiply(new BigDecimal(
+                        BigDecimal val = BigDecimal.valueOf(passed_multiplier);
+                        val = val.multiply(BigDecimal.valueOf(
                                 Double.parseDouble(et_amd_pengurangan_taolu_value.getText().toString())));
                         val = val.setScale(2, RoundingMode.HALF_EVEN);
                         target.setText(val.doubleValue() + "");

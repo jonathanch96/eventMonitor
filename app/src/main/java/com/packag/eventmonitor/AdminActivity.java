@@ -6,12 +6,16 @@ import android.os.Bundle;
 import androidx.fragment.app.FragmentManager;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+
 import android.view.MenuItem;
+
 import com.google.android.material.navigation.NavigationView;
+
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
 import android.view.Menu;
 
 import com.packag.eventmonitor.Fragments.ListEventsFragment;
@@ -23,12 +27,14 @@ public class AdminActivity extends AppCompatActivity
     Session session;
     FragmentManager fm;
     FirestoreController fc;
-    protected void runFunctionDebug(){
 
-        fc.recalculateAllData("dfUkCwrDUUO3L5EsQUCo");//comment later
-
-
+    protected void runFunctionDebug() {
+//        fc.recalculateAllData("DJSVBLjyxCbcsEJqgQSa");//comment later
+//        fc.recalculateAllData("dfUkCwrDUUO3L5EsQUCo");//comment later
+//        fc.recalculateAllData("jMR9DCoRaxSxxkzfgjFi");//comment later
+//        fc.recalculateAllData("sZ9NH2UlBVlduGHxdM42");//comment later
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +58,7 @@ public class AdminActivity extends AppCompatActivity
 
     private void initializeComponent() {
         fc = new FirestoreController();
-        fc.generateToken("admin",null);
+        fc.generateToken("admin", null);
         session = new Session(this.getApplicationContext());
         fm = getSupportFragmentManager();
         Setting.checkAppVersion(AdminActivity.this);
@@ -60,11 +66,13 @@ public class AdminActivity extends AppCompatActivity
 
         runFunctionDebug();
     }
-    private void setComponent(){
+
+    private void setComponent() {
         fm.beginTransaction()
-                .replace(R.id.content_frame,new ListEventsFragment())
+                .replace(R.id.content_frame, new ListEventsFragment())
                 .commit();
     }
+
     private void setListener() {
     }
 
@@ -95,9 +103,9 @@ public class AdminActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_refresh) {
             finish();
-            overridePendingTransition( 0, 0);
+            overridePendingTransition(0, 0);
             startActivity(getIntent());
-            overridePendingTransition( 0, 0);
+            overridePendingTransition(0, 0);
 
             return true;
         }
@@ -111,9 +119,9 @@ public class AdminActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-      if (id == R.id.nav_logout) {
+        if (id == R.id.nav_logout) {
             session.removeData("loginType");
-            Intent i = new Intent(AdminActivity.this,MainActivity.class);
+            Intent i = new Intent(AdminActivity.this, MainActivity.class);
             fc.removeToken(fc.getToken());
             startActivity(i);
             this.finish();

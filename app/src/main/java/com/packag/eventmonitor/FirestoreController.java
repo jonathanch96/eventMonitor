@@ -53,6 +53,7 @@ public class FirestoreController {
     FirebaseFirestore db;
     int counter;
     String token;
+
     public FirestoreController() {
         db = FirebaseFirestore.getInstance();
     }
@@ -62,14 +63,15 @@ public class FirestoreController {
                 .collection("team")
                 .document(teamId).delete();
     }
-    public void recalculateAllData(final String eventId){
 
-        final DocumentReference eventRef= db.collection("events").document(eventId);
-        final CollectionReference teamRef =  eventRef.collection("team");
+    public void recalculateAllData(final String eventId) {
+
+        final DocumentReference eventRef = db.collection("events").document(eventId);
+        final CollectionReference teamRef = eventRef.collection("team");
         teamRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                for(QueryDocumentSnapshot qds :task.getResult()){
+                for (QueryDocumentSnapshot qds : task.getResult()) {
                     final Team team = qds.toObject(Team.class);
                     team.setKey(qds.getId());
                     CollectionReference refereeRef = teamRef.document(qds.getId())
@@ -77,10 +79,10 @@ public class FirestoreController {
                     refereeRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task2) {
-                            for(QueryDocumentSnapshot qds2 :task2.getResult()){
+                            for (QueryDocumentSnapshot qds2 : task2.getResult()) {
                                 final RefereePenilaian rp = qds2.toObject(RefereePenilaian.class);
                                 rp.setKey(qds2.getId());
-                                updateRefereePenilaianSummary(eventId,team.getKey(),rp.getKey());
+                                updateRefereePenilaianSummary(eventId, team.getKey(), rp.getKey());
                             }
                         }
                     });
@@ -89,63 +91,64 @@ public class FirestoreController {
             }
         });
     }
-    public void setDefaultPenilaian(String eventId, String teamId, final String refereeId){
-        final DocumentReference eventRef= db.collection("events").document(eventId);
+
+    public void setDefaultPenilaian(String eventId, String teamId, final String refereeId) {
+        final DocumentReference eventRef = db.collection("events").document(eventId);
         final DocumentReference teamRef = eventRef.collection("team").document(teamId);
         eventRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     DocumentSnapshot ds = task.getResult();
                     final Events events = ds.toObject(Events.class);
                     events.setKey(ds.getId());
                     teamRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            if(task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 Vector<Penilaian> taolu_field = new Vector<Penilaian>();
-                                taolu_field.add(new Penilaian(0,"=",
-                                        null,"et_amdp_taolu_kesulitan"
-                                        ,"et_amdp_taolu_kesulitan"));
-                                taolu_field.add(new Penilaian(0,"+",
-                                        null,"et_amdp_taolu_n1"
-                                        ,"et_amdp_taolu_n1"));
-                                taolu_field.add(new Penilaian(0,"+",
-                                        null,"et_amdp_taolu_n2"
-                                        ,"et_amdp_taolu_n2"));
-                                taolu_field.add(new Penilaian(0,"+",
-                                        null,"et_amdp_taolu_n3"
-                                        ,"et_amdp_taolu_n3"));
-                                taolu_field.add(new Penilaian(0,"+",
-                                        null,"et_amdp_taolu_n4"
-                                        ,"et_amdp_taolu_n4"));
-                                taolu_field.add(new Penilaian(0,"+",
-                                        null,"et_amdp_taolu_n5"
-                                        ,"et_amdp_taolu_n5"));
-                                taolu_field.add(new Penilaian(0,"+",
-                                        null,"et_amdp_taolu_n6"
-                                        ,"et_amdp_taolu_n6"));
-                                taolu_field.add(new Penilaian(0,"+",
-                                        null,"et_amdp_taolu_n7"
-                                        ,"et_amdp_taolu_n7"));
-                                taolu_field.add(new Penilaian(0,"+",
-                                        null,"et_amdp_taolu_n8"
-                                        ,"et_amdp_taolu_n8"));
-                                taolu_field.add(new Penilaian(0,"+",
-                                        null,"et_amdp_taolu_n9"
-                                        ,"et_amdp_taolu_n9"));
-                                taolu_field.add(new Penilaian(0,"-",
-                                        null,"et_ap_taolu_p1"
-                                        ,"et_ap_taolu_p1"));
-                                taolu_field.add(new Penilaian(0,"-",
-                                        null,"et_ap_taolu_p2"
-                                        ,"et_ap_taolu_p1"));
-                                taolu_field.add(new Penilaian(0,"-",
-                                        null,"et_ap_taolu_p3"
-                                        ,"et_ap_taolu_p1"));
-                                taolu_field.add(new Penilaian(0,"-",
-                                        null,"et_ap_taolu_p4"
-                                        ,"et_ap_taolu_p1"));
+                                taolu_field.add(new Penilaian(0, "=",
+                                        null, "et_amdp_taolu_kesulitan"
+                                        , "et_amdp_taolu_kesulitan"));
+                                taolu_field.add(new Penilaian(0, "+",
+                                        null, "et_amdp_taolu_n1"
+                                        , "et_amdp_taolu_n1"));
+                                taolu_field.add(new Penilaian(0, "+",
+                                        null, "et_amdp_taolu_n2"
+                                        , "et_amdp_taolu_n2"));
+                                taolu_field.add(new Penilaian(0, "+",
+                                        null, "et_amdp_taolu_n3"
+                                        , "et_amdp_taolu_n3"));
+                                taolu_field.add(new Penilaian(0, "+",
+                                        null, "et_amdp_taolu_n4"
+                                        , "et_amdp_taolu_n4"));
+                                taolu_field.add(new Penilaian(0, "+",
+                                        null, "et_amdp_taolu_n5"
+                                        , "et_amdp_taolu_n5"));
+                                taolu_field.add(new Penilaian(0, "+",
+                                        null, "et_amdp_taolu_n6"
+                                        , "et_amdp_taolu_n6"));
+                                taolu_field.add(new Penilaian(0, "+",
+                                        null, "et_amdp_taolu_n7"
+                                        , "et_amdp_taolu_n7"));
+                                taolu_field.add(new Penilaian(0, "+",
+                                        null, "et_amdp_taolu_n8"
+                                        , "et_amdp_taolu_n8"));
+                                taolu_field.add(new Penilaian(0, "+",
+                                        null, "et_amdp_taolu_n9"
+                                        , "et_amdp_taolu_n9"));
+                                taolu_field.add(new Penilaian(0, "-",
+                                        null, "et_ap_taolu_p1"
+                                        , "et_ap_taolu_p1"));
+                                taolu_field.add(new Penilaian(0, "-",
+                                        null, "et_ap_taolu_p2"
+                                        , "et_ap_taolu_p1"));
+                                taolu_field.add(new Penilaian(0, "-",
+                                        null, "et_ap_taolu_p3"
+                                        , "et_ap_taolu_p1"));
+                                taolu_field.add(new Penilaian(0, "-",
+                                        null, "et_ap_taolu_p4"
+                                        , "et_ap_taolu_p1"));
 
 
                                 DocumentSnapshot ds = task.getResult();
@@ -153,21 +156,21 @@ public class FirestoreController {
                                 team.setKey(ds.getId());
 
                                 Vector<Penilaian> looping_field = new Vector<Penilaian>();
-                                if(events.getThemes().equals("Barongsai Taolu Bebas")){
+                                if (events.getThemes().equals("Barongsai Taolu Bebas")) {
                                     looping_field = taolu_field;
                                 }
-                                for (final Penilaian p:looping_field) {
+                                for (final Penilaian p : looping_field) {
                                     teamRef.collection("penilaian")
                                             .document(refereeId).collection("field")
                                             .document(p.getKey()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                         @Override
                                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                            if(task.isSuccessful()){
+                                            if (task.isSuccessful()) {
                                                 DocumentSnapshot ds = task.getResult();
-                                                if(!ds.exists()){
+                                                if (!ds.exists()) {
                                                     teamRef.collection("penilaian")
                                                             .document(refereeId).collection("field")
-                                                            .document(p.getKey()).set(p,SetOptions.merge());
+                                                            .document(p.getKey()).set(p, SetOptions.merge());
                                                 }
                                             }
                                         }
@@ -183,44 +186,45 @@ public class FirestoreController {
             }
         });
     }
-    public void updateRefereePenilaianSummary(final String eventId, final String teamId, final String refereeId){
+
+    public void updateRefereePenilaianSummary(final String eventId, final String teamId, final String refereeId) {
         final CollectionReference referee = db.collection("events").document(eventId)
-                .collection("team").document(teamId).collection("penilaian")
-                ;
+                .collection("team").document(teamId).collection("penilaian");
         final CollectionReference field = referee.document(refereeId).collection("field");
         field.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 final Map<String, Double> dataToSave = new HashMap<>();
                 Vector<Penilaian> penilaians = new Vector<Penilaian>();
-                BigDecimal grand_total = new BigDecimal(0);
-                BigDecimal total_nilai = new BigDecimal(0);
-                BigDecimal total_potongan = new BigDecimal(0);
-                for(QueryDocumentSnapshot qds:task.getResult()) {
+                BigDecimal grand_total = BigDecimal.valueOf(0);
+                BigDecimal total_nilai = BigDecimal.valueOf(0);
+                BigDecimal total_potongan = BigDecimal.valueOf(0);
+                for (QueryDocumentSnapshot qds : task.getResult()) {
                     if (qds.exists()) {
                         Penilaian p = qds.toObject(Penilaian.class);
                         p.setKey(qds.getId());
                         penilaians.add(p);
-                        if(p.getType().equals("-")){
-                            total_potongan = total_potongan.add(new BigDecimal(p.getNilai()));
-                        }else if(p.getType().equals("+")){
-                            total_nilai = total_nilai.add(new BigDecimal(p.getNilai()));
+                        if (p.getType().equals("-")) {
+                            total_potongan = total_potongan.add(BigDecimal.valueOf(p.getNilai()));
+                        } else if (p.getType().equals("+")) {
+                            total_nilai = total_nilai.add(BigDecimal.valueOf(p.getNilai()));
                         }
                     }
                 }
                 total_nilai = total_nilai.setScale(2, RoundingMode.DOWN);
                 total_potongan = total_potongan.setScale(2, RoundingMode.DOWN);
                 grand_total = total_nilai.subtract(total_potongan);
-                dataToSave.put("total_nilai",total_nilai.doubleValue());
-                dataToSave.put("total_potongan",total_potongan.doubleValue());
-                dataToSave.put("grand_total",grand_total.doubleValue());
-                referee.document(refereeId).set(dataToSave,SetOptions.merge());
-                recalculateNilaiBersih(eventId,teamId);
+                dataToSave.put("total_nilai", total_nilai.doubleValue());
+                dataToSave.put("total_potongan", total_potongan.doubleValue());
+                dataToSave.put("grand_total", grand_total.doubleValue());
+                referee.document(refereeId).set(dataToSave, SetOptions.merge());
+                recalculateNilaiBersih(eventId, teamId);
             }
         });
     }
+
     public void updateSingleNilai(final String eventId, final String teamId, final String formId,
-                                  final Double nilai,final String type){
+                                  final Double nilai, final String type) {
 
         final CollectionReference referee = db.collection("events").document(eventId)
                 .collection("team").document(teamId).collection("penilaian");
@@ -228,22 +232,23 @@ public class FirestoreController {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 final Map<String, Object> dataToSave = new HashMap<>();
-                dataToSave.put("form_id",formId);
-                dataToSave.put("keterangan",null);
-                dataToSave.put("nilai",nilai);
-                dataToSave.put("type",type);
-                for(QueryDocumentSnapshot qds:task.getResult()){
-                    if(qds.exists()){
+                dataToSave.put("form_id", formId);
+                dataToSave.put("keterangan", null);
+                dataToSave.put("nilai", nilai);
+                dataToSave.put("type", type);
+                for (QueryDocumentSnapshot qds : task.getResult()) {
+                    if (qds.exists()) {
                         RefereePenilaian rp = qds.toObject(RefereePenilaian.class);
                         rp.setKey(qds.getId());
                         referee.document(qds.getId()).collection("field")
-                                .document(formId).set(dataToSave,SetOptions.merge());
-                        updateRefereePenilaianSummary(eventId,teamId,qds.getId());
+                                .document(formId).set(dataToSave, SetOptions.merge());
+                        updateRefereePenilaianSummary(eventId, teamId, qds.getId());
                     }
                 }
             }
         });
     }
+
     public void sendMessage(String message, String title, String token, Context ctx) {
         final String appToken = "AAAAV01RqJE:APA91bHL1AHBltjXAYjRYDzHPAuJj4h8Hhaifaw_9-K8VMBoWgMokIEQhDUQTRG7Xj5cCtR_yz63WPI0cPALaw-52i6rX36pXZPZB1WzuylgsW22UIMkg3XhQMVV2JQmhAINpU4GKSx2";
         String postUrl = "https://fcm.googleapis.com/fcm/send";
@@ -253,8 +258,8 @@ public class FirestoreController {
         JSONObject postData2 = new JSONObject();
         try {
             postData.put("to", token);
-            postData2.put("body",message);
-            postData2.put("title",title);
+            postData2.put("body", message);
+            postData2.put("title", title);
             postData.put("notification", postData2);
 
         } catch (JSONException e) {
@@ -286,10 +291,11 @@ public class FirestoreController {
 
     }
 
-    public String getToken(){
+    public String getToken() {
         return this.token;
     }
-    public void removeToken(final String token){
+
+    public void removeToken(final String token) {
         db.collection("fcm_token").document(token).delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -305,7 +311,7 @@ public class FirestoreController {
                 });
     }
 
-    public void generateToken(final String type,final String id) {
+    public void generateToken(final String type, final String id) {
         FirebaseMessaging.getInstance().getToken()
                 .addOnCompleteListener(new OnCompleteListener<String>() {
                     @Override
@@ -319,19 +325,19 @@ public class FirestoreController {
                         // Get new FCM registration token
                         token = task.getResult();
 
-                        if(type.equals("admin")){
+                        if (type.equals("admin")) {
                             final FCMToken fcm_token = new FCMToken();
                             fcm_token.setToken(token);
                             fcm_token.setType("admin");
                             fcm_token.setId(null);
                             db.collection("fcm_token").document(token).set(fcm_token);
-                        }else{
-                            db.collection("fcm_token").whereEqualTo("id",id)
+                        } else {
+                            db.collection("fcm_token").whereEqualTo("id", id)
                                     .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                     if (task.isSuccessful()) {
-                                        if(task.getResult().size()==0){
+                                        if (task.getResult().size() == 0) {
                                             //not exists
                                             FCMToken fcm_token = new FCMToken();
                                             fcm_token.setType("referee");
@@ -347,7 +353,6 @@ public class FirestoreController {
                             });
 
                         }
-
 
 
                         // Log and toast
@@ -370,9 +375,9 @@ public class FirestoreController {
                             dataReferee.add(rp);
                         }
                     }
-                    BigDecimal nilai_bersih = new BigDecimal(0);
+                    BigDecimal nilai_bersih = BigDecimal.valueOf(0);
                     int jumlah_juri = 0;
-                    BigDecimal total_nilai =  new BigDecimal(0);
+                    BigDecimal total_nilai = BigDecimal.valueOf(0);
                     int division = 1;
                     int total_data = dataReferee.size();
                     //double[] nilai_perjuri = new double[total_data];
@@ -383,9 +388,9 @@ public class FirestoreController {
 
                         nilai_perjuri.add(trp.getGrand_total_bd());
 
-                        if(teamId.equals("NUtMIA5SPUsMmSDVVwsi")){
-                            Log.d("debug",total_nilai.doubleValue()+" total");
-                            Log.d("debug",trp.getGrand_total_bd()+" nilai juri");
+                        if (teamId.equals("NUtMIA5SPUsMmSDVVwsi")) {
+                            Log.d("debug", total_nilai.doubleValue() + " total");
+                            Log.d("debug", trp.getGrand_total_bd() + " nilai juri");
                         }
                         //nilai_perjuri[jumlah_juri] = trp.getGrand_total();
                         jumlah_juri++;
@@ -411,14 +416,14 @@ public class FirestoreController {
                         total_nilai = total_nilai.subtract(nilai_perjuri.get(total_data - 1));
 
                     } else {
-                        total_nilai = new BigDecimal(0);
+                        total_nilai = BigDecimal.valueOf(0);
                     }
-                    nilai_bersih = total_nilai.divide(new BigDecimal((double)division), MathContext.DECIMAL32);
-                    if(teamId.equals("NUtMIA5SPUsMmSDVVwsi")){
-                        Log.d("debug",nilai_bersih.doubleValue()+"");
+                    nilai_bersih = total_nilai.divide(BigDecimal.valueOf((double) division), MathContext.DECIMAL32);
+                    if (teamId.equals("NUtMIA5SPUsMmSDVVwsi")) {
+                        Log.d("debug", nilai_bersih.doubleValue() + "");
                     }
 
-                    final BigDecimal total_nilai_bersih =  nilai_bersih.setScale(2, RoundingMode.DOWN);
+                    final BigDecimal total_nilai_bersih = nilai_bersih.setScale(2, RoundingMode.DOWN);
 
                     final Map<String, Double> dataToSave = new HashMap<>();
                     dataToSave.put("nilai_bersih", total_nilai_bersih.doubleValue());
@@ -427,11 +432,11 @@ public class FirestoreController {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             DocumentSnapshot qds = task.getResult();
-                            if(qds.exists()){
+                            if (qds.exists()) {
                                 Team temp_team = qds.toObject(Team.class);
                                 temp_team.setKey(qds.getId());
-                                dataToSave.put("pengurangan_nb",temp_team.getPengurangan_nb());
-                                dataToSave.put("total_nilai",total_nilai_bersih.subtract(new BigDecimal(temp_team.getPengurangan_nb())).doubleValue());
+                                dataToSave.put("pengurangan_nb", temp_team.getPengurangan_nb());
+                                dataToSave.put("total_nilai", total_nilai_bersih.subtract(BigDecimal.valueOf(temp_team.getPengurangan_nb())).doubleValue());
                                 db.collection("events").document(eventId).collection("team").document(teamId)
                                         .set(dataToSave, SetOptions.merge());
                             }

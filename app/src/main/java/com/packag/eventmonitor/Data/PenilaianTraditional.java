@@ -26,11 +26,13 @@ public class PenilaianTraditional {
     double tb;
     String key;
 
-    @Exclude public String getKey() {
+    @Exclude
+    public String getKey() {
         return key;
     }
 
-    @Exclude public void setKey(String key) {
+    @Exclude
+    public void setKey(String key) {
         this.key = key;
     }
 
@@ -50,24 +52,22 @@ public class PenilaianTraditional {
         this.ks2 = ks2;
         this.ks3 = ks3;
         this.ks4 = ks4;
-        this.tk = (n1+n2+n3+n4+n5+n6+n7+n8+n9+n10);
-        this.p = (ks1+ks2+ks3+ks4);
-        this.tb = (this.tk-this.p);
+        this.tk = (n1 + n2 + n3 + n4 + n5 + n6 + n7 + n8 + n9 + n10);
+        this.p = (ks1 + ks2 + ks3 + ks4);
+        this.tb = (this.tk - this.p);
 
 
         //rounding
         this.tk = this.roundTo2Decs(this.tk);
         this.p = this.roundTo2Decs(this.p);
         this.tb = this.roundTo2Decs(this.tb);
-
     }
+
     private double roundTo2Decs(double value) {
-        /*BigDecimal bd = new BigDecimal(value);
-        bd = bd.setScale(2, RoundingMode.HALF_UP);
-        return bd.floatValue();*/
         double roundOff = Math.round(value * 100.0) / 100.0;
         return roundOff;
     }
+
     public double getN1() {
         return n1;
     }
@@ -205,22 +205,22 @@ public class PenilaianTraditional {
     }
 
     public PenilaianTraditional() {
-        n1=0;
-        n2=0;
-        n3=0;
-        n4=0;
-        n5=0;
-        n6=0;
-        n7=0;
-        n8=0;
-        n9=0;
-        n10=0;
-        ks1=0;
-        ks2=0;
-        ks3=0;
-        ks4=0;
-        tb=0;
-        tk=0;
-        p=0;
+        n1 = 0;
+        n2 = 0;
+        n3 = 0;
+        n4 = 0;
+        n5 = 0;
+        n6 = 0;
+        n7 = 0;
+        n8 = 0;
+        n9 = 0;
+        n10 = 0;
+        ks1 = 0;
+        ks2 = 0;
+        ks3 = 0;
+        ks4 = 0;
+        tb = 0;
+        tk = 0;
+        p = 0;
     }
 }

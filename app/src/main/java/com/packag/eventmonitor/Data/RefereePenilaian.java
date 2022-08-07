@@ -22,7 +22,7 @@ public class RefereePenilaian implements Comparable<RefereePenilaian>{
     }
 
     public void setTotal_nilai(double total_nilai) {
-        this.total_nilai = new BigDecimal(total_nilai);
+        this.total_nilai = BigDecimal.valueOf(total_nilai);
     }
 
     public double getTotal_potongan() {
@@ -30,7 +30,7 @@ public class RefereePenilaian implements Comparable<RefereePenilaian>{
     }
 
     public void setTotal_potongan(double total_potongan) {
-        this.total_potongan = new BigDecimal(total_potongan);
+        this.total_potongan = BigDecimal.valueOf(total_potongan);
     }
 
     public double getGrand_total() {
@@ -38,7 +38,7 @@ public class RefereePenilaian implements Comparable<RefereePenilaian>{
     }
 
     public void setGrand_total(double grand_total) {
-        this.grand_total = new BigDecimal(grand_total);
+        this.grand_total = BigDecimal.valueOf(grand_total);
     }
     public BigDecimal getGrand_total_bd(){
         grand_total = grand_total.setScale(2, RoundingMode.HALF_EVEN);
@@ -49,9 +49,9 @@ public class RefereePenilaian implements Comparable<RefereePenilaian>{
     }
     public BigDecimal getTotal_potongan_bd(){return total_potongan;}
 
-    BigDecimal total_nilai = new BigDecimal(0);
-    BigDecimal total_potongan  = new BigDecimal(0);
-    BigDecimal grand_total  = new BigDecimal(0);
+    BigDecimal total_nilai = BigDecimal.valueOf(0);
+    BigDecimal total_potongan  = BigDecimal.valueOf(0);
+    BigDecimal grand_total  = BigDecimal.valueOf(0);
     int isEditable =1;
 
     public int getIsEditable() {

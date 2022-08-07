@@ -31,6 +31,8 @@ import com.packag.eventmonitor.Data.RefereePenilaian;
 import com.packag.eventmonitor.Data.Team;
 import com.packag.eventmonitor.Util.Session;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Vector;
 
 public class ScoringNagaActivity extends AppCompatActivity {
@@ -174,93 +176,87 @@ public class ScoringNagaActivity extends AppCompatActivity {
         boolean flag = false;
         if (et_amdp_naga_n1.getText().toString().equals("")) {
             et_amdp_naga_n1.requestFocus();
-            errorMsg = "Nilai "+getResources().getString(R.string.ap_naga_type_1)+" harus di isi";
+            errorMsg = "Nilai " + getResources().getString(R.string.ap_naga_type_1) + " harus di isi";
         } else if (Double.parseDouble(et_amdp_naga_n1.getText().toString()) < 0.5) {
             et_amdp_naga_n1.requestFocus();
-            errorMsg = "Nilai "+getResources().getString(R.string.ap_naga_type_1)+" tidak boleh kurang dari 0.5";
+            errorMsg = "Nilai " + getResources().getString(R.string.ap_naga_type_1) + " tidak boleh kurang dari 0.5";
         } else if (Double.parseDouble(et_amdp_naga_n1.getText().toString()) > 5) {
             et_amdp_naga_n1.requestFocus();
-            errorMsg = "Nilai "+getResources().getString(R.string.ap_naga_type_1)+" Tidak boleh lebih dari 5.0";
+            errorMsg = "Nilai " + getResources().getString(R.string.ap_naga_type_1) + " Tidak boleh lebih dari 5.0";
         } else if (et_amdp_naga_p1.getText().toString().equals("")) {
             et_amdp_naga_p1.setText("0");
         } else if (Double.parseDouble(et_amdp_naga_p1.getText().toString()) > 5) {
             et_amdp_naga_p1.requestFocus();
-            errorMsg = "Pengurangan nilai "+getResources().getString(R.string.ap_naga_type_1)+" Tidak boleh lebih dari 5.0";
+            errorMsg = "Pengurangan nilai " + getResources().getString(R.string.ap_naga_type_1) + " Tidak boleh lebih dari 5.0";
 
         } else if (et_amdp_naga_n2.getText().toString().equals("")) {
             et_amdp_naga_n2.requestFocus();
-            errorMsg = "Nilai "+getResources().getString(R.string.ap_naga_type_2_det_1_1)+" harus diisi";
+            errorMsg = "Nilai " + getResources().getString(R.string.ap_naga_type_2_det_1_1) + " harus diisi";
         } else if (Double.parseDouble(et_amdp_naga_n2.getText().toString()) < 0.5) {
             et_amdp_naga_n2.requestFocus();
-            errorMsg = "Nilai "+getResources().getString(R.string.ap_naga_type_2_det_1_1)+" tidak boleh kurang dari 0.5";
+            errorMsg = "Nilai " + getResources().getString(R.string.ap_naga_type_2_det_1_1) + " tidak boleh kurang dari 0.5";
         } else if (Double.parseDouble(et_amdp_naga_n2.getText().toString()) > 1) {
             et_amdp_naga_n2.requestFocus();
-            errorMsg = "Nilai "+getResources().getString(R.string.ap_naga_type_2_det_1_1)+" tidak boleh lebih dari 1.0";
+            errorMsg = "Nilai " + getResources().getString(R.string.ap_naga_type_2_det_1_1) + " tidak boleh lebih dari 1.0";
         } else if (et_amdp_naga_p2.getText().toString().equals("")) {
             et_amdp_naga_p2.setText("0");
         } else if (Double.parseDouble(et_amdp_naga_p2.getText().toString()) > 1) {
             et_amdp_naga_p2.requestFocus();
-            errorMsg = "Pengurangan "+getResources().getString(R.string.ap_naga_type_2_det_1_1)+" tidak boleh lebih dari 1.0";
+            errorMsg = "Pengurangan " + getResources().getString(R.string.ap_naga_type_2_det_1_1) + " tidak boleh lebih dari 1.0";
 
         } else if (et_amdp_naga_n3.getText().toString().equals("")) {
             et_amdp_naga_n3.requestFocus();
-            errorMsg = "Nilai "+getResources().getString(R.string.ap_naga_type_2_det_1_2)+" harus diisi";
+            errorMsg = "Nilai " + getResources().getString(R.string.ap_naga_type_2_det_1_2) + " harus diisi";
         } else if (Double.parseDouble(et_amdp_naga_n3.getText().toString()) < 0.5) {
             et_amdp_naga_n3.requestFocus();
-            errorMsg = "Nilai "+getResources().getString(R.string.ap_naga_type_2_det_1_2)+" tidak boleh kurang dari 0.5";
+            errorMsg = "Nilai " + getResources().getString(R.string.ap_naga_type_2_det_1_2) + " tidak boleh kurang dari 0.5";
         } else if (Double.parseDouble(et_amdp_naga_n3.getText().toString()) > 1) {
             et_amdp_naga_n3.requestFocus();
-            errorMsg = "Nilai "+getResources().getString(R.string.ap_naga_type_2_det_1_2)+" tidak boleh lebih dari 1.0";
+            errorMsg = "Nilai " + getResources().getString(R.string.ap_naga_type_2_det_1_2) + " tidak boleh lebih dari 1.0";
         } else if (et_amdp_naga_p3.getText().toString().equals("")) {
             et_amdp_naga_p3.setText("0");
         } else if (Double.parseDouble(et_amdp_naga_p3.getText().toString()) > 1) {
             et_amdp_naga_p3.requestFocus();
-            errorMsg = "Pengurangan Nilai "+getResources().getString(R.string.ap_naga_type_2_det_1_2)+" tidak boleh lebih dari 1.0";
+            errorMsg = "Pengurangan Nilai " + getResources().getString(R.string.ap_naga_type_2_det_1_2) + " tidak boleh lebih dari 1.0";
 
 
         } else if (et_amdp_naga_n4.getText().toString().equals("")) {
             et_amdp_naga_n4.requestFocus();
-            errorMsg = "Nilai "+getResources().getString(R.string.ap_naga_type_2_det_1_3)+" harus diisi";
+            errorMsg = "Nilai " + getResources().getString(R.string.ap_naga_type_2_det_1_3) + " harus diisi";
         } else if (Double.parseDouble(et_amdp_naga_n4.getText().toString()) < 0.5) {
             et_amdp_naga_n4.requestFocus();
-            errorMsg = "Nilai "+getResources().getString(R.string.ap_naga_type_2_det_1_3)+" tidak boleh kurang dari 0.5";
+            errorMsg = "Nilai " + getResources().getString(R.string.ap_naga_type_2_det_1_3) + " tidak boleh kurang dari 0.5";
         } else if (Double.parseDouble(et_amdp_naga_n4.getText().toString()) > 1) {
             et_amdp_naga_n4.requestFocus();
-            errorMsg = "Nilai "+getResources().getString(R.string.ap_naga_type_2_det_1_3)+" tidak boleh lebih dari 1.0";
+            errorMsg = "Nilai " + getResources().getString(R.string.ap_naga_type_2_det_1_3) + " tidak boleh lebih dari 1.0";
         } else if (et_amdp_naga_p4.getText().toString().equals("")) {
             et_amdp_naga_p4.setText("0");
         } else if (Double.parseDouble(et_amdp_naga_p4.getText().toString()) > 1) {
             et_amdp_naga_p4.requestFocus();
-            errorMsg = "Pengurangan Nilai "+getResources().getString(R.string.ap_naga_type_2_det_1_3)+" tidak boleh lebih dari 1.0";
+            errorMsg = "Pengurangan Nilai " + getResources().getString(R.string.ap_naga_type_2_det_1_3) + " tidak boleh lebih dari 1.0";
 
 
         } else if (et_amdp_naga_n5.getText().toString().equals("")) {
             et_amdp_naga_n5.requestFocus();
-            errorMsg = "Nilai "+getResources().getString(R.string.ap_naga_type_3)+" harus diisi";
+            errorMsg = "Nilai " + getResources().getString(R.string.ap_naga_type_3) + " harus diisi";
         } else if (Double.parseDouble(et_amdp_naga_n5.getText().toString()) < 0.5) {
             et_amdp_naga_n5.requestFocus();
-            errorMsg = "Nilai "+getResources().getString(R.string.ap_naga_type_3)+" tidak boleh kurang dari 0.5";
+            errorMsg = "Nilai " + getResources().getString(R.string.ap_naga_type_3) + " tidak boleh kurang dari 0.5";
         } else if (Double.parseDouble(et_amdp_naga_n5.getText().toString()) > 2) {
             et_amdp_naga_n5.requestFocus();
-            errorMsg = "Nilai "+getResources().getString(R.string.ap_naga_type_3)+" tidak boleh lebih dari 2.0";
+            errorMsg = "Nilai " + getResources().getString(R.string.ap_naga_type_3) + " tidak boleh lebih dari 2.0";
         } else if (et_amdp_naga_p5.getText().toString().equals("")) {
             et_amdp_naga_p5.setText("0");
         } else if (Double.parseDouble(et_amdp_naga_p5.getText().toString()) > 2) {
             et_amdp_naga_p5.requestFocus();
-            errorMsg = "Pengurangan "+getResources().getString(R.string.ap_naga_type_3)+" tidak boleh lebih dari 2.0";
-
+            errorMsg = "Pengurangan " + getResources().getString(R.string.ap_naga_type_3) + " tidak boleh lebih dari 2.0";
         } else {
             flag = true;
         }
-
-
         return flag;
     }
 
     private double roundTo2Decs(double value) {
-        /*BigDecimal bd = new BigDecimal(value);
-        bd = bd.setScale(2, RoundingMode.HALF_UP);
-        return bd.floatValue();*/
         double roundOff = Math.round(value * 100.0) / 100.0;
         return roundOff;
     }
@@ -278,19 +274,33 @@ public class ScoringNagaActivity extends AppCompatActivity {
         double p4 = et_amdp_naga_p4.getText().toString().equals("") || et_amdp_naga_p4.getText().toString().equals(".") ? 0 : Double.parseDouble(et_amdp_naga_p4.getText().toString());
         double p5 = et_amdp_naga_p5.getText().toString().equals("") || et_amdp_naga_p5.getText().toString().equals(".") ? 0 : Double.parseDouble(et_amdp_naga_p5.getText().toString());
 
-        double tb = 0, tk = 0, p = 0;
-        tk = n1 + n2 + n3 + n4 + n5;
-        p = p1 + p2 + p3 + p4 + p5;
-        tb = tk - p;
 
-        tk = roundTo2Decs(tk);
-        p = roundTo2Decs(p);
-        tb = roundTo2Decs(tb);
+        BigDecimal tb = BigDecimal.valueOf(0);
+        BigDecimal tk = BigDecimal.valueOf(0);
+        BigDecimal p = BigDecimal.valueOf(0);
+
+        tk = tk.add(BigDecimal.valueOf(n1));
+        tk = tk.add(BigDecimal.valueOf(n2));
+        tk = tk.add(BigDecimal.valueOf(n3));
+        tk = tk.add(BigDecimal.valueOf(n4));
+        tk = tk.add(BigDecimal.valueOf(n5));
+
+        p = p.add(BigDecimal.valueOf(p1));
+        p = p.add(BigDecimal.valueOf(p2));
+        p = p.add(BigDecimal.valueOf(p3));
+        p = p.add(BigDecimal.valueOf(p4));
+        p = p.add(BigDecimal.valueOf(p5));
+
+        tb = tk.subtract(p);
+
+        tk = tk.setScale(2, RoundingMode.HALF_EVEN);
+        p = p.setScale(2, RoundingMode.HALF_EVEN);
+        tb = tb.setScale(2, RoundingMode.HALF_EVEN);
 
         Log.d("debug", "tk = " + tk + " tb = " + tb + " p = " + p);
-        tv_ap_naga_grand_total.setText(Double.toString(tb));
-        tv_ap_naga_total_penilaian.setText(Double.toString(tk));
-        tv_ap_naga_nilai_total_pengurangan.setText(Double.toString(p));
+        tv_ap_naga_grand_total.setText(Double.toString(tb.doubleValue()));
+        tv_ap_naga_total_penilaian.setText(Double.toString(tk.doubleValue()));
+        tv_ap_naga_nilai_total_pengurangan.setText(Double.toString(p.doubleValue()));
     }
 
     private void setListener() {
