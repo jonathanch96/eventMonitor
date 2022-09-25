@@ -18,40 +18,47 @@ public class RefereePenilaian implements Comparable<RefereePenilaian>{
     }
     Vector<Penilaian> penilaians  = new Vector<Penilaian>();
     public double getTotal_nilai() {
-        return total_nilai.doubleValue();
+        BigDecimal d = new BigDecimal(total_nilai);
+        d = d.setScale(2, RoundingMode.HALF_EVEN);
+        return d.doubleValue();
     }
 
     public void setTotal_nilai(double total_nilai) {
-        this.total_nilai = BigDecimal.valueOf(total_nilai);
+        this.total_nilai = total_nilai;
     }
 
     public double getTotal_potongan() {
-        return total_potongan.doubleValue();
+        BigDecimal d = new BigDecimal(total_potongan);
+        d = d.setScale(2, RoundingMode.HALF_EVEN);
+        return d.doubleValue();
     }
 
     public void setTotal_potongan(double total_potongan) {
-        this.total_potongan = BigDecimal.valueOf(total_potongan);
+        this.total_potongan = total_potongan;
     }
 
     public double getGrand_total() {
-        return grand_total.doubleValue();
+        BigDecimal d = new BigDecimal(grand_total);
+        d = d.setScale(2, RoundingMode.HALF_EVEN);
+        return d.doubleValue();
     }
 
     public void setGrand_total(double grand_total) {
-        this.grand_total = BigDecimal.valueOf(grand_total);
+        this.grand_total = grand_total;
     }
-    public BigDecimal getGrand_total_bd(){
-        grand_total = grand_total.setScale(2, RoundingMode.HALF_EVEN);
-        return grand_total;
+    @Exclude public BigDecimal getGrand_total_bd(){
+        return new BigDecimal(grand_total);
     }
-    public BigDecimal getTotal_nilai_bd(){
-        return total_nilai;
+    @Exclude public BigDecimal getTotal_nilai_bd(){
+        return new BigDecimal(total_nilai);
     }
-    public BigDecimal getTotal_potongan_bd(){return total_potongan;}
+    @Exclude public BigDecimal getTotal_potongan_bd(){
+        return new BigDecimal(total_potongan);
+    }
 
-    BigDecimal total_nilai = BigDecimal.valueOf(0);
-    BigDecimal total_potongan  = BigDecimal.valueOf(0);
-    BigDecimal grand_total  = BigDecimal.valueOf(0);
+    double total_nilai = 0;
+    double total_potongan  = 0;
+    double grand_total  = 0;
     int isEditable =1;
 
     public int getIsEditable() {
