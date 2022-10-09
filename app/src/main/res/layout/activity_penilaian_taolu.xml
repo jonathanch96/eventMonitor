@@ -348,7 +348,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:orientation="horizontal">
 
                     <TextView
@@ -372,7 +372,7 @@
 
 
                 <TextView
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
@@ -380,24 +380,28 @@
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
                         android:text="@string/ks1_kesalahan_lain" />
 
-                    <View
+                    <Button
+                        android:id="@+id/btn_ap_taolu_ks1"
+                        android:gravity="center"
+                        android:layout_gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="40dp"
-                        android:layout_weight="0.2"
-                        android:background="@drawable/rectangle_green" />
+                        android:textColor="@color/blue"
+                        android:background="@drawable/rectangle_green"
+                        android:layout_weight="0.2"/>
 
                     <EditText
+                        android:visibility="gone"
                         android:id="@+id/et_ap_taolu_p1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -408,7 +412,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -418,14 +422,17 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
                         android:text="@string/ks2_kesalahan_kecil" />
-
-                    <View
+                    <Button
+                        android:id="@+id/btn_ap_taolu_ks2"
+                        android:gravity="center"
+                        android:layout_gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="40dp"
-                        android:layout_weight="0.2"
-                        android:background="@drawable/rectangle_yellow" />
-
+                        android:textColor="@color/blue"
+                        android:background="@drawable/rectangle_yellow"
+                        android:layout_weight="0.2"/>
                     <EditText
+                        android:visibility="gone"
                         android:id="@+id/et_ap_taolu_p2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -436,7 +443,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -447,13 +454,18 @@
                         android:layout_weight="0.5"
                         android:text="@string/ks3_kesalahan_sedang" />
 
-                    <View
+                    <Button
+                        android:id="@+id/btn_ap_taolu_ks3"
+                        android:gravity="center"
+                        android:layout_gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="40dp"
-                        android:layout_weight="0.2"
-                        android:background="@drawable/rectangle_black" />
+                        android:textColor="@color/white"
+                        android:background="@drawable/rectangle_black"
+                        android:layout_weight="0.2"/>
 
                     <EditText
+                        android:visibility="gone"
                         android:id="@+id/et_ap_taolu_p3"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -464,28 +476,30 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
                         android:text="@string/ks4_kesalahan_besar" />
 
-                    <View
+                    <Button
+                        android:id="@+id/btn_ap_taolu_ks4"
+                        android:gravity="center"
+                        android:layout_gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="40dp"
-                        android:layout_weight="0.2"
-                        android:background="@drawable/rectangle_red" />
-
+                        android:textColor="@color/blue"
+                        android:background="@drawable/rectangle_red"
+                        android:layout_weight="0.2"/>
                     <EditText
+                        android:visibility="gone"
                         android:id="@+id/et_ap_taolu_p4"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-
                         android:layout_weight="0.3"
                         android:inputType="numberDecimal"
                         android:text="@string/def_value" />
@@ -493,17 +507,12 @@
 
 
             </LinearLayout>
-
-
 <!--            <TextView-->
 <!--                android:layout_width="match_parent"-->
 <!--                android:layout_height="wrap_content"-->
 <!--                android:layout_marginTop="20dp"-->
 <!--                android:text="@string/ap_pekingsai_type_5"-->
 <!--                android:textStyle="bold" />-->
-
-
-
 
             <TextView
                 android:layout_width="match_parent"
@@ -534,18 +543,16 @@
             </LinearLayout>
 
             <LinearLayout
-                android:visibility="gone"
+                android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
-
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.7"
                     android:text="@string/total_pengurangan" />
-
                 <TextView
                     android:id="@+id/tv_ap_taolu_nilai_total_pengurangan"
 
@@ -558,7 +565,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:visibility="gone"
+                android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">

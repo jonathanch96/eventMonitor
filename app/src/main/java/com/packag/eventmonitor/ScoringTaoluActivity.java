@@ -1,12 +1,15 @@
 package com.packag.eventmonitor;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,6 +34,7 @@ import com.packag.eventmonitor.Data.Team;
 import com.packag.eventmonitor.Util.Session;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map;
@@ -66,6 +70,11 @@ public class ScoringTaoluActivity extends AppCompatActivity {
     TextView tv_ap_taolu_nilai_total_pengurangan;
     TextView tv_ap_taolu_grand_total;
 
+    Button btn_ap_taolu_ks1;
+    Button btn_ap_taolu_ks2;
+    Button btn_ap_taolu_ks3;
+    Button btn_ap_taolu_ks4;
+
     Button btn_ap_taolu_as_submit;
     DocumentReference teamRef;
     ProgressDialog loadingDialog;
@@ -96,6 +105,10 @@ public class ScoringTaoluActivity extends AppCompatActivity {
         et_amdp_taolu_n7 = findViewById(R.id.et_amdp_taolu_n7);
         et_amdp_taolu_n8 = findViewById(R.id.et_amdp_taolu_n8);
         et_amdp_taolu_n9 = findViewById(R.id.et_amdp_taolu_n9);
+        btn_ap_taolu_ks1 = findViewById(R.id.btn_ap_taolu_ks1);
+        btn_ap_taolu_ks2 = findViewById(R.id.btn_ap_taolu_ks2);
+        btn_ap_taolu_ks3 = findViewById(R.id.btn_ap_taolu_ks3);
+        btn_ap_taolu_ks4 = findViewById(R.id.btn_ap_taolu_ks4);
 
         et_ap_taolu_p1 = findViewById(R.id.et_ap_taolu_p1);
         et_ap_taolu_p2 = findViewById(R.id.et_ap_taolu_p2);
@@ -179,6 +192,34 @@ public class ScoringTaoluActivity extends AppCompatActivity {
                 tv_ap_taolu_nilai_total_pengurangan.setText(p.getNilai()+"");
             }else if(p.getForm_id().equals("tv_ap_taolu_grand_total")) {
                 tv_ap_taolu_grand_total.setText(p.getNilai()+"");
+            } else if (p.getForm_id().equals("et_as_ks1")) {
+                et_ap_taolu_p1.setText(p.getNilai() + "");
+                BigDecimal tbd = BigDecimal.valueOf(p.getNilai());
+                BigDecimal multiplier = BigDecimal.valueOf(0.1);
+                tbd = tbd.divide(multiplier, MathContext.DECIMAL32);
+                tbd = tbd.setScale(0, RoundingMode.HALF_EVEN);
+                btn_ap_taolu_ks1.setText((int) (tbd.doubleValue()) + "");
+            } else if (p.getForm_id().equals("et_as_ks2")) {
+                et_ap_taolu_p2.setText(p.getNilai() + "");
+                BigDecimal tbd = BigDecimal.valueOf(p.getNilai());
+                BigDecimal multiplier = BigDecimal.valueOf(0.3);
+                tbd = tbd.divide(multiplier, MathContext.DECIMAL32);
+                tbd = tbd.setScale(0, RoundingMode.HALF_EVEN);
+                btn_ap_taolu_ks2.setText((int) (tbd.doubleValue()) + "");
+            } else if (p.getForm_id().equals("et_as_ks3")) {
+                et_ap_taolu_p3.setText(p.getNilai() + "");
+                BigDecimal tbd = BigDecimal.valueOf(p.getNilai());
+                BigDecimal multiplier = BigDecimal.valueOf(0.5);
+                tbd = tbd.divide(multiplier, MathContext.DECIMAL32);
+                tbd = tbd.setScale(0, RoundingMode.HALF_EVEN);
+                btn_ap_taolu_ks3.setText((int) (tbd.doubleValue()) + "");
+            } else if (p.getForm_id().equals("et_as_ks4")) {
+                et_ap_taolu_p4.setText(p.getNilai() + "");
+                BigDecimal tbd = BigDecimal.valueOf(p.getNilai());
+                BigDecimal multiplier = BigDecimal.valueOf(1.0);
+                tbd = tbd.divide(multiplier, MathContext.DECIMAL32);
+                tbd = tbd.setScale(0, RoundingMode.HALF_EVEN);
+                btn_ap_taolu_ks4.setText((int) (tbd.doubleValue()) + "");
             }
 
         }
@@ -359,6 +400,30 @@ public class ScoringTaoluActivity extends AppCompatActivity {
         tv_ap_taolu_nilai_total_pengurangan.setText(Double.toString(p.doubleValue()));
     }
     private void setListener() {
+        btn_ap_taolu_ks1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(btn_ap_taolu_ks1, "ks1", et_ap_taolu_p1);
+            }
+        });
+        btn_ap_taolu_ks2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(btn_ap_taolu_ks2, "ks2", et_ap_taolu_p2);
+            }
+        });
+        btn_ap_taolu_ks3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(btn_ap_taolu_ks3, "ks3", et_ap_taolu_p3);
+            }
+        });
+        btn_ap_taolu_ks4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(btn_ap_taolu_ks4, "ks4", et_ap_taolu_p4);
+            }
+        });
         et_amdp_taolu_n1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -915,5 +980,73 @@ public class ScoringTaoluActivity extends AppCompatActivity {
                 (session.getData("eventId"),teamId,session.getData("refereeId"));
 
 
+    }
+
+    public void showDialog(final Button btn, final String type, final EditText target) {
+        LayoutInflater li = LayoutInflater.from(ScoringTaoluActivity.this);
+        View promptsView = li.inflate(R.layout.adapter_model_dialog_pengurangan_taolu, null);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                ScoringTaoluActivity.this);
+        alertDialogBuilder.setView(promptsView);
+        final EditText et_amd_pengurangan_taolu_value = (EditText) promptsView
+                .findViewById(R.id.et_amd_pengurangan_taolu_value);
+        final TextView tv_amd_pengurangan_taolu_title = (TextView) promptsView
+                .findViewById(R.id.tv_amd_pengurangan_taolu_title);
+        String title = "";
+        double multiplier = 1;
+
+        if (type.equals("ks1")) {
+            title = "Pengurangan nilai ";
+            multiplier = 0.1;
+
+        } else if (type.equals("ks2")) {
+            title = "Pengurangan nilai ";
+            multiplier = 0.3;
+        } else if (type.equals("ks3")) {
+            title = "Pengurangan nilai";
+            multiplier = 0.5;
+        } else if (type.equals("ks4")) {
+            title = "Pengurangan nilai ";
+            multiplier = 1;
+        }
+
+        final double passed_multiplier = multiplier;
+
+
+        tv_amd_pengurangan_taolu_title.setText(title);
+
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (et_amd_pengurangan_taolu_value.getText().toString().equals("")) {
+                            et_amd_pengurangan_taolu_value.setText("0");
+                        }
+                        BigDecimal val = BigDecimal.valueOf(passed_multiplier);
+                        val = val.multiply(BigDecimal.valueOf(
+                                Double.parseDouble(et_amd_pengurangan_taolu_value.getText().toString())));
+                        val = val.setScale(2, RoundingMode.HALF_EVEN);
+                        target.setText(val.doubleValue() + "");
+
+                        btn.setText(et_amd_pengurangan_taolu_value.getText().toString());
+//                        new KAlertDialog(ScoringTraditionalActivity.this, KAlertDialog.SUCCESS_TYPE)
+//                                .setTitleText("Success!")
+//                                .setContentText("Berhasil menambah pengurangan nilai juri!")
+//                                .show();
+                    }
+                })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        }
+                );
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
     }
 }

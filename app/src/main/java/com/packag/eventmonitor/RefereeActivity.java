@@ -216,19 +216,19 @@ public class    RefereeActivity extends AppCompatActivity {
 //                            .setContentText(getString(R.string.error_msg_tidak_dapat_mengedit))
 //                            .show();
                     if (events.getThemes().equals("Naga")) {
-                        //getNagaView(ctx, referee);
-                        new KAlertDialog(RefereeActivity.this, KAlertDialog.ERROR_TYPE)
-                                .setTitleText("Oops...")
-                                .setContentText(getString(R.string.error_msg_tidak_dapat_mengedit))
-                                .show();
+                        getNagaView(RefereeActivity.this, referee, dataTeam.get(i));
+//                        new KAlertDialog(RefereeActivity.this, KAlertDialog.ERROR_TYPE)
+//                                .setTitleText("Oops...")
+//                                .setContentText(getString(R.string.error_msg_tidak_dapat_mengedit))
+//                                .show();
                     } else if (events.getThemes().equals("Barongsai Taolu Bebas")) {
                         getTaoluView(RefereeActivity.this, referee, dataTeam.get(i));
                     } else if (events.getThemes().equals("Pekingsai")) {
-                        //getPekingsaiView(ctx, referee);
-                        new KAlertDialog(RefereeActivity.this, KAlertDialog.ERROR_TYPE)
-                                .setTitleText("Oops...")
-                                .setContentText(getString(R.string.error_msg_tidak_dapat_mengedit))
-                                .show();
+                        getPekingsaiView(RefereeActivity.this, referee, dataTeam.get(i));
+//                        new KAlertDialog(RefereeActivity.this, KAlertDialog.ERROR_TYPE)
+//                                .setTitleText("Oops...")
+//                                .setContentText(getString(R.string.error_msg_tidak_dapat_mengedit))
+//                                .show();
                     } else {
                         getTraditionalView(RefereeActivity.this, referee,dataTeam.get(i));
 //                        new KAlertDialog(RefereeActivity.this, KAlertDialog.ERROR_TYPE)
